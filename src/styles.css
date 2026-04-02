@@ -1,3 +1,69 @@
+:root {
+  /* text styles */
+  --hero-fs: 48px;
+  --hero-fw: 700;
+
+  --xl-light-fs: 300;
+
+  --xl-fs: 24px;
+  --xl-fw: 600;
+
+  --l-fs: 20px;
+
+  --m-fs: 18px;
+
+  --s-fs: 16px;
+
+  --xs-fs: 14px;
+
+  --helper-m-fs: 12px;
+
+  --helper-rm-fs: 14px;
+  --helper-rs-fs: 12px;
+  --helper-r-fw: 400;
+
+  --helper-m-fs: 12px;
+
+  --helper-rxs-fs: 10px;
+  --helper-rxs-fw: 400;
+
+  --under-m: 20px;
+  --under-s: 14px;
+
+  --btn-m: 20px;
+  --btn-s: 16px;
+
+  /* colors */
+  --brand-50: #eeedfc;
+  --brand-100: #dddbfa;
+  --brand-200: #b7b3f4;
+  --brand-300: #958fef;
+  --brand-400: #736bea;
+  --brand-500: #4f46e5;
+  --brand-600: #281ed2;
+  --brand-700: #1e169d;
+  --brand-800: #130e67;
+  --brand-900: #0a0836;
+  --brand-950: #05041b;
+
+  --grey-50: #ffffff;
+  --grey-100: #f5f5f5;
+  --grey-200: #d1d1d1;
+  --grey-300: #adadad;
+  --grey-400: #8a8a8a;
+  --grey-500: #666666;
+  --grey-600: #525252;
+  --grey-700: #3d3d3d;
+  --grey-800: #292929;
+  --grey-900: #141414;
+  --grey-950: #0a0a0a;
+
+  --error: #f4161a;
+  --error-light: #f66466;
+  --warning: #f4a316;
+  --success: #1dc31d;
+  --success-light: #1dc31d1a;
+}
 /* You can add global styles to this file, and also import other style files */
 /* 1. Use a more-intuitive box-sizing model */
 *,
@@ -20,7 +86,7 @@
 
 body {
   /* 4. Add accessible line-height */
-  line-height: 1.5;
+  /* line-height: 1.5; */
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
@@ -104,5 +170,28 @@ a:focus {
   outline: none;
 }
 html {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  background-color: var(--grey-100);
+}
+h1 {
+  font-size: 40px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 32px;
+  font-weight: 600;
+}
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+}
+h5 {
+  font-size: 16px;
+  font-weight: 600;
 }
