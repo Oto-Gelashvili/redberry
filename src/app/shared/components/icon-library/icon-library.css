@@ -5,4 +5,5 @@
 }
 svg {
   fill: none;
+  transition: 0.4s;
 }

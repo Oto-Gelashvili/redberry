@@ -20,7 +20,7 @@
         <div [class.active]="steps() === step" [class.done]="steps() > step"></div>
       }
     </div>
-    @if (steps() === 1) {
+    @if (steps() === 2) {
       <div class="inputCont">
         <label for="mail">Email*</label>
         <input
@@ -38,7 +38,7 @@
       </div>
     }
     @if (steps() === 2) {
-      <div class="inputCont">
+      <div class="inputCont margin-bot">
         <label for="password">Password*</label>
         <div class="passwordWrapper">
           <input
@@ -85,6 +85,73 @@
           <p class="error" animate.enter="showError" animate.leave="hideError">
             Password do not match
           </p>
+        }
+      </div>
+    }
+    @if (steps() === 1) {
+      <div class="inputCont margin-bot">
+        <label for="password">Username*</label>
+        <input
+          name="password"
+          id="password"
+          [type]="passwordVisible() ? 'text' : 'password'"
+          placeholder="Enter username"
+          formControlName="username"
+        />
+        @if (signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            Min 3 characters required
+          </p>
+        }
+      </div>
+      <div class="inputCont">
+        <label for="avatar" class="avatarLabel">Upload Avatar</label>
+        <input
+          type="file"
+          id="avatar"
+          name="avatar"
+          class="avatarInput"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept=".jpg,.jpeg,.png,.webp"
+        />
+        <div
+          class="uploadBox"
+          (click)="fileInput.click()"
+          [class.uploaded]="selectedFile()"
+          [class.dragging]="isDragging()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+        >
+          @if (!selectedFile()) {
+            <app-icon-library name="upload" class="uploadIcon" [size]="34"></app-icon-library>
+            <div class="textCont">
+              <p class="mainText">Drag and drop or <span tabindex="0">Upload file</span></p>
+              <p class="subText">JPG, PNG or WebP</p>
+            </div>
+          } @else {
+            <div class="previewCont">
+              <img [src]="previewUrl()" alt="avatar" class="previewImg" />
+              <div class="previewTextCont">
+                <p class="previewName">{{ selectedFile()?.name }}</p>
+                <p class="previewSize">{{ ((selectedFile()?.size ?? 0) / 1024).toFixed(0) }} KB</p>
+                <span class="previewChange" (click)="$event.stopPropagation(); fileInput.click()">
+                  Change
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+        @if (signUpForm.get('avatar')?.errors) {
+          <div class="error-container" animate.enter="showError" animate.leave="hideError">
+            @if (signUpForm.get('avatar')?.hasError('incorrectFormat')) {
+              <p class="error">Unsupported file format. Please use JPG, PNG or WebP</p>
+            }
+            @if (signUpForm.get('avatar')?.hasError('tooLarge')) {
+              <p class="error">Maximum File size is 2MB</p>
+            }
+          </div>
         }
       </div>
     }
