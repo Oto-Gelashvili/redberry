@@ -1,9 +1,10 @@
 import { Component, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IconLibrary } from '../../icon-library/icon-library';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, IconLibrary],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css',
 })

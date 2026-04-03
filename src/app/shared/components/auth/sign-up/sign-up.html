@@ -39,10 +39,10 @@
             formControlName="password"
           />
           <button type="button" (click)="togglePassword()" class="toggleBtn" tabindex="-1">
-            <img
-              [src]="passwordVisible() ? 'openEye.svg' : 'closeEye.svg'"
-              alt="toggle password visibility"
-            />
+            <app-icon-library
+              [name]="passwordVisible() ? 'eye-open' : 'eye-close'"
+              [size]="22"
+            ></app-icon-library>
           </button>
         </div>
         @if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
@@ -62,19 +62,19 @@
             formControlName="confirmPassword"
           />
           <button type="button" (click)="toggleConfirmPassword()" class="toggleBtn" tabindex="-1">
-            <img
-              [src]="confrimPasswordVisible() ? 'openEye.svg' : 'closeEye.svg'"
-              alt="toggle confirm password visibility"
-            />
+            <app-icon-library
+              [name]="confrimPasswordVisible() ? 'eye-open' : 'eye-close'"
+              [size]="22"
+            ></app-icon-library>
           </button>
-          @if (
-            signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched
-          ) {
-            <p class="error" animate.enter="showError" animate.leave="hideError">
-              Min 3 characters required
-            </p>
-          }
         </div>
+        @if (
+          signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched
+        ) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            Min 3 characters required
+          </p>
+        }
       </div>
     }
     <button type="submit" [disabled]="signUpForm.get('email')?.invalid" class="submitBtn">

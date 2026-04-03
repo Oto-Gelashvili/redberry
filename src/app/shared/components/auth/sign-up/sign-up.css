@@ -73,7 +73,7 @@ h2 {
 }
 .inputCont input {
   border-radius: 8px;
-  border: 1.5px solid var(--grey-200);
+  border: 2px solid var(--grey-200);
   padding: 12px 15px 12px 13px;
   color: var(--grey-700);
   font-size: var(--xs-fs);
@@ -83,11 +83,18 @@ h2 {
   height: 48px;
 }
 .inputCont input:hover {
-  border-color: var(--brand-500);
+  border-color: var(--grey-300);
+  caret-color: var(--grey-300);
 }
 .inputCont input:focus {
   border-color: var(--grey-400);
+  caret-color: var(--grey-400);
 }
+
+.inputCont:not(:has(.error)) .passwordWrapper:has(input:focus) .toggleBtn {
+  color: var(--grey-400);
+}
+
 .inputCont input::placeholder {
   font-size: var(--xs-fs);
   color: var(--grey-200);
@@ -100,7 +107,8 @@ h2 {
 }
 .inputCont:has(.error) input,
 .inputCont:has(.error) input::placeholder,
-.inputCont:has(.error) label {
+.inputCont:has(.error) label,
+.inputCont:has(.error) .toggleBtn {
   color: var(--error);
   border-color: var(--error);
   caret-color: var(--error);
@@ -228,10 +236,13 @@ footer {
   width: 100%;
   padding-right: 40px;
 }
-.passwordWrapper img {
-  color: var(--brand-700);
-  stroke: var(--brand-700);
-  fill: var(--brand-700);
+.toggleBtn {
+  color: var(--grey-300);
+  transition: 0.4s;
+}
+
+.toggleBtn:hover {
+  color: var(--brand-500);
 }
 
 .toggleBtn {
