@@ -69,15 +69,16 @@
           </button>
         </div>
         @if (
-          signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched
+          signUpForm.get('confirmPassword')?.value !== signUpForm.get('password')?.value &&
+          signUpForm.get('confirmPassword')?.touched
         ) {
           <p class="error" animate.enter="showError" animate.leave="hideError">
-            Min 3 characters required
+            Password do not match
           </p>
         }
       </div>
     }
-    <button type="submit" [disabled]="signUpForm.get('email')?.invalid" class="submitBtn">
+    <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
       {{ steps() === 3 ? 'Sign Up' : 'Next' }}
     </button>
     <footer>

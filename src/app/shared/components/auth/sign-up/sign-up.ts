@@ -32,6 +32,28 @@ export class SignUp {
   toggleConfirmPassword() {
     this.confrimPasswordVisible.update((v) => !v);
   }
+
+  getIsBtnDisabled(): boolean {
+    const step = this.steps();
+    const form = this.signUpForm;
+
+    if (step === 1) {
+      return !!form.get('email')?.invalid;
+    }
+
+    if (step === 2) {
+      const passwordControl = form.get('password');
+      const confirmControl = form.get('confirmPassword');
+
+      const invalidPass = !!passwordControl?.invalid;
+      const passwordsDontMatch =
+        !confirmControl?.value || confirmControl.value !== passwordControl?.value;
+
+      return invalidPass || passwordsDontMatch;
+    }
+
+    return form.invalid;
+  }
   onSubmit() {
     if (this.steps() === 3) {
       console.log('submit');
