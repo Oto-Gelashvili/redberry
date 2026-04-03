@@ -7,6 +7,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /* top: 303px;
+  left: 730px; */
 }
 .closeBtn {
   position: absolute;
@@ -216,4 +218,33 @@ footer {
 }
 .logInCont span:active {
   color: var(--brand-600);
+}
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+.passwordWrapper img {
+  color: var(--brand-700);
+  stroke: var(--brand-700);
+  fill: var(--brand-700);
+}
+
+.toggleBtn {
+  position: absolute;
+  right: 15px;
+  /* top: 12px; */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

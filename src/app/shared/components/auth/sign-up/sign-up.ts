@@ -9,11 +9,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class SignUp {
   closeModal = output<void>();
+  passwordVisible = signal(true);
+  confrimPasswordVisible = signal(false);
   signUpForm = new FormGroup({
     email: new FormControl<string>('you@example.com', [Validators.required, Validators.email]),
     username: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    confirmPassword: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('Password', [Validators.required, Validators.minLength(3)]),
+    confirmPassword: new FormControl<string>('Password', [Validators.required]),
     avatar: new FormControl('', [Validators.pattern(/\.(jpg|jpeg|png|webp)$/i)]),
   });
 
@@ -22,6 +24,12 @@ export class SignUp {
   onClose() {
     this.steps.set(1);
     this.closeModal.emit();
+  }
+  togglePassword() {
+    this.passwordVisible.update((v) => !v);
+  }
+  toggleConfirmPassword() {
+    this.confrimPasswordVisible.update((v) => !v);
   }
   onSubmit() {
     if (this.steps() === 3) {

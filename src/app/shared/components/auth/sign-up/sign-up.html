@@ -27,6 +27,56 @@
         }
       </div>
     }
+    @if (steps() === 2) {
+      <div class="inputCont">
+        <label for="password">Password*</label>
+        <div class="passwordWrapper">
+          <input
+            name="password"
+            id="password"
+            [type]="passwordVisible() ? 'text' : 'password'"
+            placeholder="Enter password"
+            formControlName="password"
+          />
+          <button type="button" (click)="togglePassword()" class="toggleBtn" tabindex="-1">
+            <img
+              [src]="passwordVisible() ? 'openEye.svg' : 'closeEye.svg'"
+              alt="toggle password visibility"
+            />
+          </button>
+        </div>
+        @if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            Min 3 characters required
+          </p>
+        }
+      </div>
+      <div class="inputCont">
+        <label for="confirmPassword">Confirm Password*</label>
+        <div class="passwordWrapper">
+          <input
+            name="confirmPassword"
+            id="confirmPassword"
+            [type]="confrimPasswordVisible() ? 'text' : 'password'"
+            placeholder="Confirm password"
+            formControlName="confirmPassword"
+          />
+          <button type="button" (click)="toggleConfirmPassword()" class="toggleBtn" tabindex="-1">
+            <img
+              [src]="confrimPasswordVisible() ? 'openEye.svg' : 'closeEye.svg'"
+              alt="toggle confirm password visibility"
+            />
+          </button>
+          @if (
+            signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched
+          ) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Min 3 characters required
+            </p>
+          }
+        </div>
+      </div>
+    }
     <button type="submit" [disabled]="signUpForm.get('email')?.invalid" class="submitBtn">
       {{ steps() === 3 ? 'Sign Up' : 'Next' }}
     </button>
