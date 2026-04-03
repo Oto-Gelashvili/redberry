@@ -1,26 +1,35 @@
 <div class="singUpCont">
   <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
-  <form>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <div class="heading">
       <h2>Create Account</h2>
       <p>Join and start learning today</p>
     </div>
     <div class="stepsCont">
-      <div class="active"></div>
-      <div></div>
-      <div></div>
+      @for (step of [1, 2, 3]; track step) {
+        <div [class.active]="steps() === step" [class.done]="steps() > step"></div>
+      }
     </div>
-    <div class="inputCont">
-      <label for="mail">Email*</label>
-      <input
-        name="mail"
-        id="mail"
-        type="email"
-        placeholder="Type your email"
-        value="you@example.com"
-      />
-    </div>
-    <button type="submit" class="submitBtn">Next</button>
+    @if (steps() === 1) {
+      <div class="inputCont">
+        <label for="mail">Email*</label>
+        <input
+          name="mail"
+          id="mail"
+          type="email"
+          placeholder="Type your email"
+          formControlName="email"
+        />
+        @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            Please enter a valid email address
+          </p>
+        }
+      </div>
+    }
+    <button type="submit" [disabled]="signUpForm.get('email')?.invalid" class="submitBtn">
+      {{ steps() === 3 ? 'Sign Up' : 'Next' }}
+    </button>
     <footer>
       <div class="divider">or</div>
       <div class="logInCont">

@@ -56,15 +56,18 @@ h2 {
 .stepsCont div.active {
   background-color: var(--brand-200);
 }
+.stepsCont div.done {
+  background-color: var(--brand-500);
+}
 .inputCont {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 100%;
 }
 .inputCont label {
   font-size: var(--xs-fs);
   color: var(--grey-700);
+  margin-bottom: 8px;
 }
 .inputCont input {
   border-radius: 8px;
@@ -75,6 +78,7 @@ h2 {
   outline: none;
   caret-color: var(--grey-400);
   transition: 0.4s;
+  height: 48px;
 }
 .inputCont input:hover {
   border-color: var(--brand-500);
@@ -86,6 +90,50 @@ h2 {
   font-size: var(--xs-fs);
   color: var(--grey-200);
 }
+.inputCont .error {
+  font-size: var(--helper-rs-fs);
+  color: var(--error);
+  margin-top: 5px;
+  overflow: hidden;
+}
+.inputCont:has(.error) input,
+.inputCont:has(.error) input::placeholder,
+.inputCont:has(.error) label {
+  color: var(--error);
+  border-color: var(--error);
+  caret-color: var(--error);
+}
+.showError {
+  animation: 0.4s showError ease forwards;
+}
+.hideError {
+  animation: 0.4s hideError ease forwards;
+}
+@keyframes showError {
+  from {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 15.2px;
+    margin-top: 5px;
+  }
+}
+@keyframes hideError {
+  from {
+    opacity: 1;
+    max-height: 15.2px;
+    margin-top: 5px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+}
+
 .submitBtn {
   height: 47px;
   border-radius: 8px;
@@ -107,6 +155,10 @@ h2 {
 }
 .submitBtn:focus-visible {
   border-color: var(--brand-700);
+}
+button:disabled {
+  background-color: var(--grey-300) !important;
+  color: var(--grey-400);
 }
 footer {
   display: flex;
