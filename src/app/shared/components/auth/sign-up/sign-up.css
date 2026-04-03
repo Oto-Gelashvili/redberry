@@ -15,11 +15,25 @@
   top: 20.5px;
   right: 15px;
   cursor: pointer;
+  transition: 0.4s;
 }
 .closeBtn:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 .closeBtn:focus-visible {
+  outline: 1px solid var(--brand-500);
+}
+.prevBtn {
+  top: 16.5px;
+  left: 17px;
+  position: absolute;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.prevBtn:hover {
+  transform: scale(1.1);
+}
+.prevBtn:focus-visible {
   outline: 1px solid var(--brand-500);
 }
 form {
@@ -84,11 +98,13 @@ h2 {
 }
 .inputCont input:hover {
   border-color: var(--grey-300);
-  caret-color: var(--grey-300);
+  caret-color: var(--grey-200);
+  color: var(--grey-200);
 }
 .inputCont input:focus {
   border-color: var(--grey-400);
   caret-color: var(--grey-400);
+  color: var(--grey-700);
 }
 
 .inputCont:not(:has(.error)) .passwordWrapper:has(input:focus) .toggleBtn {

@@ -1,5 +1,15 @@
 <div class="singUpCont">
   <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
+  @if (steps() !== 1) {
+    <img
+      tabindex="0"
+      src="backArrow.svg"
+      (click)="decreaseStep()"
+      alt="previous button"
+      class="prevBtn"
+    />
+  }
+
   <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <div class="heading">
       <h2>Create Account</h2>

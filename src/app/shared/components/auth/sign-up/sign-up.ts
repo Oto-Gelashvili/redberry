@@ -15,8 +15,8 @@ export class SignUp {
   signUpForm = new FormGroup({
     email: new FormControl<string>('you@example.com', [Validators.required, Validators.email]),
     username: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl<string>('Password', [Validators.required, Validators.minLength(3)]),
-    confirmPassword: new FormControl<string>('Password', [Validators.required]),
+    password: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
+    confirmPassword: new FormControl<string>('', [Validators.required]),
     avatar: new FormControl('', [Validators.pattern(/\.(jpg|jpeg|png|webp)$/i)]),
   });
 
@@ -25,6 +25,9 @@ export class SignUp {
   onClose() {
     this.steps.set(1);
     this.closeModal.emit();
+  }
+  decreaseStep() {
+    this.steps.update((v) => v - 1);
   }
   togglePassword() {
     this.passwordVisible.update((v) => !v);
