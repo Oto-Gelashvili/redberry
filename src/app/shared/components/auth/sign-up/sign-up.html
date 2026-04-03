@@ -1,0 +1,32 @@
+<div class="singUpCont">
+  <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
+  <form>
+    <div class="heading">
+      <h2>Create Account</h2>
+      <p>Join and start learning today</p>
+    </div>
+    <div class="stepsCont">
+      <div class="active"></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="inputCont">
+      <label for="mail">Email*</label>
+      <input
+        name="mail"
+        id="mail"
+        type="email"
+        placeholder="Type your email"
+        value="you@example.com"
+      />
+    </div>
+    <button type="submit" class="submitBtn">Next</button>
+    <footer>
+      <div class="divider">or</div>
+      <div class="logInCont">
+        <p>Already have an account?</p>
+        <span tabindex="0">Log In</span>
+      </div>
+    </footer>
+  </form>
+</div>

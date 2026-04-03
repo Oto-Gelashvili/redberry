@@ -94,8 +94,11 @@
       >
       <div class="auth">
         <button class="logInBtn">Log In</button>
-        <button class="signBtn">Sign Up</button>
+        <button class="signBtn" (click)="toggleModal()">Sign Up</button>
       </div>
     </nav>
   </div>
 </header>
+@if (isModalRendered()) {
+  <app-sign-up (closeModal)="toggleModal()"></app-sign-up>
+}

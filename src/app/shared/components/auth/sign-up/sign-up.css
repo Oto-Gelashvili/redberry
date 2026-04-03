@@ -1,0 +1,167 @@
+.singUpCont {
+  padding: 50px;
+  border-radius: 12px;
+  width: 460px;
+  background-color: var(--grey-50);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.closeBtn {
+  position: absolute;
+  top: 20.5px;
+  right: 15px;
+  cursor: pointer;
+}
+.closeBtn:hover {
+  transform: scale(1.05);
+}
+.closeBtn:focus-visible {
+  outline: 1px solid var(--brand-500);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+h2 {
+  color: var(--grey-900);
+}
+.heading p {
+  color: var(--grey-500);
+  font-size: var(--xs-fs);
+  margin-bottom: 8px;
+}
+.stepsCont {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+.stepsCont div {
+  border-radius: 30px;
+  height: 8px;
+  background-color: var(--brand-50);
+  width: 100%;
+}
+.stepsCont div.active {
+  background-color: var(--brand-200);
+}
+.inputCont {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.inputCont label {
+  font-size: var(--xs-fs);
+  color: var(--grey-700);
+}
+.inputCont input {
+  border-radius: 8px;
+  border: 1.5px solid var(--grey-200);
+  padding: 12px 15px 12px 13px;
+  color: var(--grey-700);
+  font-size: var(--xs-fs);
+  outline: none;
+  caret-color: var(--grey-400);
+  transition: 0.4s;
+}
+.inputCont input:hover {
+  border-color: var(--brand-500);
+}
+.inputCont input:focus {
+  border-color: var(--grey-400);
+}
+.inputCont input::placeholder {
+  font-size: var(--xs-fs);
+  color: var(--grey-200);
+}
+.submitBtn {
+  height: 47px;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: var(--brand-500);
+  font-size: var(--btn-s);
+  color: var(--grey-50);
+  width: 100%;
+  border: 2px solid transparent;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.submitBtn:hover,
+.submitBtn:focus-visible {
+  background-color: var(--brand-600);
+}
+.submitBtn:active {
+  background-color: var(--brand-700);
+}
+.submitBtn:focus-visible {
+  border-color: var(--brand-700);
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 320px;
+  position: relative;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: var(--xs-fs);
+  color: var(--grey-400);
+  height: 21px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.divider:not(:empty)::before {
+  margin-right: 7px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 7px;
+}
+
+.logInCont {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logInCont p {
+  font-size: var(--helper-rs-fs);
+  color: var(--grey-500);
+}
+.logInCont span {
+  font-size: var(--xs-fs);
+  color: var(--grey-900);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+}
+.logInCont span:hover,
+.logInCont span:focus-visible {
+  color: var(--brand-500);
+}
+.logInCont span:active {
+  color: var(--brand-600);
+}
