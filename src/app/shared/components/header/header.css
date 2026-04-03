@@ -32,13 +32,12 @@ nav {
   transition: 0.4s;
   border: 2px solid transparent;
 }
+
 .courses:hover,
 .courses:focus-visible {
-  border-color: var(--brand-300);
+  color: var(--brand-500);
 }
-.courses:active {
-  border-color: var(--brand-500);
-}
+
 nav .auth {
   display: flex;
   align-items: center;
@@ -70,14 +69,24 @@ nav .auth {
   cursor: pointer;
 }
 .logInBtn:hover,
-.logInBtn:focus-visible,
-.signBtn:hover,
-.signBtn:focus-visible {
+.signBtn:hover {
   color: var(--grey-50);
   background-color: var(--brand-600);
-  border-color: transparent;
+  border-color: var(--brand-600);
 }
 .logInBtn:active,
 .signBtn:active {
+  color: var(--grey-50);
   background-color: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.logInBtn:focus-visible {
+  color: var(--grey-50);
+  background-color: var(--brand-700);
+  border-style: dashed;
+  border-color: var(--brand-100);
+}
+.signBtn:focus-visible {
+  border-color: var(--brand-700);
+  background-color: var(--brand-600);
 }
