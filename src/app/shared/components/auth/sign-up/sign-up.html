@@ -20,7 +20,7 @@
         <div [class.active]="steps() === step" [class.done]="steps() > step"></div>
       }
     </div>
-    @if (steps() === 2) {
+    @if (steps() === 1) {
       <div class="inputCont">
         <label for="mail">Email*</label>
         <input
@@ -29,8 +29,14 @@
           type="email"
           placeholder="Type your email"
           formControlName="email"
+          (input)="clearServerError('email')"
         />
-        @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
+
+        @if (serverErrors()['email']?.length) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            {{ serverErrors()['email'][0] }}
+          </p>
+        } @else if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched) {
           <p class="error" animate.enter="showError" animate.leave="hideError">
             Please enter a valid email address
           </p>
@@ -88,7 +94,7 @@
         }
       </div>
     }
-    @if (steps() === 1) {
+    @if (steps() === 3) {
       <div class="inputCont margin-bot">
         <label for="password">Username*</label>
         <input
@@ -97,8 +103,13 @@
           [type]="passwordVisible() ? 'text' : 'password'"
           placeholder="Enter username"
           formControlName="username"
+          (input)="clearServerError('username')"
         />
-        @if (signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched) {
+        @if (serverErrors()['username']?.length) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            {{ serverErrors()['username'][0] }}
+          </p>
+        } @else if (signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched) {
           <p class="error" animate.enter="showError" animate.leave="hideError">
             Min 3 characters required
           </p>
@@ -146,17 +157,27 @@
         @if (signUpForm.get('avatar')?.errors) {
           <div class="error-container" animate.enter="showError" animate.leave="hideError">
             @if (signUpForm.get('avatar')?.hasError('incorrectFormat')) {
-              <p class="error">Unsupported file format. Please use JPG, PNG or WebP</p>
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Unsupported file format. Please use JPG, PNG or WebP
+              </p>
             }
             @if (signUpForm.get('avatar')?.hasError('tooLarge')) {
-              <p class="error">Maximum File size is 2MB</p>
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Maximum File size is 1MB
+              </p>
             }
           </div>
         }
       </div>
     }
+    @if (generalError()) {
+      <p class="error generalError" animate.enter="showError" animate.leave="hideError">
+        {{ generalError() }}
+      </p>
+    }
+
     <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
-      {{ steps() === 3 ? 'Sign Up' : 'Next' }}
+      {{ isLoading() ? 'Creating account' : steps() === 3 ? 'Sign Up' : 'Next' }}
     </button>
     <footer>
       <div class="divider">or</div>

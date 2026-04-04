@@ -393,3 +393,6 @@ footer {
 .previewChange:active {
   color: var(--brand-700);
 }
+.generalError {
+  color: var(--error);
+}
