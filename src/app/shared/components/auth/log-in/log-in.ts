@@ -17,7 +17,6 @@ export class LogIn {
   protected passwordVisible = signal(false);
 
   protected isLoading = signal(false);
-  protected serverErrors = signal<Record<string, string[]>>({});
   protected generalError = signal<string | null>(null);
 
   protected logInForm = new FormGroup({
@@ -49,47 +48,28 @@ export class LogIn {
     return form.invalid;
   }
 
-  //clear server error on input chnage
-  protected clearServerError(field: string) {
-    if (this.serverErrors()[field]) {
-      this.serverErrors.update((errors) => {
-        const updated = { ...errors };
-        delete updated[field];
-        return updated;
-      });
-    }
-  }
   //submit
   protected async onSubmit() {
-    // const v = this.logInForm.value;
-    // const formData = new FormData();
-    // formData.append('email', v.email!);
-    // formData.append('password', v.password!);
+    const v = this.logInForm.value;
 
-    // this.isLoading.set(true);
-    // this.serverErrors.set({});
-    // this.generalError.set(null);
+    this.isLoading.set(true);
+    this.generalError.set(null);
 
-    // try {
-    //   const res = await this.authService.register(formData);
-    //   this.authService.setSession(res.data.user, res.data.token);
-    //   this.onClose();
-    // } catch (err: any) {
-    //   if (err.status === 422) {
-    //     const errors = err.error.errors ?? {};
-    //     this.serverErrors.set(errors);
-
-    //     if (errors['email']) {
-    //       this.steps.set(1);
-    //     } else if (errors['username']) {
-    //       this.steps.set(3);
-    //     }
-    //   } else {
-    //     this.generalError.set('Something went wrong. Please try again.');
-    //   }
-    // } finally {
-    //   this.isLoading.set(false);
-    // }
-    console.log('submit');
+    try {
+      const res = await this.authService.logIn({
+        email: v.email!,
+        password: v.password!,
+      });
+      this.authService.setSession(res.data.user, res.data.token);
+      this.onClose('close');
+    } catch (err: any) {
+      if (err.status === 401) {
+        this.generalError.set(err.error.message);
+      } else {
+        this.generalError.set('Something went wrong. Please try again.');
+      }
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }

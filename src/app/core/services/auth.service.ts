@@ -68,6 +68,21 @@ export class AuthService {
       localStorage.removeItem('token');
     }
   }
+  async logIn(credentials: { email: string; password: string }) {
+    const res = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+
+    return json as { data: { user: User; token: string } };
+  }
 
   async register(formData: FormData) {
     const res = await fetch(`${BASE_URL}/register`, {

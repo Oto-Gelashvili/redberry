@@ -20,14 +20,9 @@
         type="email"
         placeholder="Type your email"
         formControlName="email"
-        (input)="clearServerError('email')"
       />
 
-      @if (serverErrors()['email']?.length) {
-        <p class="error" animate.enter="showError" animate.leave="hideError">
-          {{ serverErrors()['email'][0] }}
-        </p>
-      } @else if (logInForm.get('email')?.invalid && logInForm.get('email')?.touched) {
+      @if (logInForm.get('email')?.invalid && logInForm.get('email')?.touched) {
         <p class="error" animate.enter="showError" animate.leave="hideError">
           Please enter a valid email address
         </p>
@@ -58,13 +53,13 @@
     </div>
 
     @if (generalError()) {
-      <p class="error generalError" animate.enter="showError" animate.leave="hideError">
+      <h5 class="error generalError" animate.enter="showError" animate.leave="hideError">
         {{ generalError() }}
-      </p>
+      </h5>
     }
 
     <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
-      {{ isLoading() ? 'Creating account' : 'Log In' }}
+      {{ isLoading() ? 'Logging In' : 'Log In' }}
     </button>
     <footer>
       <div class="divider">or</div>
