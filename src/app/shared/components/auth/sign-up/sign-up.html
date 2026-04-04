@@ -183,7 +183,13 @@
     }
 
     <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
-      {{ isLoading() ? 'Creating account' : steps() === 3 ? 'Sign Up' : 'Next' }}
+      @if (isLoading()) {
+        <app-loader></app-loader>
+      } @else if (steps() === 3) {
+        Sign Up
+      } @else {
+        Next
+      }
     </button>
     <footer>
       <div class="divider">or</div>

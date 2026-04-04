@@ -59,7 +59,11 @@
     }
 
     <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
-      {{ isLoading() ? 'Logging In' : 'Log In' }}
+      @if (isLoading()) {
+        <app-loader></app-loader>
+      } @else {
+        Log In
+      }
     </button>
     <footer>
       <div class="divider">or</div>

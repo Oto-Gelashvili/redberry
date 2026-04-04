@@ -2,10 +2,11 @@ import { Component, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { IconLibrary } from '../../icon-library/icon-library';
+import { Loader } from '../../loader/loader';
 
 @Component({
   selector: 'app-log-in',
-  imports: [ReactiveFormsModule, IconLibrary],
+  imports: [ReactiveFormsModule, IconLibrary, Loader],
   templateUrl: './log-in.html',
   styleUrl: './log-in.css',
 })

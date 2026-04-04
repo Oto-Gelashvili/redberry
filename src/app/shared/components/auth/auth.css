@@ -137,6 +137,9 @@
   border: 2px solid transparent;
   transition: 0.4s;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .authModal .submitBtn:hover,
 .authModal .submitBtn:focus-visible {

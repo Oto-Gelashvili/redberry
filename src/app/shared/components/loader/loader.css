@@ -1,0 +1,13 @@
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--grey-50);
+  border-radius: 50%;
+  border-top-color: var(--warning);
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
