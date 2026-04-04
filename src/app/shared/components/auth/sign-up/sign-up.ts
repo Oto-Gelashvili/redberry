@@ -128,7 +128,7 @@ export class SignUp {
   }
 
   //clear server error on input chnage
-  clearServerError(field: string) {
+  protected clearServerError(field: string) {
     if (this.serverErrors()[field]) {
       this.serverErrors.update((errors) => {
         const updated = { ...errors };

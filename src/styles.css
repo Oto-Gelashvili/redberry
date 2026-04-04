@@ -1,37 +1,37 @@
 :root {
   /* text styles */
-  --hero-fs: 48px;
+  --hero-fs: 4.8rem;
   --hero-fw: 700;
 
   --xl-light-fs: 300;
 
-  --xl-fs: 24px;
+  --xl-fs: 2.4rem;
   --xl-fw: 600;
 
-  --l-fs: 20px;
+  --l-fs: 2rem;
 
-  --m-fs: 18px;
+  --m-fs: 1.8rem;
 
-  --s-fs: 16px;
+  --s-fs: 1.6rem;
 
-  --xs-fs: 14px;
+  --xs-fs: 1.4rem;
 
-  --helper-m-fs: 12px;
+  --helper-m-fs: 1.2rem;
 
-  --helper-rm-fs: 14px;
-  --helper-rs-fs: 12px;
+  --helper-rm-fs: 1.4rem;
+  --helper-rs-fs: 1.4rem;
   --helper-r-fw: 400;
 
-  --helper-m-fs: 12px;
+  --helper-m-fs: 1.2rem;
 
-  --helper-rxs-fs: 10px;
+  --helper-rxs-fs: 1rem;
   --helper-rxs-fw: 400;
 
-  --under-m: 20px;
-  --under-s: 14px;
+  --under-m: 2rem;
+  --under-s: 1.4rem;
 
-  --btn-m: 20px;
-  --btn-s: 16px;
+  --btn-m: 2rem;
+  --btn-s: 1.6rem;
 
   /* colors */
   --brand-50: #eeedfc;
@@ -170,28 +170,28 @@ a:focus {
   outline: none;
 }
 html {
-  /* font-size: 62.5%; */
+  font-size: 62.5%;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   background-color: var(--grey-100);
 }
 h1 {
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: 600;
 }
 h2 {
-  font-size: 32px;
+  font-size: 3.2rem;
   font-weight: 600;
 }
 h3 {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 600;
 }
 h4 {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
 }
 h5 {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 600;
 }

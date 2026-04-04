@@ -1,7 +1,7 @@
 .singUpCont {
-  padding: 50px;
+  padding: 5rem;
   border-radius: 12px;
-  width: 460px;
+  width: 46rem;
   background-color: var(--grey-50);
   position: absolute;
   top: 50%;
@@ -24,8 +24,8 @@
   outline: 1px solid var(--brand-500);
 }
 .prevBtn {
-  top: 16.5px;
-  left: 17px;
+  top: 1.65rem;
+  left: 1.7rem;
   position: absolute;
   cursor: pointer;
   transition: 0.4s;
@@ -39,13 +39,13 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.6rem;
   align-items: center;
 }
 .heading {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.6rem;
   align-items: center;
 }
 h2 {
@@ -54,13 +54,13 @@ h2 {
 .heading p {
   color: var(--grey-500);
   font-size: var(--xs-fs);
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
 }
 .stepsCont {
   display: flex;
-  gap: 8px;
+  gap: 0.8rem;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
   width: 100%;
 }
 .stepsCont div {
@@ -83,18 +83,19 @@ h2 {
 .inputCont label {
   font-size: var(--xs-fs);
   color: var(--grey-700);
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
+  width: fit-content;
 }
 .inputCont input {
   border-radius: 8px;
   border: 2px solid var(--grey-200);
-  padding: 12px 15px 12px 13px;
+  padding: 1.2rem 1.5rem 1.2rem 1.3rem;
   color: var(--grey-700);
   font-size: var(--xs-fs);
   outline: none;
   caret-color: var(--grey-400);
   transition: 0.4s;
-  height: 48px;
+  height: 4.8rem;
 }
 .inputCont input:hover {
   border-color: var(--grey-300);
@@ -118,7 +119,7 @@ h2 {
 .inputCont .error {
   font-size: var(--helper-rs-fs);
   color: var(--error);
-  margin-top: 5px;
+  margin-top: 0.5rem;
   overflow: hidden;
 }
 .inputCont:has(.error) input,
@@ -143,15 +144,15 @@ h2 {
   }
   to {
     opacity: 1;
-    max-height: 15.2px;
-    margin-top: 5px;
+    max-height: 1.52rem;
+    margin-top: 0.5rem;
   }
 }
 @keyframes hideError {
   from {
     opacity: 1;
-    max-height: 15.2px;
-    margin-top: 5px;
+    max-height: 1.52rem;
+    margin-top: 0.5rem;
   }
   to {
     opacity: 0;
@@ -161,9 +162,9 @@ h2 {
 }
 
 .submitBtn {
-  height: 47px;
+  height: 4.7rem;
   border-radius: 8px;
-  padding: 10px;
+  padding: 1rem;
   background-color: var(--brand-500);
   font-size: var(--btn-s);
   color: var(--grey-50);
@@ -190,7 +191,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 320px;
+  width: 32rem;
   position: relative;
 }
 .divider {
@@ -199,7 +200,7 @@ footer {
   text-align: center;
   font-size: var(--xs-fs);
   color: var(--grey-400);
-  height: 21px;
+  height: 2.1rem;
 }
 
 .divider::before,
@@ -210,18 +211,18 @@ footer {
 }
 
 .divider:not(:empty)::before {
-  margin-right: 7px;
+  margin-right: 0.7rem;
 }
 
 .divider:not(:empty)::after {
-  margin-left: 7px;
+  margin-left: 0.7rem;
 }
 
 .logInCont {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
 }
 .logInCont p {
   font-size: var(--helper-rs-fs);
@@ -231,7 +232,7 @@ footer {
   font-size: var(--xs-fs);
   color: var(--grey-900);
   text-decoration-line: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.4rem;
   transition: 0.4s;
   cursor: pointer;
   outline: none;
@@ -250,7 +251,7 @@ footer {
 
 .passwordWrapper input {
   width: 100%;
-  padding-right: 40px;
+  padding-right: 4rem;
 }
 .toggleBtn {
   color: var(--grey-300);
@@ -263,7 +264,7 @@ footer {
 
 .toggleBtn {
   position: absolute;
-  right: 15px;
+  right: 1.5rem;
   /* top: 12px; */
   top: 50%;
   transform: translateY(-50%);
@@ -276,28 +277,28 @@ footer {
   justify-content: center;
 }
 .margin-bot {
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
 }
 .avatarInput {
   display: none;
 }
 .avatarLabel {
-  margin-bottom: 12px;
+  margin-bottom: 1.2rem;
 }
 .uploadBox {
   width: 100%;
   border: 2px solid var(--grey-200);
   border-radius: 8px;
-  padding-block: 30px;
+  padding-block: 3rem;
   background-color: var(--grey-50);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
   color: var(--grey-300);
   transition: 0.5s;
   cursor: pointer;
-  height: 140px;
+  height: 14rem;
 }
 .uploadBox:hover,
 .uploadBox.uploaded {
@@ -321,13 +322,13 @@ footer {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.6rem;
   font-size: var(--xs-fs);
 }
 .uploadBox .mainText span {
   color: var(--brand-600);
   text-decoration-line: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.4rem;
   transition: 0.4s;
   cursor: pointer;
   outline: none;
@@ -346,28 +347,28 @@ footer {
 .previewCont {
   display: flex;
   align-items: center;
-  padding-inline: 40px;
+  padding-inline: 4rem;
   width: 100%;
-  gap: 10px;
+  gap: 1rem;
   height: 100%;
 }
 .previewImg {
-  border-radius: 40px;
-  width: 54px;
-  height: 54px;
+  border-radius: 4rem;
+  width: 5.4rem;
+  height: 5.4rem;
 }
 .previewTextCont {
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 2px;
+  gap: 0.2rem;
 }
 .previewName {
   font-size: var(--helper-rs-fs);
   color: var(--grey-600);
   font-weight: var(--helper-r-fw);
   /* 54px is width of avatar  */
-  max-width: calc(100% - 54px);
+  max-width: calc(100% - 5.4rem);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -381,7 +382,7 @@ footer {
   color: var(--brand-500);
   font-size: var(--helper-rxs-fs);
   text-decoration-line: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.4rem;
   transition: 0.4s;
   cursor: pointer;
   outline: none;
