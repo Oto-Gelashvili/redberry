@@ -1,3 +1,5 @@
+@import './app/shared/components/auth/auth.css';
+
 :root {
   /* text styles */
   --hero-fs: 4.8rem;

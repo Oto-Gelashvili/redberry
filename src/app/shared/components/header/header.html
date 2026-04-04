@@ -23,7 +23,7 @@
 
       <div class="auth">
         @if (!authService.isAuthenticated()) {
-          <button class="logInBtn">Log In</button>
+          <button class="logInBtn" (click)="toggleLogInModal()">Log In</button>
           <button class="signBtn" (click)="toggleModal()">Sign Up</button>
         } @else if (authService.user()?.avatar) {
           <img [src]="authService.user()?.avatar" alt="user avatar" class="avatarIcon" />
@@ -41,4 +41,7 @@
 </header>
 @if (isModalRendered()) {
   <app-sign-up (closeModal)="toggleModal()"></app-sign-up>
+}
+@if (isLogInModalRendered()) {
+  <app-log-in (closeModal)="toggleLogInModal()" (closeModalSignUp)="toggleModal()"></app-log-in>
 }

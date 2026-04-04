@@ -1,0 +1,77 @@
+<div class="singUpCont authModal">
+  <img
+    tabindex="0"
+    src="close.svg"
+    (click)="onClose('close')"
+    alt="close button"
+    class="closeBtn"
+  />
+
+  <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+    <div class="heading">
+      <h2>Welcome Back</h2>
+      <p>Log in to continue your learning</p>
+    </div>
+    <div class="inputCont margin-bot">
+      <label for="mail">Email</label>
+      <input
+        name="mail"
+        id="mail"
+        type="email"
+        placeholder="Type your email"
+        formControlName="email"
+        (input)="clearServerError('email')"
+      />
+
+      @if (serverErrors()['email']?.length) {
+        <p class="error" animate.enter="showError" animate.leave="hideError">
+          {{ serverErrors()['email'][0] }}
+        </p>
+      } @else if (logInForm.get('email')?.invalid && logInForm.get('email')?.touched) {
+        <p class="error" animate.enter="showError" animate.leave="hideError">
+          Please enter a valid email address
+        </p>
+      }
+    </div>
+    <div class="inputCont">
+      <label for="password">Password*</label>
+      <div class="passwordWrapper">
+        <input
+          name="password"
+          id="password"
+          [type]="passwordVisible() ? 'text' : 'password'"
+          placeholder="Enter password"
+          formControlName="password"
+        />
+        <button type="button" (click)="togglePassword()" class="toggleBtn" tabindex="-1">
+          <app-icon-library
+            [name]="passwordVisible() ? 'eye-open' : 'eye-close'"
+            [size]="22"
+          ></app-icon-library>
+        </button>
+      </div>
+      @if (logInForm.get('password')?.invalid && logInForm.get('password')?.touched) {
+        <p class="error" animate.enter="showError" animate.leave="hideError">
+          Min 3 characters required
+        </p>
+      }
+    </div>
+
+    @if (generalError()) {
+      <p class="error generalError" animate.enter="showError" animate.leave="hideError">
+        {{ generalError() }}
+      </p>
+    }
+
+    <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
+      {{ isLoading() ? 'Creating account' : 'Log In' }}
+    </button>
+    <footer>
+      <div class="divider">or</div>
+      <div class="logInCont">
+        <p>Don’t have an account?</p>
+        <span tabindex="0" (click)="onClose('signUp')">Sign Up</span>
+      </div>
+    </footer>
+  </form>
+</div>

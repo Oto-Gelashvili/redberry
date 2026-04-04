@@ -1,0 +1,247 @@
+.authModal.singUpCont {
+  padding: 5rem;
+  border-radius: 12px;
+  width: 46rem;
+  background-color: var(--grey-50);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* top: 303px;
+  left: 730px; */
+}
+.authModal .closeBtn {
+  position: absolute;
+  top: 20.5px;
+  right: 15px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.authModal .closeBtn:hover {
+  transform: scale(1.1);
+}
+.authModal .closeBtn:focus-visible {
+  outline: 1px solid var(--brand-500);
+}
+.authModal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+}
+.authModal .heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+}
+.authModal h2 {
+  color: var(--grey-900);
+}
+.authModal .heading p {
+  color: var(--grey-500);
+  font-size: var(--xs-fs);
+  margin-bottom: 0.8rem;
+}
+.authModal .inputCont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.authModal .inputCont label {
+  font-size: var(--xs-fs);
+  color: var(--grey-700);
+  margin-bottom: 0.8rem;
+  width: fit-content;
+}
+.authModal .inputCont input {
+  border-radius: 8px;
+  border: 2px solid var(--grey-200);
+  padding: 1.2rem 1.5rem 1.2rem 1.3rem;
+  color: var(--grey-700);
+  font-size: var(--xs-fs);
+  outline: none;
+  caret-color: var(--grey-400);
+  transition: 0.4s;
+  height: 4.8rem;
+}
+.authModal .inputCont input:hover {
+  border-color: var(--grey-300);
+  caret-color: var(--grey-200);
+  color: var(--grey-200);
+}
+.authModal .inputCont input:focus {
+  border-color: var(--grey-400);
+  caret-color: var(--grey-400);
+  color: var(--grey-700);
+}
+.authModal .inputCont:not(:has(.error)) .passwordWrapper:has(input:focus) .toggleBtn {
+  color: var(--grey-400);
+}
+.authModal .inputCont input::placeholder {
+  font-size: var(--xs-fs);
+  color: var(--grey-200);
+}
+.authModal .inputCont .error {
+  font-size: var(--helper-rs-fs);
+  color: var(--error);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.authModal .inputCont:has(.error) input,
+.authModal .inputCont:has(.error) input::placeholder,
+.authModal .inputCont:has(.error) label,
+.authModal .inputCont:has(.error) .toggleBtn {
+  color: var(--error);
+  border-color: var(--error);
+  caret-color: var(--error);
+}
+.authModal .showError {
+  animation: 0.4s showError ease forwards;
+}
+.authModal .hideError {
+  animation: 0.4s hideError ease forwards;
+}
+@keyframes showError {
+  from {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1.52rem;
+    margin-top: 0.5rem;
+  }
+}
+@keyframes hideError {
+  from {
+    opacity: 1;
+    max-height: 1.52rem;
+    margin-top: 0.5rem;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+}
+.authModal .submitBtn {
+  height: 4.7rem;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--brand-500);
+  font-size: var(--btn-s);
+  color: var(--grey-50);
+  width: 100%;
+  border: 2px solid transparent;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.authModal .submitBtn:hover,
+.authModal .submitBtn:focus-visible {
+  background-color: var(--brand-600);
+}
+.authModal .submitBtn:active {
+  background-color: var(--brand-700);
+}
+.authModal .submitBtn:focus-visible {
+  border-color: var(--brand-700);
+}
+.authModal button:disabled {
+  background-color: var(--grey-300) !important;
+  color: var(--grey-400);
+}
+.authModal footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 32rem;
+  position: relative;
+}
+.authModal .divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: var(--xs-fs);
+  color: var(--grey-400);
+  height: 2.1rem;
+}
+
+.authModal .divider::before,
+.authModal .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.authModal .divider:not(:empty)::before {
+  margin-right: 0.7rem;
+}
+
+.authModal .divider:not(:empty)::after {
+  margin-left: 0.7rem;
+}
+.authModal .logInCont {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.authModal .logInCont p {
+  font-size: var(--helper-rs-fs);
+  color: var(--grey-500);
+}
+.authModal .logInCont span {
+  font-size: var(--xs-fs);
+  color: var(--grey-900);
+  text-decoration-line: underline;
+  text-underline-offset: 0.4rem;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+}
+.authModal .logInCont span:hover,
+.authModal .logInCont span:focus-visible {
+  color: var(--brand-500);
+}
+.authModal .logInCont span:active {
+  color: var(--brand-600);
+}
+.authModal .passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.authModal .passwordWrapper input {
+  width: 100%;
+  padding-right: 4rem;
+}
+.authModal .toggleBtn {
+  color: var(--grey-300);
+  transition: 0.4s;
+}
+
+.authModal .toggleBtn:hover {
+  color: var(--brand-500);
+}
+.authModal .toggleBtn {
+  position: absolute;
+  right: 1.5rem;
+  /* top: 12px; */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.authModal .margin-bot {
+  margin-bottom: 0.8rem;
+}
+.authModal .generalError {
+  color: var(--error);
+}
