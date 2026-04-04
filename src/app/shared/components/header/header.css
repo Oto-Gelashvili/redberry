@@ -21,6 +21,14 @@ nav {
   gap: 36px;
   height: 56px;
 }
+.courseCont {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.imgCont {
+  display: flex;
+}
 .courses {
   display: flex;
   align-items: center;
@@ -90,4 +98,17 @@ nav .auth {
 .signBtn:focus-visible {
   border-color: var(--brand-700);
   background-color: var(--brand-600);
+}
+.avatarIcon {
+  cursor: pointer;
+  transition: 0.4s;
+  color: var(--brand-400);
+  outline: none;
+}
+.avatarIcon:hover,
+.avatarIcon:focus-visible {
+  color: var(--brand-600);
+}
+.avatarIcon:active {
+  color: var(--brand-700);
 }

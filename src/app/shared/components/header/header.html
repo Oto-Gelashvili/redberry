@@ -4,15 +4,35 @@
       <img src="Logo.svg" alt="brand logo" />
     </a>
     <nav>
-      <a routerLink="courses" class="courses">
-        <div class="imgCont">
-          <app-icon-library name="courseIcon" [size]="26"></app-icon-library>
-        </div>
-        <p>Browse Courses</p></a
-      >
+      <div class="courseCont">
+        <a routerLink="courses" class="courses">
+          <div class="imgCont">
+            <app-icon-library name="courseIcon" [size]="26"></app-icon-library>
+          </div>
+          <p>Browse Courses</p></a
+        >
+        @if (authService.isAuthenticated()) {
+          <a routerLink="courses" class="courses">
+            <div class="imgCont">
+              <app-icon-library name="browseIcon" [size]="26"></app-icon-library>
+            </div>
+            <p>Enrolled Courses</p></a
+          >
+        }
+      </div>
+
       <div class="auth">
-        <button class="logInBtn">Log In</button>
-        <button class="signBtn" (click)="toggleModal()">Sign Up</button>
+        @if (!authService.isAuthenticated()) {
+          <button class="logInBtn">Log In</button>
+          <button class="signBtn" (click)="toggleModal()">Sign Up</button>
+        } @else {
+          <app-icon-library
+            tabindex="0"
+            name="avatarIcon"
+            class="avatarIcon"
+            [size]="56"
+          ></app-icon-library>
+        }
       </div>
     </nav>
   </div>
