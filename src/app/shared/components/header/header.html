@@ -25,6 +25,8 @@
         @if (!authService.isAuthenticated()) {
           <button class="logInBtn">Log In</button>
           <button class="signBtn" (click)="toggleModal()">Sign Up</button>
+        } @else if (authService.user()?.avatar) {
+          <img [src]="authService.user()?.avatar" alt="user avatar" class="avatarIcon" />
         } @else {
           <app-icon-library
             tabindex="0"

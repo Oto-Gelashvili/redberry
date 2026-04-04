@@ -104,6 +104,9 @@ nav .auth {
   transition: 0.4s;
   color: var(--brand-400);
   outline: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
 }
 .avatarIcon:hover,
 .avatarIcon:focus-visible {

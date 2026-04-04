@@ -1,4 +1,3 @@
-// src/app/services/auth.service.ts
 import { Injectable, signal, computed } from '@angular/core';
 
 export interface User {
@@ -20,30 +19,41 @@ export class AuthService {
   private _token = signal<string | null>(null);
 
   user = this._user.asReadonly();
-  token = this._token.asReadonly();
   isAuthenticated = computed(() => !!this._token());
 
   constructor() {
     const savedToken = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
-    if (savedToken && savedUser) {
+    if (savedToken) {
       this._token.set(savedToken);
-      this._user.set(JSON.parse(savedUser));
+      this.fetchMe();
     }
   }
 
+  async fetchMe() {
+    try {
+      const res = await fetch(`${BASE_URL}/me`, {
+        headers: { Authorization: `Bearer ${this._token()}` },
+      });
+
+      if (res.status === 401) {
+        this.logout();
+        return;
+      }
+
+      const json = await res.json();
+      this._user.set(json.data);
+    } catch {}
+  }
   setSession(user: User, token: string) {
     this._user.set(user);
     this._token.set(token);
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
   }
 
   logout() {
     this._user.set(null);
     this._token.set(null);
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
   }
 
   async register(formData: FormData) {
