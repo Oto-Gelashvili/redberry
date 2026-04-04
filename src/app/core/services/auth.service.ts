@@ -36,13 +36,17 @@ export class AuthService {
       });
 
       if (res.status === 401) {
-        this.logout();
+        this._user.set(null);
+        this._token.set(null);
+        localStorage.removeItem('token');
         return;
       }
 
       const json = await res.json();
       this._user.set(json.data);
-    } catch {}
+    } catch {
+      // network error on app start — keep existing session state
+    }
   }
   setSession(user: User, token: string) {
     this._user.set(user);
@@ -50,10 +54,19 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  logout() {
-    this._user.set(null);
-    this._token.set(null);
-    localStorage.removeItem('token');
+  async logout() {
+    try {
+      await fetch(`${BASE_URL}/logout`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${this._token()}` },
+      });
+    } catch {
+      // if network fails
+    } finally {
+      this._user.set(null);
+      this._token.set(null);
+      localStorage.removeItem('token');
+    }
   }
 
   async register(formData: FormData) {
