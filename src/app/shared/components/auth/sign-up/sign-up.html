@@ -1,5 +1,11 @@
 <div class="singUpCont authModal">
-  <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
+  <img
+    tabindex="0"
+    src="close.svg"
+    (click)="onClose('close')"
+    alt="close button"
+    class="closeBtn"
+  />
   @if (steps() !== 1) {
     <img
       tabindex="0"
@@ -183,7 +189,7 @@
       <div class="divider">or</div>
       <div class="logInCont">
         <p>Already have an account?</p>
-        <span tabindex="0">Log In</span>
+        <span tabindex="0" (click)="onClose('logIn')">Log In</span>
       </div>
     </footer>
   </form>

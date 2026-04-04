@@ -13,6 +13,7 @@ export class SignUp {
   private readonly authService = inject(AuthService);
 
   protected closeModal = output<void>();
+  protected closeModalLogIn = output<void>();
   protected passwordVisible = signal(true);
   protected confrimPasswordVisible = signal(false);
   protected selectedFile = signal<File | null>(null);
@@ -33,9 +34,15 @@ export class SignUp {
   });
 
   //close and reset modal
-  protected onClose() {
+  protected onClose(type: string) {
     this.steps.set(1);
-    this.closeModal.emit();
+
+    if (type === 'logIn') {
+      this.closeModalLogIn.emit();
+    }
+    if (type === 'close') {
+      this.closeModal.emit();
+    }
   }
 
   //back arrow
@@ -161,7 +168,7 @@ export class SignUp {
     try {
       const res = await this.authService.register(formData);
       this.authService.setSession(res.data.user, res.data.token);
-      this.onClose();
+      this.onClose('close');
     } catch (err: any) {
       if (err.status === 422) {
         const errors = err.error.errors ?? {};

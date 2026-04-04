@@ -40,8 +40,19 @@
   </div>
 </header>
 @if (isModalRendered()) {
-  <app-sign-up (closeModal)="toggleModal()"></app-sign-up>
+  <div class="backdrop" (click)="toggleModal()">
+    <div (click)="$event.stopPropagation()">
+      <app-sign-up
+        (closeModal)="toggleModal()"
+        (closeModalLogIn)="toggleLogInModal()"
+      ></app-sign-up>
+    </div>
+  </div>
 }
 @if (isLogInModalRendered()) {
-  <app-log-in (closeModal)="toggleLogInModal()" (closeModalSignUp)="toggleModal()"></app-log-in>
+  <div class="backdrop" (click)="toggleLogInModal()">
+    <div (click)="$event.stopPropagation()">
+      <app-log-in (closeModal)="toggleLogInModal()" (closeModalSignUp)="toggleModal()"></app-log-in>
+    </div>
+  </div>
 }
