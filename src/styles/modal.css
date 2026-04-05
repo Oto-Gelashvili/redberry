@@ -10,6 +10,15 @@
   /* top: 303px;
   left: 730px; */
 }
+.modalCont form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+}
+.modalCont h2 {
+  color: var(--grey-900);
+}
 .modalCont .closeBtn {
   position: absolute;
   top: 20.5px;
@@ -39,7 +48,7 @@
   border-radius: 8px;
   border: 2px solid var(--grey-200);
   padding: 1.2rem 1.5rem 1.2rem 1.3rem;
-  color: var(--grey-700);
+  color: var(--grey-400);
   font-size: var(--xs-fs);
   outline: none;
   caret-color: var(--grey-400);
@@ -56,7 +65,7 @@
   caret-color: var(--grey-400);
   color: var(--grey-700);
 }
-.modalCont .inputCont:not(:has(.error)) .pper:has(input:focus) .toggleBtn {
+.modalCont .inputCont:not(:has(.error)) .inputWithIconCont:has(input:focus) .inputsIcon {
   color: var(--grey-400);
 }
 .modalCont .inputCont input::placeholder {
@@ -72,7 +81,7 @@
 .modalCont .inputCont:has(.error) input,
 .modalCont .inputCont:has(.error) input::placeholder,
 .modalCont .inputCont:has(.error) label,
-.modalCont .inputCont:has(.error) .toggleBtn {
+.modalCont .inputCont:has(.error) .inputsIcon {
   color: var(--error);
   border-color: var(--error);
   caret-color: var(--error);
@@ -127,9 +136,9 @@
 .modalCont .inputsIcon {
   position: absolute;
   right: 1.5rem;
-  /* top: 12px; */
-  top: 50%;
-  transform: translateY(-50%);
+  top: 1.2rem;
+  /* top: 50%;
+  transform: translateY(-50%); */
   background: none;
   border: none;
   padding: 0;

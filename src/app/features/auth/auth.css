@@ -1,18 +1,10 @@
-.authModal form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  align-items: center;
-}
 .authModal .heading {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   align-items: center;
 }
-.authModal h2 {
-  color: var(--grey-900);
-}
+
 .authModal .heading p {
   color: var(--grey-500);
   font-size: var(--xs-fs);

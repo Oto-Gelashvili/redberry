@@ -1,1 +1,78 @@
-<div class="modalCont"></div>
+<div class="modalCont">
+  <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
+  <div class="heading">
+    <h2>Profile</h2>
+    <div class="desc">
+      @if (authService.user()?.avatar) {
+        <img [src]="authService.user()?.avatar" alt="user avatar" />
+      } @else {
+        <app-icon-library tabindex="0" name="avatarIcon" [size]="56"></app-icon-library>
+      }
+      <div class="textDesc">
+        <h4>{{ authService.user()?.username }}</h4>
+        <p class="profStatus" [class.incomplete]="authService.user()?.profileComplete === false">
+          {{ authService.user()?.profileComplete ? 'Profile is Complete' : 'Incomplete Profile' }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="inputContWrapper">
+      <div class="inputCont">
+        <label for="fullName">Full Name</label>
+        <div class="inputWithIconCont">
+          <input
+            name="fullName"
+            id="fullName"
+            type="text"
+            class="darkerInput"
+            placeholder="Username"
+            formControlName="fullName"
+          />
+          @if (profileForm.get('fullName')?.valid) {
+            <button type="button" class="inputsIcon" tabindex="-1">
+              <app-icon-library [name]="'checkmark'" [size]="22"></app-icon-library>
+            </button>
+          } @else {
+            <button type="button" class="inputsIcon" tabindex="-1">
+              <app-icon-library [name]="'edit'" [size]="22"></app-icon-library>
+            </button>
+          }
+        </div>
+
+        @if (profileForm.get('fullName')?.touched) {
+          @if (profileForm.get('fullName')?.hasError('required')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Name is required
+            </p>
+          } @else if (profileForm.get('fullName')?.hasError('minlength')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Name must be at least 3 characters
+            </p>
+          } @else if (profileForm.get('fullName')?.hasError('maxlength')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Name must not exceed 50 characters
+            </p>
+          } @else if (profileForm.get('fullName')?.hasError('pattern')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Name can only contain letters and spaces
+            </p>
+          }
+        }
+      </div>
+    </div>
+    @if (generalError()) {
+      <h5 class="error generalError" animate.enter="showError" animate.leave="hideError">
+        {{ generalError() }}
+      </h5>
+    }
+
+    <button type="submit" [disabled]="getIsBtnDisabled()" class="buttonS">
+      @if (isLoading()) {
+        <app-loader></app-loader>
+      } @else {
+        Update Profile
+      }
+    </button>
+  </form>
+</div>
