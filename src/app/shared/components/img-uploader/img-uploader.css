@@ -1,0 +1,120 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.avatarInput {
+  display: none;
+}
+.avatarLabel {
+  margin-bottom: 1.2rem;
+}
+.uploadBox {
+  width: 100%;
+  border: 2px solid var(--grey-200);
+  border-radius: 8px;
+  padding-block: 3rem;
+  background-color: var(--grey-50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--grey-300);
+  transition: 0.5s;
+  cursor: pointer;
+  height: 14rem;
+}
+.uploadBox:hover,
+.uploadBox.uploaded {
+  background-color: var(--brand-50);
+  border-color: var(--brand-100);
+}
+.uploadBox:active,
+.uploadBox.dragging {
+  background-color: var(--brand-100);
+  border-color: var(--brand-200);
+}
+.uploadBox:active .uploadIcon {
+  color: var(--grey-400);
+}
+
+.uploadBox .mainText {
+  color: var(--grey-500);
+}
+
+.uploadBox .textCont {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: var(--xs-fs);
+}
+.uploadBox .mainText span {
+  color: var(--brand-600);
+  text-decoration-line: underline;
+  text-underline-offset: 0.4rem;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+}
+.uploadBox .mainText span:hover,
+.uploadBox .mainText span:focus-visible {
+  color: var(--brand-700);
+}
+.uploadBox .mainText span:active {
+  color: var(--brand-800);
+}
+.uploadBox .subText {
+  font-size: var(--helper-rs-fs);
+  font-weight: var(--helper-r-fw);
+}
+.previewCont {
+  display: flex;
+  align-items: center;
+  padding-inline: 4rem;
+  width: 100%;
+  gap: 1rem;
+  height: 100%;
+}
+.previewImg {
+  border-radius: 4rem;
+  width: 5.4rem;
+  height: 5.4rem;
+}
+.previewTextCont {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.2rem;
+  width: 100%;
+}
+.previewName {
+  font-size: var(--helper-rs-fs);
+  color: var(--grey-600);
+  font-weight: var(--helper-r-fw);
+  /* 54px is width of avatar  */
+  max-width: calc(100% - 5.4rem);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.previewSize {
+  color: var(--grey-300);
+  font-size: var(--helper-rxs-fs);
+  font-weight: var(--helper-r-fw);
+}
+.previewChange {
+  color: var(--brand-500);
+  font-size: var(--helper-rxs-fs);
+  text-decoration-line: underline;
+  text-underline-offset: 0.4rem;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+}
+.previewChange:hover,
+.previewChange:focus-visible {
+  color: var(--brand-600);
+}
+.previewChange:active {
+  color: var(--brand-700);
+}

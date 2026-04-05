@@ -3,22 +3,22 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { IconLibrary } from '../../icon-library/icon-library';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Loader } from '../../loader/loader';
+import { ImgUploader } from '../../img-uploader/img-uploader';
 
 @Component({
   selector: 'app-sign-up',
-  imports: [ReactiveFormsModule, IconLibrary, Loader],
+  imports: [ReactiveFormsModule, IconLibrary, Loader, ImgUploader],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css',
 })
 export class SignUp {
   private readonly authService = inject(AuthService);
 
+  protected selectedFile = signal<File | null>(null);
   protected closeModal = output<void>();
   protected closeModalLogIn = output<void>();
   protected passwordVisible = signal(true);
   protected confrimPasswordVisible = signal(false);
-  protected selectedFile = signal<File | null>(null);
-  protected previewUrl = signal<string | null>(null);
   protected isDragging = signal(false);
   protected steps = signal(1);
 
@@ -85,56 +85,17 @@ export class SignUp {
   }
 
   //avatar
-  protected onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.setFile(file);
-  }
-
-  private setFile(file: File) {
-    if (!file) return;
-
-    const control = this.signUpForm.get('avatar');
-    const maxSize = 1024 * 1024;
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-
-    if (!allowedTypes.includes(file.type)) {
-      control?.setErrors({ incorrectFormat: true });
-      return;
-    }
-    if (file.size > maxSize) {
-      control?.setErrors({ tooLarge: true });
-      return;
-    }
-    control?.setErrors(null);
-
+  protected onFileSelected(file: File) {
     this.selectedFile.set(file);
-    this.previewUrl.set(URL.createObjectURL(file));
+    const control = this.signUpForm.get('avatar');
+    control?.setErrors(null);
     control?.setValue(file.name);
   }
 
-  protected onDragOver(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragging.set(true);
+  protected onFileError(error: 'incorrectFormat' | 'tooLarge') {
+    const control = this.signUpForm.get('avatar');
+    control?.setErrors({ [error]: true });
   }
-
-  protected onDragLeave(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragging.set(false);
-  }
-
-  protected onDrop(event: DragEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isDragging.set(false);
-
-    const files = event.dataTransfer?.files;
-    if (files && files.length > 0) {
-      this.setFile(files[0]);
-    }
-  }
-
   //clear server error on input chnage
   protected clearServerError(field: string) {
     if (this.serverErrors()[field]) {

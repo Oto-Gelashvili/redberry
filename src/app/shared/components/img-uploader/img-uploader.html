@@ -1,0 +1,38 @@
+<label for="avatar" class="avatarLabel">Upload Avatar</label>
+<input
+  type="file"
+  id="avatar"
+  name="avatar"
+  class="avatarInput"
+  #fileInput
+  (change)="onFileSelected($event)"
+  accept=".jpg,.jpeg,.png,.webp"
+/>
+<div
+  class="uploadBox"
+  (click)="fileInput.click()"
+  [class.uploaded]="selectedFile()"
+  [class.dragging]="isDragging()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  @if (!selectedFile()) {
+    <app-icon-library name="upload" class="uploadIcon" [size]="34"></app-icon-library>
+    <div class="textCont">
+      <p class="mainText">Drag and drop or <span tabindex="0">Upload file</span></p>
+      <p class="subText">JPG, PNG or WebP</p>
+    </div>
+  } @else {
+    <div class="previewCont">
+      <img [src]="previewUrl()" alt="avatar" class="previewImg" />
+      <div class="previewTextCont">
+        <p class="previewName">{{ selectedFile()?.name }}</p>
+        <p class="previewSize">{{ ((selectedFile()?.size ?? 0) / 1024).toFixed(0) }} KB</p>
+        <span class="previewChange" (click)="$event.stopPropagation(); fileInput.click()">
+          Change
+        </span>
+      </div>
+    </div>
+  }
+</div>
