@@ -1,4 +1,4 @@
-<div class="singUpCont authModal">
+<div class="modalCont authModal">
   <img
     tabindex="0"
     src="close.svg"
@@ -30,7 +30,7 @@
     </div>
     <div class="inputCont">
       <label for="password">Password*</label>
-      <div class="passwordWrapper">
+      <div class="inputWithIconCont">
         <input
           name="password"
           id="password"
@@ -38,7 +38,7 @@
           placeholder="Enter password"
           formControlName="password"
         />
-        <button type="button" (click)="togglePassword()" class="toggleBtn" tabindex="-1">
+        <button type="button" (click)="togglePassword()" class="inputsIcon" tabindex="-1">
           <app-icon-library
             [name]="passwordVisible() ? 'eye-open' : 'eye-close'"
             [size]="22"
@@ -58,7 +58,7 @@
       </h5>
     }
 
-    <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
+    <button type="submit" [disabled]="getIsBtnDisabled()" class="buttonS">
       @if (isLoading()) {
         <app-loader></app-loader>
       } @else {

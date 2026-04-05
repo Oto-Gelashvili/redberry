@@ -1,4 +1,4 @@
-<div class="singUpCont authModal">
+<div class="modalCont authModal">
   <img
     tabindex="0"
     src="close.svg"
@@ -52,7 +52,7 @@
     @if (steps() === 2) {
       <div class="inputCont margin-bot">
         <label for="password">Password*</label>
-        <div class="passwordWrapper">
+        <div class="inputWithIconCont">
           <input
             name="password"
             id="password"
@@ -60,7 +60,7 @@
             placeholder="Enter password"
             formControlName="password"
           />
-          <button type="button" (click)="togglePassword()" class="toggleBtn" tabindex="-1">
+          <button type="button" (click)="togglePassword()" class="inputsIcon" tabindex="-1">
             <app-icon-library
               [name]="passwordVisible() ? 'eye-open' : 'eye-close'"
               [size]="22"
@@ -75,7 +75,7 @@
       </div>
       <div class="inputCont">
         <label for="confirmPassword">Confirm Password*</label>
-        <div class="passwordWrapper">
+        <div class="inputWithIconCont">
           <input
             name="confirmPassword"
             id="confirmPassword"
@@ -83,7 +83,7 @@
             placeholder="Confirm password"
             formControlName="confirmPassword"
           />
-          <button type="button" (click)="toggleConfirmPassword()" class="toggleBtn" tabindex="-1">
+          <button type="button" (click)="toggleConfirmPassword()" class="inputsIcon" tabindex="-1">
             <app-icon-library
               [name]="confrimPasswordVisible() ? 'eye-open' : 'eye-close'"
               [size]="22"
@@ -141,7 +141,7 @@
       </p>
     }
 
-    <button type="submit" [disabled]="getIsBtnDisabled()" class="submitBtn">
+    <button type="submit" [disabled]="getIsBtnDisabled()" class="buttonS">
       @if (isLoading()) {
         <app-loader></app-loader>
       } @else if (steps() === 3) {

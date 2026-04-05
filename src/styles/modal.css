@@ -1,0 +1,140 @@
+.modalCont {
+  padding: 5rem;
+  border-radius: 12px;
+  width: 46rem;
+  background-color: var(--grey-50);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* top: 303px;
+  left: 730px; */
+}
+.modalCont .closeBtn {
+  position: absolute;
+  top: 20.5px;
+  right: 15px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.modalCont .closeBtn:hover {
+  transform: scale(1.1);
+}
+.modalCont .closeBtn:focus-visible {
+  outline: 1px solid var(--brand-500);
+}
+
+.modalCont .inputCont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.modalCont .inputCont label {
+  font-size: var(--xs-fs);
+  color: var(--grey-700);
+  width: fit-content;
+  margin-bottom: 0.8rem;
+}
+.modalCont .inputCont input {
+  border-radius: 8px;
+  border: 2px solid var(--grey-200);
+  padding: 1.2rem 1.5rem 1.2rem 1.3rem;
+  color: var(--grey-700);
+  font-size: var(--xs-fs);
+  outline: none;
+  caret-color: var(--grey-400);
+  transition: 0.4s;
+  height: 4.8rem;
+}
+.modalCont .inputCont input:hover {
+  border-color: var(--grey-300);
+  caret-color: var(--grey-200);
+  color: var(--grey-200);
+}
+.modalCont .inputCont input:focus {
+  border-color: var(--grey-400);
+  caret-color: var(--grey-400);
+  color: var(--grey-700);
+}
+.modalCont .inputCont:not(:has(.error)) .pper:has(input:focus) .toggleBtn {
+  color: var(--grey-400);
+}
+.modalCont .inputCont input::placeholder {
+  font-size: var(--xs-fs);
+  color: var(--grey-200);
+}
+.modalCont .inputCont .error {
+  font-size: var(--helper-rs-fs);
+  color: var(--error);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.modalCont .inputCont:has(.error) input,
+.modalCont .inputCont:has(.error) input::placeholder,
+.modalCont .inputCont:has(.error) label,
+.modalCont .inputCont:has(.error) .toggleBtn {
+  color: var(--error);
+  border-color: var(--error);
+  caret-color: var(--error);
+}
+.modalCont .showError {
+  animation: 0.4s showError ease forwards;
+}
+.modalCont .hideError {
+  animation: 0.4s hideError ease forwards;
+}
+@keyframes showError {
+  from {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 2rem;
+    margin-top: 0.5rem;
+  }
+}
+@keyframes hideError {
+  from {
+    opacity: 1;
+    max-height: 2rem;
+    margin-top: 0.5rem;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+  }
+}
+.modalCont .inputWithIconCont {
+  position: relative;
+  width: 100%;
+}
+
+.modalCont .inputWithIconCont input {
+  width: 100%;
+  padding-right: 4rem;
+}
+.modalCont .inputsIcon {
+  color: var(--grey-300);
+  transition: 0.4s;
+}
+
+.modalCont .inputsIcon:hover {
+  color: var(--brand-500);
+}
+.modalCont .inputsIcon {
+  position: absolute;
+  right: 1.5rem;
+  /* top: 12px; */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,4 +1,5 @@
 @import './app/features/auth/auth.css';
+@import './styles/modal.css';
 
 :root {
   /* text styles */
@@ -196,4 +197,37 @@ h4 {
 h5 {
   font-size: 1.6rem;
   font-weight: 600;
+}
+
+.buttonS {
+  height: 4.7rem;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--brand-500);
+  font-size: var(--btn-s);
+  color: var(--grey-50);
+  width: 100%;
+  border: 2px solid transparent;
+  transition: 0.4s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonS:hover,
+.buttonS:focus-visible {
+  background-color: var(--brand-600);
+}
+.buttonS:active {
+  background-color: var(--brand-700);
+}
+.buttonS:focus-visible {
+  border-color: var(--brand-700);
+}
+.buttonS:disabled {
+  background-color: var(--grey-300) !important;
+  color: var(--grey-400);
+}
+.generalError {
+  color: var(--error);
 }
