@@ -26,13 +26,19 @@
           <button class="logInBtn" (click)="toggleLogInModal()">Log In</button>
           <button class="signBtn" (click)="toggleModal()">Sign Up</button>
         } @else if (authService.user()?.avatar) {
-          <img [src]="authService.user()?.avatar" alt="user avatar" class="avatarIcon" />
+          <img
+            [src]="authService.user()?.avatar"
+            alt="user avatar"
+            (click)="toggleProfileModal()"
+            class="avatarIcon"
+          />
         } @else {
           <app-icon-library
             tabindex="0"
             name="avatarIcon"
             class="avatarIcon"
             [size]="56"
+            (click)="toggleProfileModal()"
           ></app-icon-library>
         }
       </div>
@@ -53,6 +59,13 @@
   <div class="backdrop" (click)="toggleLogInModal()">
     <div (click)="$event.stopPropagation()">
       <app-log-in (closeModal)="toggleLogInModal()" (closeModalSignUp)="toggleModal()"></app-log-in>
+    </div>
+  </div>
+}
+@if (isProfileModalRendered()) {
+  <div class="backdrop" (click)="toggleProfileModal()">
+    <div (click)="$event.stopPropagation()">
+      <app-profile (closeModal)="toggleProfileModal()"></app-profile>
     </div>
   </div>
 }
