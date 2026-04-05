@@ -1,4 +1,4 @@
-@import './app/shared/components/auth/auth.css';
+@import './app/features/auth/auth.css';
 
 :root {
   /* text styles */

@@ -1,8 +1,8 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
-import { IconLibrary } from '../../icon-library/icon-library';
-import { Loader } from '../../loader/loader';
+import { IconLibrary } from '../../../shared/components/icon-library/icon-library';
+import { Loader } from '../../../shared/components/loader/loader';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-log-in',

@@ -1,9 +1,9 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IconLibrary } from '../../icon-library/icon-library';
-import { AuthService } from '../../../../core/services/auth.service';
-import { Loader } from '../../loader/loader';
-import { ImgUploader } from '../../img-uploader/img-uploader';
+import { AuthService } from '../../../core/services/auth.service';
+import { IconLibrary } from '../../../shared/components/icon-library/icon-library';
+import { Loader } from '../../../shared/components/loader/loader';
+import { ImgUploader } from '../../../shared/components/img-uploader/img-uploader';
 
 @Component({
   selector: 'app-sign-up',

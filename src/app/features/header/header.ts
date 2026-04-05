@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SignUp } from '../auth/sign-up/sign-up';
-import { IconLibrary } from '../icon-library/icon-library';
-import { AuthService } from '../../../core/services/auth.service';
+import { IconLibrary } from '../../shared/components/icon-library/icon-library';
+import { AuthService } from '../../core/services/auth.service';
 import { LogIn } from '../auth/log-in/log-in';
+import { SignUp } from '../auth/sign-up/sign-up';
 
 @Component({
   selector: 'app-header',
