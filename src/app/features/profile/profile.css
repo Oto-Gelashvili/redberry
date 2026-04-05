@@ -1,8 +1,11 @@
-.modalCont .inputCont:not(:has(.error)) input {
+.modalCont .inputCont input,
+.modalCont .errorCont input {
   color: var(--grey-300);
 }
-.modalCont .inputCont:not(:has(.error)) input:focus,
-.modalCont .inputCont:not(:has(.error)) .inputWithIconCont:has(input:focus) .inputsIcon {
+.modalCont .inputCont input:focus,
+.modalCont .errorCont input:focus,
+.modalCont .inputCont .inputWithIconCont:has(input:focus) .inputsIcon,
+.modalCont .errorCont .inputWithIconCont:has(input:focus) .inputsIcon {
   color: var(--grey-700);
 }
 .inputContWrapper {
@@ -11,7 +14,8 @@
   flex-direction: column;
   gap: 1.2rem;
 }
-.modalCont .inputCont:not(:has(.error)) input.darkerInput {
+.modalCont .inputCont input.darkerInput,
+.modalCont .errorCont input.darkerInput {
   border-color: var(--grey-300);
   background-color: var(--grey-100);
 }
@@ -71,19 +75,42 @@ h4 {
 .phonePrefixCont input {
   padding-left: 5rem;
 }
-.modalCont .inputCont:not(:has(.error)) .phonePrefixCont input:hover,
-.modalCont .inputCont:not(:has(.error)) .inputWithIconCont input:hover {
+/* .modalCont .inputCont:has(.error) .phonePrefixCont .phonePrefix,
+.modalCont .errorCont:has(.error) .phonePrefixCont .phonePrefix {
+  color: var(--error);
+} */
+.modalCont .inputCont .phonePrefixCont input:hover,
+.modalCont .errorCont .phonePrefixCont input:hover,
+.modalCont .inputCont .inputWithIconCont input:hover,
+.modalCont .errorCont .inputWithIconCont input:hover {
   border-color: var(--grey-300);
   caret-color: var(--grey-200);
   color: var(--grey-200);
 }
-.modalCont .inputCont:not(:has(.error)) .inputWithIconCont .darkerInput:hover {
+.modalCont .inputCont .inputWithIconCont .darkerInput:hover {
   border-color: var(--grey-500);
 }
 
-.modalCont .inputCont:not(:has(.error)) .phonePrefixCont input:focus,
-.modalCont .inputCont:not(:has(.error)) .inputWithIconCont input:focus {
+.modalCont .inputCont .phonePrefixCont input:focus,
+.modalCont .errorCont .phonePrefixCont input:focus,
+.modalCont .inputCont .inputWithIconCont input:focus,
+.modalCont .errorCont .inputWithIconCont input:focus {
   border-color: var(--grey-400);
   caret-color: var(--grey-400);
   color: var(--grey-700);
+}
+.inputRowCont {
+  display: flex;
+  gap: 8px;
+}
+.inputRowCont .inputCont:first-child {
+  min-width: 267px;
+}
+.errorCont {
+  width: 100%;
+  text-align: center;
+}
+.inputColumnCont {
+  display: flex;
+  flex-direction: column;
 }

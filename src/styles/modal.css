@@ -65,26 +65,33 @@
   caret-color: var(--grey-400);
   color: var(--grey-700);
 }
-.modalCont .inputCont:not(:has(.error)) .inputWithIconCont:has(input:focus) .inputsIcon {
-  color: var(--grey-400);
+.modalCont .inputWithIconCont:has(input:focus) .inputsIcon {
+  color: var(--grey-900);
 }
 .modalCont .inputCont input::placeholder {
   font-size: var(--xs-fs);
   color: var(--grey-200);
 }
-.modalCont .inputCont .error {
+
+.modalCont .inputCont .error,
+.modalCont .errorCont .error {
   font-size: var(--helper-rs-fs);
-  color: var(--error);
+  color: var(--error) !important;
   margin-top: 0.5rem;
   overflow: hidden;
+}
+.applyErrorCont {
+  color: var(--error) !important;
+  border-color: var(--error) !important;
+  caret-color: var(--error) !important;
 }
 .modalCont .inputCont:has(.error) input,
 .modalCont .inputCont:has(.error) input::placeholder,
 .modalCont .inputCont:has(.error) label,
 .modalCont .inputCont:has(.error) .inputsIcon {
-  color: var(--error);
-  border-color: var(--error);
-  caret-color: var(--error);
+  color: var(--error) !important;
+  border-color: var(--error) !important;
+  caret-color: var(--error) !important;
 }
 .modalCont .showError {
   animation: 0.4s showError ease forwards;
@@ -100,14 +107,14 @@
   }
   to {
     opacity: 1;
-    max-height: 2rem;
+    max-height: 1.7rem;
     margin-top: 0.5rem;
   }
 }
 @keyframes hideError {
   from {
     opacity: 1;
-    max-height: 2rem;
+    max-height: 1.7rem;
     margin-top: 0.5rem;
   }
   to {

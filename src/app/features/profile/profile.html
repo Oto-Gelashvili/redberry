@@ -79,49 +79,124 @@
           </button>
         </div>
       </div>
-      <div class="inputCont">
-        <label for="mobile">Mobile Number</label>
-        <div class="inputWithIconCont">
-          <div class="phonePrefixCont">
-            <span class="phonePrefix">+995</span>
-            <input
-              name="mobile"
-              id="mobile"
-              type="tel"
-              class="darkerInput"
-              placeholder="558212529"
-              formControlName="mobile"
-            />
+      <div class="inputColumnCont">
+        <div class="inputRowCont">
+          <div class="inputCont">
+            <label [class.applyErrorCont]="applyMobileErrorCont()" for="mobile"
+              >Mobile Number</label
+            >
+            <div class="inputWithIconCont">
+              <div class="phonePrefixCont">
+                <span class="phonePrefix" [class.applyErrorCont]="applyMobileErrorCont()"
+                  >+995</span
+                >
+                <input
+                  name="mobile"
+                  id="mobile"
+                  type="tel"
+                  class="darkerInput"
+                  [class.applyErrorCont]="applyMobileErrorCont()"
+                  placeholder="Enter mobile number"
+                  formControlName="mobile"
+                />
+              </div>
+              @if (profileForm.get('mobile')?.valid) {
+                <button type="button" class="inputsIcon" tabindex="-1">
+                  <app-icon-library name="checkmark" [size]="22"></app-icon-library>
+                </button>
+              } @else {
+                <button
+                  type="button"
+                  class="inputsIcon"
+                  [class.applyErrorCont]="applyMobileErrorCont()"
+                  tabindex="-1"
+                >
+                  <app-icon-library name="edit" [size]="22"></app-icon-library>
+                </button>
+              }
+            </div>
           </div>
-          @if (profileForm.get('mobile')?.valid) {
-            <button type="button" class="inputsIcon" tabindex="-1">
-              <app-icon-library name="checkmark" [size]="22"></app-icon-library>
-            </button>
-          } @else {
-            <button type="button" class="inputsIcon" tabindex="-1">
-              <app-icon-library name="edit" [size]="22"></app-icon-library>
-            </button>
+          <div class="inputCont">
+            <label [class.applyErrorCont]="applyAgeErrorCont()" for="age">Age</label>
+            <div class="inputWithIconCont">
+              <input
+                name="age"
+                id="age"
+                type="number"
+                class="darkerInput"
+                [class.applyErrorCont]="applyAgeErrorCont()"
+                placeholder="18"
+                formControlName="age"
+              />
+              @if (profileForm.get('age')?.valid) {
+                <button type="button" class="inputsIcon" tabindex="-1">
+                  <app-icon-library name="checkmark" [size]="22"></app-icon-library>
+                </button>
+              } @else {
+                <button
+                  type="button"
+                  class="inputsIcon"
+                  [class.applyErrorCont]="applyAgeErrorCont()"
+                  tabindex="-1"
+                >
+                  <app-icon-library name="edit" [size]="22"></app-icon-library>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="errorCont">
+          @if (profileForm.get('mobile')?.touched) {
+            @if (profileForm.get('mobile')?.hasError('required')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Mobile number is required
+              </p>
+            } @else if (profileForm.get('mobile')?.hasError('mobileFormat')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Please enter a valid Georgian mobile number (9 digits starting with 5)
+              </p>
+            } @else if (profileForm.get('mobile')?.hasError('mobileStartsWith')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Georgian mobile numbers must start with 5
+              </p>
+            } @else if (profileForm.get('mobile')?.hasError('mobileLength')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Mobile number must be exactly 9 digits
+              </p>
+            }
+          }
+          @if (profileForm.get('age')?.touched) {
+            @if (profileForm.get('age')?.hasError('required')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Age is required
+              </p>
+            } @else if (profileForm.get('age')?.hasError('ageNotNumber')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Age must be a number
+              </p>
+            } @else if (profileForm.get('age')?.hasError('ageTooYoung')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                You must be at least 16 years old to enroll
+              </p>
+            } @else if (profileForm.get('age')?.hasError('ageInvalid')) {
+              <p class="error" animate.enter="showError" animate.leave="hideError">
+                Please enter a valid age
+              </p>
+            }
           }
         </div>
-
-        @if (profileForm.get('mobile')?.touched) {
-          @if (profileForm.get('mobile')?.hasError('required')) {
-            <p class="error" animate.enter="showError" animate.leave="hideError">
-              Mobile number is required
-            </p>
-          } @else if (profileForm.get('mobile')?.hasError('mobileFormat')) {
-            <p class="error" animate.enter="showError" animate.leave="hideError">
-              Please enter a valid Georgian mobile number (9 digits starting with 5)
-            </p>
-          } @else if (profileForm.get('mobile')?.hasError('mobileStartsWith')) {
-            <p class="error" animate.enter="showError" animate.leave="hideError">
-              Georgian mobile numbers must start with 5
-            </p>
-          } @else if (profileForm.get('mobile')?.hasError('mobileLength')) {
-            <p class="error" animate.enter="showError" animate.leave="hideError">
-              Mobile number must be exactly 9 digits
-            </p>
-          }
+      </div>
+      <div class="inputCont">
+        <app-upload-input
+          [initialFile]="selectedFile()"
+          (fileSelected)="onFileSelected($event)"
+          (fileError)="onFileError($event)"
+        ></app-upload-input>
+        @if (profileForm.get('avatar')?.hasError('incorrectFormat')) {
+          <p class="error">Unsupported file format. Please use JPG, PNG or WebP</p>
+        }
+        @if (profileForm.get('avatar')?.hasError('tooLarge')) {
+          <p class="error">Maximum File size is 1MB</p>
         }
       </div>
     </div>
