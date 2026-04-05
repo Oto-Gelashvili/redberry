@@ -1,7 +1,7 @@
-.modalCont .inputCont input {
+.modalCont .inputCont:not(:has(.error)) input {
   color: var(--grey-300);
 }
-.modalCont .inputCont input:focus,
+.modalCont .inputCont:not(:has(.error)) input:focus,
 .modalCont .inputCont:not(:has(.error)) .inputWithIconCont:has(input:focus) .inputsIcon {
   color: var(--grey-700);
 }
@@ -11,7 +11,7 @@
   flex-direction: column;
   gap: 1.2rem;
 }
-.modalCont .inputCont input.darkerInput {
+.modalCont .inputCont:not(:has(.error)) input.darkerInput {
   border-color: var(--grey-300);
   background-color: var(--grey-100);
 }
@@ -51,4 +51,39 @@ h4 {
 }
 .profStatus.incomplete {
   color: var(--warning);
+}
+.phonePrefixCont {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.phonePrefix {
+  position: absolute;
+  left: 1.3rem;
+  color: var(--grey-200);
+  font-size: var(--xs-fs);
+  pointer-events: none;
+  user-select: none;
+  margin-right: 4px;
+}
+
+.phonePrefixCont input {
+  padding-left: 5rem;
+}
+.modalCont .inputCont:not(:has(.error)) .phonePrefixCont input:hover,
+.modalCont .inputCont:not(:has(.error)) .inputWithIconCont input:hover {
+  border-color: var(--grey-300);
+  caret-color: var(--grey-200);
+  color: var(--grey-200);
+}
+.modalCont .inputCont:not(:has(.error)) .inputWithIconCont .darkerInput:hover {
+  border-color: var(--grey-500);
+}
+
+.modalCont .inputCont:not(:has(.error)) .phonePrefixCont input:focus,
+.modalCont .inputCont:not(:has(.error)) .inputWithIconCont input:focus {
+  border-color: var(--grey-400);
+  caret-color: var(--grey-400);
+  color: var(--grey-700);
 }

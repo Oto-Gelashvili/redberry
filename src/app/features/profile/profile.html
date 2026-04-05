@@ -26,7 +26,7 @@
             id="fullName"
             type="text"
             class="darkerInput"
-            placeholder="Username"
+            placeholder="Enter full name"
             formControlName="fullName"
           />
           @if (profileForm.get('fullName')?.valid) {
@@ -45,7 +45,10 @@
             <p class="error" animate.enter="showError" animate.leave="hideError">
               Name is required
             </p>
-          } @else if (profileForm.get('fullName')?.hasError('minlength')) {
+          } @else if (
+            profileForm.get('fullName')?.hasError('minlength') ||
+            profileForm.get('fullName')?.hasError('minLetters')
+          ) {
             <p class="error" animate.enter="showError" animate.leave="hideError">
               Name must be at least 3 characters
             </p>
@@ -56,6 +59,67 @@
           } @else if (profileForm.get('fullName')?.hasError('pattern')) {
             <p class="error" animate.enter="showError" animate.leave="hideError">
               Name can only contain letters and spaces
+            </p>
+          }
+        }
+      </div>
+      <div class="inputCont">
+        <label for="mail">Email</label>
+        <div class="inputWithIconCont">
+          <input
+            name="mail"
+            id="mail"
+            type="email"
+            class="darkerInput"
+            value="{{ authService.user()!.email }}"
+            disabled
+          />
+          <button type="button" class="inputsIcon" tabindex="-1">
+            <app-icon-library [name]="'checkmark'" [size]="22"></app-icon-library>
+          </button>
+        </div>
+      </div>
+      <div class="inputCont">
+        <label for="mobile">Mobile Number</label>
+        <div class="inputWithIconCont">
+          <div class="phonePrefixCont">
+            <span class="phonePrefix">+995</span>
+            <input
+              name="mobile"
+              id="mobile"
+              type="tel"
+              class="darkerInput"
+              placeholder="558212529"
+              formControlName="mobile"
+            />
+          </div>
+          @if (profileForm.get('mobile')?.valid) {
+            <button type="button" class="inputsIcon" tabindex="-1">
+              <app-icon-library name="checkmark" [size]="22"></app-icon-library>
+            </button>
+          } @else {
+            <button type="button" class="inputsIcon" tabindex="-1">
+              <app-icon-library name="edit" [size]="22"></app-icon-library>
+            </button>
+          }
+        </div>
+
+        @if (profileForm.get('mobile')?.touched) {
+          @if (profileForm.get('mobile')?.hasError('required')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Mobile number is required
+            </p>
+          } @else if (profileForm.get('mobile')?.hasError('mobileFormat')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Please enter a valid Georgian mobile number (9 digits starting with 5)
+            </p>
+          } @else if (profileForm.get('mobile')?.hasError('mobileStartsWith')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Georgian mobile numbers must start with 5
+            </p>
+          } @else if (profileForm.get('mobile')?.hasError('mobileLength')) {
+            <p class="error" animate.enter="showError" animate.leave="hideError">
+              Mobile number must be exactly 9 digits
             </p>
           }
         }
