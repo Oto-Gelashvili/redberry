@@ -84,16 +84,20 @@
   width: clamp(260px, 300px, 90%);
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.2rem;
   text-align: center;
   font-size: var(--xs-fs);
-  color: var(--grey-50);
-  background-color: var(--brand-500);
+  color: var(--grey-700);
+  background-color: var(--grey-100);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 101;
+  transform: translate(-50%, -50%);
 }
 
-.confirm-box h3 {
-  color: var(--grey-50);
-  font-size: 1.6rem;
+.confirm-box h5 {
+  color: var(--grey-900);
 }
 
 .confirm-actions {
@@ -109,31 +113,26 @@
   cursor: pointer;
   transition: 0.4s;
 }
-.confirm-actions button.btn-cancel:hover {
+.confirm-actions button.btn-cancel:hover,
+.confirm-actions button.btn-cancel:focus-visible {
   background-color: transparent;
   border-color: var(--brand-600);
   color: var(--brand-600);
 }
-.confirm-actions button.btn-confirm:hover {
+.confirm-actions button.btn-confirm:hover,
+.confirm-actions button.btn-confirm:focus-visible {
   background-color: transparent;
   border-color: var(--error);
   color: var(--error);
 }
-.confirm-actions button.btn-cancel:focus {
-  border-color: var(--brand-700);
-  color: var(--brand-700);
-}
-.confirm-actions button.btn-confirm:focus {
-  border-color: var(--error);
-  color: var(--error);
-  background-color: var(--grey-400);
-}
+
 .confirm-actions button:active {
   transform: scale(0.9);
 }
 
 .btn-cancel {
-  background: var(--grey-400);
+  background: var(--grey-300);
+  color: var(--grey-50);
 }
 
 .btn-confirm {
@@ -142,29 +141,25 @@
 }
 
 .fade-in {
-  animation: fade-in 1s;
+  animation: fade-in 0.6s;
 }
 .fade-out {
-  animation: fade-out 1s;
+  animation: fade-out 0.6s;
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: scale(0.9);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 @keyframes fade-out {
   from {
     opacity: 1;
-    transform: scale(1);
   }
   to {
     opacity: 0;
-    transform: scale(0.9);
   }
 }
