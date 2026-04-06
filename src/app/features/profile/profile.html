@@ -4,7 +4,7 @@
     <h2>Profile</h2>
     <div class="desc">
       @if (authService.user()?.avatar) {
-        <img [src]="authService.user()?.avatar" alt="user avatar" />
+        <img [src]="authService.user()?.avatar" alt="user avatar" class="avatar" />
       } @else {
         <app-icon-library tabindex="0" name="avatarIcon" [size]="56"></app-icon-library>
       }
@@ -28,6 +28,7 @@
             class="darkerInput"
             placeholder="Enter full name"
             formControlName="fullName"
+            (input)="clearServerError('full_name')"
           />
           @if (profileForm.get('fullName')?.valid) {
             <button type="button" class="inputsIcon" tabindex="-1">
@@ -61,6 +62,9 @@
               Name can only contain letters and spaces
             </p>
           }
+        }
+        @if (serverErrors()['full_name']) {
+          <p class="error">{{ serverErrors()['full_name'][0] }}</p>
         }
       </div>
       <div class="inputCont">
@@ -98,6 +102,7 @@
                   [class.applyErrorCont]="applyMobileErrorCont()"
                   placeholder="Enter mobile number"
                   formControlName="mobile"
+                  (input)="clearServerError('mobile_number')"
                 />
               </div>
               @if (profileForm.get('mobile')?.valid) {
@@ -125,6 +130,7 @@
                 type="number"
                 [class.applyErrorCont]="applyAgeErrorCont()"
                 placeholder="18"
+                (input)="clearServerError('age')"
                 formControlName="age"
               />
               <button
@@ -170,6 +176,9 @@
               </p>
             }
           }
+          @if (serverErrors()['mobile_number']) {
+            <p class="error">{{ serverErrors()['mobile_number'][0] }}</p>
+          }
           @if (profileForm.get('age')?.touched) {
             @if (profileForm.get('age')?.hasError('required')) {
               <p class="error" animate.enter="showError" animate.leave="hideError">
@@ -189,6 +198,9 @@
               </p>
             }
           }
+          @if (serverErrors()['age']) {
+            <p class="error">{{ serverErrors()['age'][0] }}</p>
+          }
         </div>
       </div>
       <div class="inputCont">
@@ -202,6 +214,9 @@
         }
         @if (profileForm.get('avatar')?.hasError('tooLarge')) {
           <p class="error">Maximum File size is 1MB</p>
+        }
+        @if (serverErrors()['avatar']) {
+          <p class="error">{{ serverErrors()['avatar'][0] }}</p>
         }
       </div>
     </div>

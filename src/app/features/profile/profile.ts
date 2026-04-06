@@ -49,6 +49,7 @@ export class Profile {
   protected isDropdownShown = signal(false);
   protected isClosing = signal(false);
   protected closeModal = output<void>();
+  protected serverErrors = signal<Record<string, string[]>>({});
   protected generalError = signal<string | null>(null);
   protected isLoading = signal(false);
   protected options = Array.from({ length: 120 - 16 + 1 }, (_, i) => i + 16);
@@ -126,16 +127,49 @@ export class Profile {
   //btn disabled
   protected getIsBtnDisabled(): boolean {
     if (this.isLoading()) return true;
-
-    const form = this.profileForm;
-    if (form.touched) {
-      return form.invalid;
-    } else {
-      return false;
-    }
+    if (!this.profileForm.dirty && !this.selectedFile()) return true;
+    return this.profileForm.invalid;
   }
 
-  protected onSubmit() {
-    console.log('submit');
+  protected clearServerError(field: string) {
+    if (this.serverErrors()[field]) {
+      this.serverErrors.update((errors) => {
+        const updated = { ...errors };
+        delete updated[field];
+        return updated;
+      });
+    }
+  }
+  protected async onSubmit() {
+    const v = this.profileForm.value;
+    const formData = new FormData();
+    formData.append('full_name', v.fullName!);
+    formData.append('mobile_number', v.mobile!);
+    formData.append('age', String(v.age!));
+    if (this.selectedFile()) {
+      formData.append('avatar', this.selectedFile()!);
+    }
+
+    this.isLoading.set(true);
+    this.serverErrors.set({});
+    this.generalError.set(null);
+
+    try {
+      const res = await this.authService.updateProfile(formData);
+      this.authService.updateUser(res.data);
+      this.onClose();
+    } catch (err: any) {
+      if (err.status === 401) {
+        this.generalError.set('Session expired. Please log in again.');
+        this.authService.logout();
+      } else if (err.status === 422) {
+        const errors = err.error.errors ?? {};
+        this.serverErrors.set(errors);
+      } else {
+        this.generalError.set('Something went wrong. Please try again.');
+      }
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }

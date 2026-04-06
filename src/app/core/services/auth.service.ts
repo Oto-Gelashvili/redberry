@@ -53,7 +53,9 @@ export class AuthService {
     this._token.set(token);
     localStorage.setItem('token', token);
   }
-
+  updateUser(user: User) {
+    this._user.set(user);
+  }
   async logout() {
     try {
       await fetch(`${BASE_URL}/logout`, {
@@ -97,5 +99,21 @@ export class AuthService {
     }
 
     return json as { data: { user: User; token: string } };
+  }
+
+  async updateProfile(formData: FormData) {
+    const res = await fetch(`${BASE_URL}/profile`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${this._token()}` },
+      body: formData,
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+
+    return json as { data: User };
   }
 }
