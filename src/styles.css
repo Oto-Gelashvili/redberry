@@ -244,3 +244,26 @@ h5 {
 .incompleteCircleIndicator {
   background-color: var(--warning);
 }
+.fade-in {
+  animation: fade-in 0.4s;
+}
+.fade-out {
+  animation: fade-out 0.4s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

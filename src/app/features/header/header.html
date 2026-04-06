@@ -53,7 +53,7 @@
   </div>
 </header>
 @if (isModalRendered()) {
-  <div class="backdrop" (click)="toggleModal()">
+  <div class="backdrop" animate.enter="fade-in" animate.leave="fade-out" (click)="toggleModal()">
     <div (click)="$event.stopPropagation()">
       <app-sign-up
         (closeModal)="toggleModal()"
@@ -63,14 +63,24 @@
   </div>
 }
 @if (isLogInModalRendered()) {
-  <div class="backdrop" (click)="toggleLogInModal()">
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="toggleLogInModal()"
+  >
     <div (click)="$event.stopPropagation()">
       <app-log-in (closeModal)="toggleLogInModal()" (closeModalSignUp)="toggleModal()"></app-log-in>
     </div>
   </div>
 }
 @if (isProfileModalRendered()) {
-  <div class="backdrop" (click)="toggleProfileModal()">
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="toggleProfileModal()"
+  >
     <div (click)="$event.stopPropagation()">
       <app-profile (closeModal)="toggleProfileModal()"></app-profile>
     </div>
