@@ -12,6 +12,7 @@ import {
 import { AuthService } from '../../core/services/auth.service';
 import { ImgUploader } from '../../shared/components/img-uploader/img-uploader';
 import { Dropdown } from '../../shared/components/dropdown/dropdown';
+import { NotificationService } from '../../core/services/notification.service';
 
 function minLetters(control: AbstractControl): ValidationErrors | null {
   const value = (control.value ?? '').trimStart();
@@ -45,6 +46,7 @@ function validAge(control: AbstractControl): ValidationErrors | null {
 })
 export class Profile {
   protected readonly authService = inject(AuthService);
+  protected readonly notyService = inject(NotificationService);
   protected selectedFile = signal<File | null>(null);
   protected isDropdownShown = signal(false);
   protected isClosing = signal(false);
@@ -157,6 +159,7 @@ export class Profile {
     try {
       const res = await this.authService.updateProfile(formData);
       this.authService.updateUser(res.data);
+      this.notyService.showSuccess('Profile updated successfully');
       this.onClose();
     } catch (err: any) {
       if (err.status === 401) {
