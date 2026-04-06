@@ -1,0 +1,7 @@
+<ul class="customSelectBody" animate.enter="open-animation">
+  @for (option of options(); track option) {
+    <li (click)="select(option)" [class.selected]="selectedOption() === option">
+      {{ option }}
+    </li>
+  }
+</ul>

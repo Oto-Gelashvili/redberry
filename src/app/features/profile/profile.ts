@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { ImgUploader } from '../../shared/components/img-uploader/img-uploader';
+import { Dropdown } from '../../shared/components/dropdown/dropdown';
 
 function minLetters(control: AbstractControl): ValidationErrors | null {
   const value = (control.value ?? '').trimStart();
@@ -38,16 +39,19 @@ function validAge(control: AbstractControl): ValidationErrors | null {
 }
 @Component({
   selector: 'app-profile',
-  imports: [IconLibrary, Loader, ReactiveFormsModule, ImgUploader],
+  imports: [IconLibrary, Loader, ReactiveFormsModule, ImgUploader, Dropdown],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile {
   protected readonly authService = inject(AuthService);
   protected selectedFile = signal<File | null>(null);
+  protected isDropdownShown = signal(false);
+  protected isClosing = signal(false);
   protected closeModal = output<void>();
   protected generalError = signal<string | null>(null);
   protected isLoading = signal(false);
+  protected options = Array.from({ length: 120 - 16 + 1 }, (_, i) => i + 16);
   protected onClose() {
     this.closeModal.emit();
   }
@@ -83,6 +87,7 @@ export class Profile {
     control?.setErrors({ [error]: true });
   }
 
+  // apllying error class to errorcont items
   protected applyMobileErrorCont() {
     if (this.profileForm.get('mobile')?.touched) {
       return this.profileForm.get('mobile')?.invalid;
@@ -96,6 +101,29 @@ export class Profile {
     return false;
   }
 
+  //age dropdown
+  protected closeDropdown() {
+    this.isClosing.set(true);
+    setTimeout(() => {
+      this.isDropdownShown.set(false);
+      this.isClosing.set(false);
+    }, 600);
+  }
+
+  protected toggleDropdown() {
+    if (this.isDropdownShown()) {
+      this.closeDropdown();
+    } else {
+      this.isDropdownShown.set(true);
+    }
+  }
+
+  protected onOptionChanged(option: number) {
+    this.profileForm.patchValue({ age: option });
+    this.closeDropdown();
+  }
+
+  //btn disabled
   protected getIsBtnDisabled(): boolean {
     if (this.isLoading()) return true;
 
@@ -107,7 +135,7 @@ export class Profile {
     }
   }
 
-  onSubmit() {
+  protected onSubmit() {
     console.log('submit');
   }
 }

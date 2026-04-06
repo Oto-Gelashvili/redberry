@@ -116,33 +116,38 @@
               }
             </div>
           </div>
-          <div class="inputCont">
+          <div class="inputCont ageInputCont">
             <label [class.applyErrorCont]="applyAgeErrorCont()" for="age">Age</label>
             <div class="inputWithIconCont">
               <input
                 name="age"
                 id="age"
                 type="number"
-                class="darkerInput"
                 [class.applyErrorCont]="applyAgeErrorCont()"
                 placeholder="18"
                 formControlName="age"
               />
-              @if (profileForm.get('age')?.valid) {
-                <button type="button" class="inputsIcon" tabindex="-1">
-                  <app-icon-library name="checkmark" [size]="22"></app-icon-library>
-                </button>
-              } @else {
-                <button
-                  type="button"
-                  class="inputsIcon"
-                  [class.applyErrorCont]="applyAgeErrorCont()"
-                  tabindex="-1"
-                >
-                  <app-icon-library name="edit" [size]="22"></app-icon-library>
-                </button>
-              }
+              <button
+                type="button"
+                class="inputsIcon ageIcon"
+                [class.applyErrorCont]="applyAgeErrorCont()"
+                [class.rotate]="isDropdownShown()"
+                tabindex="-1"
+              >
+                <app-icon-library
+                  name="dropdown"
+                  (click)="toggleDropdown()"
+                  [size]="22"
+                ></app-icon-library>
+              </button>
             </div>
+            @if (isDropdownShown()) {
+              <app-dropdown
+                [class.closing]="isClosing()"
+                (optionChanged)="onOptionChanged($event)"
+                [options]="options"
+              ></app-dropdown>
+            }
           </div>
         </div>
         <div class="errorCont">
