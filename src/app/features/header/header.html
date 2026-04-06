@@ -26,17 +26,24 @@
           <button class="logInBtn" (click)="toggleLogInModal()">Log In</button>
           <button class="signBtn" (click)="toggleModal()">Sign Up</button>
         } @else if (authService.user()?.avatar) {
-          <img
-            [src]="authService.user()?.avatar"
-            alt="user avatar"
-            (click)="toggleProfileModal()"
-            class="avatarIcon"
-          />
+          <div class="imgCont">
+            <img
+              [src]="authService.user()?.avatar"
+              alt="user avatar"
+              (click)="toggleProfileModal()"
+              class="avatarIcon"
+            />
+            <div
+              class="circleIndicator"
+              [class.incompleteCircleIndicator]="!authService.user()?.profileComplete"
+            ></div>
+          </div>
         } @else {
           <app-icon-library
             tabindex="0"
             name="avatarIcon"
             class="avatarIcon"
+            [circleColor]="authService.user()?.profileComplete ? '#1dc31d' : '#F4A316'"
             [size]="56"
             (click)="toggleProfileModal()"
           ></app-icon-library>

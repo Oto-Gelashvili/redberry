@@ -4,9 +4,20 @@
     <h2>Profile</h2>
     <div class="desc">
       @if (authService.user()?.avatar) {
-        <img [src]="authService.user()?.avatar" alt="user avatar" class="avatar" />
+        <div class="imgCont">
+          <img [src]="authService.user()?.avatar" alt="user avatar" class="avatar" />
+          <div
+            class="circleIndicator"
+            [class.incompleteCircleIndicator]="!authService.user()?.profileComplete"
+          ></div>
+        </div>
       } @else {
-        <app-icon-library tabindex="0" name="avatarIcon" [size]="56"></app-icon-library>
+        <app-icon-library
+          tabindex="0"
+          name="avatarIcon"
+          [circleColor]="authService.user()?.profileComplete ? '#1dc31d' : '#F4A316'"
+          [size]="56"
+        ></app-icon-library>
       }
       <div class="textDesc">
         <h4>{{ authService.user()?.username }}</h4>

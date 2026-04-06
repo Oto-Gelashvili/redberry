@@ -101,7 +101,14 @@
       stroke-linecap="round"
       stroke-linejoin="round"
     />
-    <circle cx="48.5" cy="48.5" r="6.5" fill="#F4A316" stroke="white" stroke-width="2" />
+    <circle
+      cx="48.5"
+      cy="48.5"
+      r="6.5"
+      [attr.fill]="circleColor()"
+      stroke="white"
+      stroke-width="2"
+    />
   }
   @if (name() === 'courseIcon') {
     <rect [attr.width]="size()" [attr.height]="size()" fill="#DBCDCD" />

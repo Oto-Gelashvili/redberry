@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core';
 export class IconLibrary {
   name = input.required<string>();
   size = input.required<number>();
+  circleColor = input<string>('#F4A316');
 }

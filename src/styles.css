@@ -231,3 +231,16 @@ h5 {
 .generalError {
   color: var(--error);
 }
+.circleIndicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--success);
+  border: 2px solid var(--grey-50);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.incompleteCircleIndicator {
+  background-color: var(--warning);
+}
