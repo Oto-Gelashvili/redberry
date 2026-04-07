@@ -114,10 +114,115 @@
   font-size: var(--xl-fs);
   padding-right: 17.15%;
 }
-.primaryBtn {
+.heroCard .primaryBtn {
   width: fit-content;
   height: 6.4rem;
 }
 .Three .textCont {
   height: 20.3rem;
+}
+
+.featuredCourses {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+.featuredCourses .heading h1 {
+  color: var(--grey-950);
+}
+.featuredCourses .heading p {
+  color: var(--grey-700);
+  font-size: var(--m-fs);
+  font-weight: var(--helper-r-fw);
+}
+.featuredCourses .heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.featuredCardsCont {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+.featuredCard {
+  width: 100%;
+  border-radius: 1.2rem;
+  border: 1px solid var(--grey-100);
+  background-color: var(--grey-50);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.featuredCard .contentCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.featuredCard .contentCont img {
+  border-radius: 10px;
+  width: 100%;
+  height: 26.2rem;
+}
+.featuredCard .titleCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.featuredCard .titleCont .titleDescCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.featuredCard .titleCont .titleDescCont p {
+  font-size: var(--xs-fs);
+  color: var(--grey-500);
+}
+
+.featuredCard .titleCont .titleDescCont p span {
+  color: var(--grey-400);
+}
+.featuredCard .ratingCont {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.featuredCard .titleCont .titleDescCont .ratingCont p {
+  color: var(--grey-600);
+}
+.featuredCard h3,
+h2 {
+  color: var(--grey-900);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.featuredCourseDescP {
+  font-size: var(--s-fs);
+  color: var(--grey-500);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  margin-right: 5.2rem;
+  overflow: hidden;
+  line-height: 2.4rem;
+}
+.featuredCard .footerCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.featuredCard .priceCont {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.featuredCard .priceCont p {
+  color: var(--grey-400);
+  font-size: var(--helper-m-fs);
+}
+.featuredCard .primaryBtn {
+  height: 5.8rem;
 }

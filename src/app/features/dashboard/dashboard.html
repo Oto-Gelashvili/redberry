@@ -54,6 +54,38 @@
       </div>
     </div>
   </section>
-  <section class="featuredCourses">featuredCourses</section>
+  <section class="featuredCourses">
+    <div class="heading">
+      <h1>Start Learning Today</h1>
+      <p>Choose from our most popular courses and begin your journey</p>
+    </div>
+    <div class="featuredCardsCont">
+      @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
+        <div class="featuredCard">
+          <div class="contentCont">
+            <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
+            <div class="titleCont">
+              <div class="titleDescCont">
+                <p class="lecturer"><span>Lecturer</span> {{ featuredCourse.instructor.name }}</p>
+                <div class="ratingCont">
+                  <app-icon-library name="star" [size]="18"></app-icon-library>
+                  <p>{{ featuredCourse.avgRating ? featuredCourse.avgRating : '0' }}</p>
+                </div>
+              </div>
+              <h3>{{ featuredCourse.title }}</h3>
+            </div>
+            <p class="featuredCourseDescP">{{ featuredCourse.description }}</p>
+          </div>
+          <div class="footerCont">
+            <div class="priceCont">
+              <p>Starting from</p>
+              <h2>${{ featuredCourse.basePrice }}</h2>
+            </div>
+            <a routerLink="/course"><button class="primaryBtn">Details</button></a>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
   <section class="selectedCourses">selectedCourses</section>
 </div>
