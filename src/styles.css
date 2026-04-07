@@ -6,7 +6,7 @@
   --hero-fs: 4.8rem;
   --hero-fw: 700;
 
-  --xl-light-fs: 300;
+  --xl-light-fw: 300;
 
   --xl-fs: 2.4rem;
   --xl-fw: 600;
@@ -60,12 +60,15 @@
   --grey-800: #292929;
   --grey-900: #141414;
   --grey-950: #0a0a0a;
+  --grey-disabled: #c1bcbc80;
 
   --error: #f4161a;
   --error-light: #f66466;
   --warning: #f4a316;
   --success: #1dc31d;
   --success-light: #1dc31d1a;
+
+  --fixed-hader-height: 10.8rem;
 }
 /* You can add global styles to this file, and also import other style files */
 /* 1. Use a more-intuitive box-sizing model */
@@ -266,4 +269,36 @@ h5 {
   to {
     opacity: 0;
   }
+}
+main {
+  /* padding: calc(var(--fixed-hader-height) + 6.4rem) 17.7rem; */
+  padding: 6.4rem 17.7rem;
+  min-height: calc(100vh - var(--fixed-hader-height));
+}
+
+.primaryBtn {
+  font-size: var(--btn-m);
+  color: var(--grey-50);
+  padding: 1.7rem 2.5rem;
+  border-radius: 8px;
+  background-color: var(--brand-500);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.primaryBtn:hover {
+  color: var(--grey-50);
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.primaryBtn:active {
+  color: var(--grey-50);
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.primaryBtn:focus-visible {
+  border-color: var(--brand-700);
+  background-color: var(--brand-600);
 }

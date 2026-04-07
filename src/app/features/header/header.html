@@ -1,6 +1,6 @@
 <header>
   <div class="headerCont">
-    <a routerLink="dashboard" class="logo">
+    <a routerLink="/dashboard" class="logo">
       <img src="Logo.svg" alt="brand logo" />
     </a>
     <nav>
@@ -24,7 +24,7 @@
       <div class="auth">
         @if (!authService.isAuthenticated()) {
           <button class="logInBtn" (click)="toggleLogInModal()">Log In</button>
-          <button class="signBtn" (click)="toggleModal()">Sign Up</button>
+          <button class="primaryBtn" (click)="toggleModal()">Sign Up</button>
         } @else if (authService.user()?.avatar) {
           <div class="imgCont">
             <img

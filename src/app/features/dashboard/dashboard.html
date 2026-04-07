@@ -1,0 +1,59 @@
+<div class="dashboard">
+  <section class="hero" (mouseenter)="pauseAutoPlay()" (mouseleave)="resumeAutoPlay()">
+    <div class="heroTrack" [style.transform]="'translateX(-' + currentSlide() * 100 + '%)'">
+      <div class="heroCard One">
+        <div class="textCont">
+          <div class="headingCont">
+            <p class="heroHeading">Start learning something new today</p>
+            <p class="heroDesc">
+              Explore a wide range of expert-led courses in design, development, business, and more.
+              Find the skills you need to grow your career and learn at your own pace.
+            </p>
+          </div>
+          <a routerLink="/browse"><button class="primaryBtn">Browse Courses</button></a>
+        </div>
+      </div>
+      <div class="heroCard Two">
+        <div class="textCont">
+          <div class="headingCont">
+            <p class="heroHeading">Pick up where you left off</p>
+            <p class="heroDesc">
+              Your learning journey is already in progress. Continue your enrolled courses, track
+              your progress, and stay on track toward completing your goals.
+            </p>
+          </div>
+          <a routerLink="/browse"><button class="primaryBtn">Start Learning</button></a>
+        </div>
+      </div>
+      <div class="heroCard Three">
+        <div class="textCont">
+          <div class="headingCont">
+            <p class="heroHeading">Learn together, grow faster</p>
+          </div>
+          <a routerLink="/browse"><button class="primaryBtn">Learn More</button></a>
+        </div>
+      </div>
+    </div>
+    <div class="trackCont">
+      <div class="pillCont">
+        @for (pill of [0, 1, 2]; track pill) {
+          <div
+            class="pill"
+            [class.active]="currentSlide() === pill"
+            (click)="currentSlide.set(pill)"
+          ></div>
+        }
+      </div>
+      <div class="arrowCont">
+        <button class="prevBtnCont" (click)="prevSlide()" [disabled]="isPrevDisabled()">
+          <app-icon-library [size]="44" name="prev"></app-icon-library>
+        </button>
+        <button class="nextBtnCont" (click)="nextSlide()" [disabled]="isNextDisabled()">
+          <app-icon-library [size]="44" name="next"></app-icon-library>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="featuredCourses">featuredCourses</section>
+  <section class="selectedCourses">selectedCourses</section>
+</div>

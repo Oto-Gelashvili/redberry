@@ -1,0 +1,123 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
+}
+.hero {
+  height: 42rem;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  color: var(--grey-50);
+  position: relative;
+  border-radius: 3rem;
+}
+.heroTrack {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-out;
+}
+.heroCard {
+  min-width: 100%;
+  height: 100%;
+  padding: 4.8rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.heroCard.One {
+  background-image: url(/heroOne.png);
+}
+.heroCard.Two {
+  background-image: url(/heroTwo.png);
+}
+.heroCard.Three {
+  background-image: url(/heroThree.png);
+}
+.trackCont {
+  position: absolute;
+  bottom: 5.5rem;
+  height: 5.4rem;
+  right: 4.8rem;
+  left: 4.8rem;
+  display: flex;
+  align-items: center;
+}
+.trackCont .pillCont {
+  width: 100%;
+  height: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.trackCont .pillCont .pill {
+  height: 100%;
+  width: 5.7rem;
+  border-radius: 999px;
+  background-color: var(--grey-300);
+}
+.trackCont .pillCont .pill.active {
+  background-color: var(--grey-100);
+}
+.trackCont .pillCont .pill:hover {
+  cursor: pointer;
+}
+.trackCont .arrowCont {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+.trackCont .arrowCont button {
+  width: 5.4rem;
+  height: 5.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.4s;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--grey-50);
+  opacity: 0.7;
+}
+.trackCont .arrowCont button:not(:disabled):hover,
+.trackCont .arrowCont button:not(:disabled):focus-visible {
+  opacity: 1;
+}
+.trackCont .arrowCont button:disabled {
+  cursor: auto;
+  color: var(--grey-disabled);
+}
+.heroCard .textCont {
+  height: 23.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  color: var(--grey-50);
+  justify-content: space-between;
+}
+.heroCard .headingCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.heroHeading {
+  font-size: var(--hero-fs);
+  font-weight: var(--hero-fw);
+}
+.heroDesc {
+  font-weight: var(--xl-light-fw);
+  font-size: var(--xl-fs);
+  padding-right: 17.15%;
+}
+.primaryBtn {
+  width: fit-content;
+  height: 6.4rem;
+}
+.Three .textCont {
+  height: 20.3rem;
+}
