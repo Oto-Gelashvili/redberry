@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { CoursesService } from '../../core/services/courses.service';
 import { Course, EnrolledCourse } from '../../models/courses.model';
@@ -6,6 +6,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { ModalService } from '../../core/services/modal.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ export class Dashboard implements OnInit {
   protected isNextDisabled = computed(() => this.currentSlide() === 2);
 
   private readonly courseService = inject(CoursesService);
+  protected readonly authService = inject(AuthService);
   private readonly notyService = inject(NotificationService);
   protected readonly modalService = inject(ModalService);
 
@@ -30,11 +32,20 @@ export class Dashboard implements OnInit {
   protected isLoadingInProgress = signal(false);
   protected progressCourseAmount = signal(0);
 
+  constructor() {
+    effect(() => {
+      if (this.authService.isAuthenticated()) {
+        this.loadCoursesInProgress();
+        this.loadProgressCourseAmount();
+      } else {
+        this.progressCourses.set([]);
+        this.progressCourseAmount.set(0);
+      }
+    });
+  }
   ngOnInit() {
     this.startAutoPlay();
     this.loadFeaturedCourses();
-    this.loadCoursesInProgress();
-    this.loadProgressCourseAmount();
   }
 
   ngOnDestroy() {
@@ -69,13 +80,7 @@ export class Dashboard implements OnInit {
       const courses = await this.courseService.getCoursesInProgress();
       this.progressCourses.set(courses);
     } catch (err: any) {
-      if (err.status === 401) {
-        // dont show
-        // const errors = err.error.message;
-        // this.notyService.showError(errors);
-      } else {
-        this.notyService.showError('Failed to load courses in progress');
-      }
+      this.notyService.showError('Failed to load courses in progress');
     } finally {
       this.isLoadingInProgress.set(false);
     }

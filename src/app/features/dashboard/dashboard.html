@@ -132,7 +132,7 @@
       }
     </div>
   </section>
-  @if (progressCourses().length === 0) {
+  @if (!authService.isAuthenticated()) {
     <section class="CoursesCont relative">
       <div class="heading">
         <h1>Continue Learning</h1>
