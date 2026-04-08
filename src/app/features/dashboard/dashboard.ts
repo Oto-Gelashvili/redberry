@@ -4,10 +4,11 @@ import { CoursesService } from '../../core/services/courses.service';
 import { Course, EnrolledCourse } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { RouterLink } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [IconLibrary, RouterLink],
+  imports: [IconLibrary, RouterLink, NgOptimizedImage],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

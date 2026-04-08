@@ -310,3 +310,66 @@ h4 {
 .headingDescCont a:active {
   color: var(--brand-700);
 }
+.signInReq {
+  position: absolute;
+  padding: 3.2rem 5.6rem;
+  top: 10.1rem;
+  left: 50%;
+  transform: translateX(-55%);
+  background-color: var(--grey-50);
+  z-index: 10;
+  border: 1px solid var(--grey-300);
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  align-items: center;
+  border-radius: 1.2rem;
+  height: 23.3rem;
+  width: 41.8rem;
+}
+
+.signInReq .primaryBtn {
+  font-size: var(--btn-s);
+  height: 4.2rem;
+  width: fit-content;
+  padding-inline: 0;
+  width: 8.3rem;
+  display: flex;
+  justify-content: center;
+}
+.signInReq .top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+}
+.relative {
+  position: relative;
+}
+.blurred {
+  filter: blur(8px);
+}
+.signInReq .top .imgCont {
+  padding: 2rem;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--brand-100);
+  width: fit-content;
+}
+.signInReq .top p {
+  font-size: var(--s-fs);
+  color: var(--grey-900);
+  line-height: 2.4rem;
+}
+.img-wrapper {
+  position: relative;
+  min-width: 14rem;
+  min-height: 12.3rem;
+  overflow: hidden;
+}
+
+.img-wrapper img {
+  object-fit: cover;
+}

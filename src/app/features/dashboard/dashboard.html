@@ -133,6 +133,51 @@
     </div>
   </section>
   @if (progressCourses().length === 0) {
-    <section class="progressCourses">we dont have it bud</section>
+    <section class="CoursesCont relative">
+      <div class="heading">
+        <h1>Continue Learning</h1>
+        <div class="headingDescCont">
+          <p>Pick up where you left</p>
+          <a routerLink="/courses">See All</a>
+        </div>
+      </div>
+      <div class="coursesCardsCont blurred">
+        @for (num of [1, 2, 3]; track num) {
+          <div class="card progress">
+            <div class="contentCont">
+              <div class="img-wrapper">
+                <img ngSrc="courseTemplateImg.png" fill alt="course image" />
+              </div>
+              <div class="titleCont">
+                <div class="titleDescCont">
+                  <p class="lecturer"><span>Lecturer</span> Marilyn Mango</p>
+                  <div class="ratingCont">
+                    <app-icon-library name="star" [size]="18"></app-icon-library>
+                    <p>4.9</p>
+                  </div>
+                </div>
+                <h4>Advanced React & TypeScript Development</h4>
+              </div>
+            </div>
+            <div class="footerCont">
+              <div class="priceCont">
+                <p>65% Complete</p>
+                <div class="progressBar">
+                  <div class="progressFill" [style.width.%]="65"></div>
+                </div>
+              </div>
+              <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="signInReq">
+        <div class="top">
+          <div class="imgCont"><img src="Lock.svg" alt="lock icon" /></div>
+          <p>Sign in to track your learning progress</p>
+        </div>
+        <button class="primaryBtn">Log In</button>
+      </div>
+    </section>
   }
 </div>
