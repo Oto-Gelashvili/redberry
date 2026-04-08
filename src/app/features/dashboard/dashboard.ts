@@ -5,6 +5,7 @@ import { Course, EnrolledCourse } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,8 @@ export class Dashboard implements OnInit {
 
   private readonly courseService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
+  protected readonly modalService = inject(ModalService);
+
   protected featuredCourses = signal<Course[]>([]);
   protected progressCourses = signal<EnrolledCourse[]>([]);
   protected isLoadingCourses = signal(false);

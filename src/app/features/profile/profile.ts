@@ -13,6 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { ImgUploader } from '../../shared/components/img-uploader/img-uploader';
 import { Dropdown } from '../../shared/components/dropdown/dropdown';
 import { NotificationService } from '../../core/services/notification.service';
+import { ModalService } from '../../core/services/modal.service';
 
 function minLetters(control: AbstractControl): ValidationErrors | null {
   const value = (control.value ?? '').trimStart();
@@ -47,17 +48,15 @@ function validAge(control: AbstractControl): ValidationErrors | null {
 export class Profile {
   protected readonly authService = inject(AuthService);
   protected readonly notyService = inject(NotificationService);
+  protected readonly modalService = inject(ModalService);
+
   protected selectedFile = signal<File | null>(null);
   protected isDropdownShown = signal(false);
   protected isClosing = signal(false);
-  protected closeModal = output<void>();
   protected serverErrors = signal<Record<string, string[]>>({});
   protected generalError = signal<string | null>(null);
   protected isLoading = signal(false);
   protected options = Array.from({ length: 120 - 16 + 1 }, (_, i) => i + 16);
-  protected onClose() {
-    this.closeModal.emit();
-  }
   protected profileForm = new FormGroup({
     fullName: new FormControl<string>(this.authService.user()?.fullName ?? '', [
       Validators.required,
@@ -160,7 +159,7 @@ export class Profile {
       const res = await this.authService.updateProfile(formData);
       this.authService.updateUser(res.data);
       this.notyService.showSuccess('Profile updated successfully');
-      this.onClose();
+      this.modalService.closeAll();
     } catch (err: any) {
       if (err.status === 401) {
         this.generalError.set('Session expired. Please log in again.');

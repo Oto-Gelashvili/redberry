@@ -2,7 +2,7 @@
   <img
     tabindex="0"
     src="close.svg"
-    (click)="onClose('close')"
+    (click)="modalService.closeAll()"
     alt="close button"
     class="closeBtn"
   />
@@ -154,7 +154,7 @@
       <div class="divider">or</div>
       <div class="logInCont">
         <p>Already have an account?</p>
-        <span tabindex="0" (click)="onClose('logIn')">Log In</span>
+        <span tabindex="0" (click)="modalService.openLogIn()">Log In</span>
       </div>
     </footer>
   </form>

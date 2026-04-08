@@ -1,5 +1,11 @@
 <div class="modalCont">
-  <img tabindex="0" src="close.svg" (click)="onClose()" alt="close button" class="closeBtn" />
+  <img
+    tabindex="0"
+    src="close.svg"
+    (click)="modalService.closeProfile()"
+    alt="close button"
+    class="closeBtn"
+  />
   <div class="heading">
     <h2>Profile</h2>
     <div class="desc">

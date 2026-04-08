@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { IconLibrary } from '../../../shared/components/icon-library/icon-library';
 import { Loader } from '../../../shared/components/loader/loader';
 import { ImgUploader } from '../../../shared/components/img-uploader/img-uploader';
+import { ModalService } from '../../../core/services/modal.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,10 +14,9 @@ import { ImgUploader } from '../../../shared/components/img-uploader/img-uploade
 })
 export class SignUp {
   private readonly authService = inject(AuthService);
+  protected readonly modalService = inject(ModalService);
 
   protected selectedFile = signal<File | null>(null);
-  protected closeModal = output<void>();
-  protected closeModalLogIn = output<void>();
   protected passwordVisible = signal(true);
   protected confrimPasswordVisible = signal(false);
   protected isDragging = signal(false);
@@ -33,18 +33,6 @@ export class SignUp {
     confirmPassword: new FormControl<string>('', [Validators.required]),
     avatar: new FormControl(''),
   });
-
-  //close and reset modal
-  protected onClose(type: string) {
-    this.steps.set(1);
-
-    if (type === 'logIn') {
-      this.closeModalLogIn.emit();
-    }
-    if (type === 'close') {
-      this.closeModal.emit();
-    }
-  }
 
   //back arrow
   protected decreaseStep() {
@@ -130,7 +118,7 @@ export class SignUp {
     try {
       const res = await this.authService.register(formData);
       this.authService.setSession(res.data.user, res.data.token);
-      this.onClose('close');
+      this.modalService.closeAll();
     } catch (err: any) {
       if (err.status === 422) {
         const errors = err.error.errors ?? {};

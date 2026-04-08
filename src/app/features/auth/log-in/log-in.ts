@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { IconLibrary } from '../../../shared/components/icon-library/icon-library';
 import { Loader } from '../../../shared/components/loader/loader';
 import { AuthService } from '../../../core/services/auth.service';
+import { ModalService } from '../../../core/services/modal.service';
 
 @Component({
   selector: 'app-log-in',
@@ -12,6 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LogIn {
   private readonly authService = inject(AuthService);
+  protected readonly modalService = inject(ModalService);
 
   protected closeModal = output<void>();
   protected closeModalSignUp = output<void>();
@@ -62,7 +64,7 @@ export class LogIn {
         password: v.password!,
       });
       this.authService.setSession(res.data.user, res.data.token);
-      this.onClose('close');
+      this.modalService.closeAll();
     } catch (err: any) {
       if (err.status === 401) {
         this.generalError.set(err.error.message);

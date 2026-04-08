@@ -89,7 +89,7 @@
   font-size: var(--xs-fs);
   color: var(--grey-700);
   background-color: var(--grey-100);
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   z-index: 101;

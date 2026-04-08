@@ -2,7 +2,7 @@
   <img
     tabindex="0"
     src="close.svg"
-    (click)="onClose('close')"
+    (click)="modalService.closeAll()"
     alt="close button"
     class="closeBtn"
   />
@@ -21,7 +21,6 @@
         placeholder="Type your email"
         formControlName="email"
       />
-
       @if (logInForm.get('email')?.invalid && logInForm.get('email')?.touched) {
         <p class="error" animate.enter="showError" animate.leave="hideError">
           Please enter a valid email address
@@ -68,8 +67,8 @@
     <footer>
       <div class="divider">or</div>
       <div class="logInCont">
-        <p>Don’t have an account?</p>
-        <span tabindex="0" (click)="onClose('signUp')">Sign Up</span>
+        <p>Don't have an account?</p>
+        <span tabindex="0" (click)="modalService.openSignUp()">Sign Up</span>
       </div>
     </footer>
   </form>
