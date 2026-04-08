@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { CoursesService } from '../../core/services/courses.service';
-import { Course } from '../../models/courses.model';
+import { Course, EnrolledCourse } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { RouterLink } from '@angular/router';
 
@@ -21,11 +21,16 @@ export class Dashboard implements OnInit {
   private readonly courseService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
   protected featuredCourses = signal<Course[]>([]);
+  protected progressCourses = signal<EnrolledCourse[]>([]);
   protected isLoadingCourses = signal(false);
+  protected isLoadingInProgress = signal(false);
+  protected progressCourseAmount = signal(0);
 
   ngOnInit() {
     this.startAutoPlay();
     this.loadFeaturedCourses();
+    this.loadCoursesInProgress();
+    this.loadProgressCourseAmount();
   }
 
   ngOnDestroy() {
@@ -48,10 +53,36 @@ export class Dashboard implements OnInit {
       const courses = await this.courseService.getFeaturedCourses();
       this.featuredCourses.set(courses);
     } catch {
-      this.notyService.showError('Failed to load courses');
+      this.notyService.showError('Failed to load featured courses');
     } finally {
       this.isLoadingCourses.set(false);
     }
+  }
+
+  private async loadCoursesInProgress() {
+    this.isLoadingInProgress.set(true);
+    try {
+      const courses = await this.courseService.getCoursesInProgress();
+      this.progressCourses.set(courses);
+    } catch (err: any) {
+      if (err.status === 401) {
+        // dont show
+        // const errors = err.error.message;
+        // this.notyService.showError(errors);
+      } else {
+        this.notyService.showError('Failed to load courses in progress');
+      }
+    } finally {
+      this.isLoadingInProgress.set(false);
+    }
+  }
+
+  private async loadProgressCourseAmount() {
+    try {
+      const enrollments = await this.courseService.getEnrolledCourses();
+      const inProgress = enrollments.filter((course) => course.progress < 100);
+      this.progressCourseAmount.set(inProgress.length);
+    } catch {}
   }
   protected pauseAutoPlay() {
     clearInterval(this.autoPlayInterval);

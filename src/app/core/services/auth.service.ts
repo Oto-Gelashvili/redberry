@@ -19,6 +19,8 @@ export class AuthService {
   private _token = signal<string | null>(null);
 
   user = this._user.asReadonly();
+  token = this._token.asReadonly();
+
   isAuthenticated = computed(() => !!this._token());
 
   constructor() {

@@ -23,7 +23,7 @@
 
       <div class="auth">
         @if (!authService.isAuthenticated()) {
-          <button class="logInBtn" (click)="toggleLogInModal()">Log In</button>
+          <button class="ctaBtnOutline" (click)="toggleLogInModal()">Log In</button>
           <button class="primaryBtn" (click)="toggleModal()">Sign Up</button>
         } @else if (authService.user()?.avatar) {
           <div class="imgCont">

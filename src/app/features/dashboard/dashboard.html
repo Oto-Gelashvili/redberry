@@ -54,14 +54,59 @@
       </div>
     </div>
   </section>
-  <section class="featuredCourses">
+  @if (progressCourses().length > 0) {
+    <section class="CoursesCont">
+      <div class="heading">
+        <h1>Continue Learning</h1>
+        <div class="headingDescCont">
+          <p>Pick up where you left</p>
+          @if (progressCourseAmount() > 4) {
+            <a routerLink="/courses">See All</a>
+          }
+        </div>
+      </div>
+      <div class="coursesCardsCont">
+        @for (progressCourse of progressCourses(); track progressCourse.id) {
+          <div class="card progress">
+            <div class="contentCont">
+              <img [src]="progressCourse.course.image" [alt]="progressCourse.course.title" />
+              <div class="titleCont">
+                <div class="titleDescCont">
+                  <p class="lecturer">
+                    <span>Lecturer</span> {{ progressCourse.course.instructor.name }}
+                  </p>
+                  <div class="ratingCont">
+                    <app-icon-library name="star" [size]="18"></app-icon-library>
+                    <p>
+                      {{ progressCourse.course.avgRating ? progressCourse.course.avgRating : '0' }}
+                    </p>
+                  </div>
+                </div>
+                <h4>{{ progressCourse.course.title }}</h4>
+              </div>
+            </div>
+            <div class="footerCont">
+              <div class="priceCont">
+                <p>{{ progressCourse.progress }}% Complete</p>
+                <div class="progressBar">
+                  <div class="progressFill" [style.width.%]="progressCourse.progress"></div>
+                </div>
+              </div>
+              <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+  <section class="CoursesCont">
     <div class="heading">
       <h1>Start Learning Today</h1>
       <p>Choose from our most popular courses and begin your journey</p>
     </div>
-    <div class="featuredCardsCont">
+    <div class="coursesCardsCont">
       @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
-        <div class="featuredCard">
+        <div class="card featured">
           <div class="contentCont">
             <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
             <div class="titleCont">
@@ -87,5 +132,7 @@
       }
     </div>
   </section>
-  <section class="selectedCourses">selectedCourses</section>
+  @if (progressCourses().length === 0) {
+    <section class="progressCourses">we dont have it bud</section>
+  }
 </div>

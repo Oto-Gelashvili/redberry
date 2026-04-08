@@ -3,6 +3,10 @@ header {
   border-bottom: 1px solid var(--grey-200);
   box-shadow: rgba(0, 0, 0, 0.04);
   height: var(--fixed-hader-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--grey-100);
 }
 .headerCont {
   height: 6rem;
@@ -54,34 +58,12 @@ nav .auth {
   gap: 1.5rem;
 }
 
-.logInBtn {
-  font-size: var(--btn-m);
-  color: var(--brand-500);
-  border: 2px solid var(--brand-300);
-  padding: 1.2rem 1.6rem;
-  border-radius: 8px;
+.ctaBtnOutline {
   width: 11.4rem;
   height: 6rem;
-  transition: 0.4s;
-  cursor: pointer;
+  font-size: var(--btn-m);
 }
 
-.logInBtn:hover {
-  color: var(--grey-50);
-  background-color: var(--brand-600);
-  border-color: var(--brand-600);
-}
-.logInBtn:active {
-  color: var(--grey-50);
-  background-color: var(--brand-700);
-  border-color: var(--brand-700);
-}
-.logInBtn:focus-visible {
-  color: var(--grey-50);
-  background-color: var(--brand-700);
-  border-style: dashed;
-  border-color: var(--brand-100);
-}
 .avatarIcon {
   cursor: pointer;
   transition: 0.4s;
@@ -106,4 +88,7 @@ nav .auth {
 }
 .imgCont {
   position: relative;
+}
+.primaryBtn {
+  height: 6rem;
 }

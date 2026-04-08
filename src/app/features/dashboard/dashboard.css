@@ -122,30 +122,30 @@
   height: 20.3rem;
 }
 
-.featuredCourses {
+.CoursesCont {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
 }
-.featuredCourses .heading h1 {
+.CoursesCont .heading h1 {
   color: var(--grey-950);
 }
-.featuredCourses .heading p {
+.CoursesCont .heading p {
   color: var(--grey-700);
   font-size: var(--m-fs);
   font-weight: var(--helper-r-fw);
 }
-.featuredCourses .heading {
+.CoursesCont .heading {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
-.featuredCardsCont {
+.coursesCardsCont {
   display: flex;
   align-items: center;
   gap: 2.4rem;
 }
-.featuredCard {
+.card {
   width: 100%;
   border-radius: 1.2rem;
   border: 1px solid var(--grey-100);
@@ -153,46 +153,76 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
+}
+.card.featured {
   gap: 2.4rem;
 }
-.featuredCard .contentCont {
+.card.progress {
+  gap: 0.8rem;
+  max-width: calc((100vw - 35.4rem) / 3);
+}
+.card.featured .contentCont {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
 }
-.featuredCard .contentCont img {
+.card.progress .contentCont {
+  display: flex;
+}
+.card.featured .contentCont img {
   border-radius: 10px;
   width: 100%;
   height: 26.2rem;
 }
-.featuredCard .titleCont {
+.card.progress .contentCont img {
+  width: 14rem;
+  height: 12.3rem;
+  max-width: 14rem;
+  border-radius: 1.2rem;
+}
+.card.featured .titleCont {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
-.featuredCard .titleCont .titleDescCont {
+.card.progress .titleCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding-inline: 1.6rem 0.4rem;
+  height: 100%;
+  align-items: start;
+  width: 100%;
+}
+.card .titleCont .titleDescCont {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
-.featuredCard .titleCont .titleDescCont p {
+.card .titleCont .titleDescCont p {
   font-size: var(--xs-fs);
   color: var(--grey-500);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
 
-.featuredCard .titleCont .titleDescCont p span {
+.card .titleCont .titleDescCont p span {
   color: var(--grey-400);
 }
-.featuredCard .ratingCont {
+.card .ratingCont {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
-.featuredCard .titleCont .titleDescCont .ratingCont p {
+.card .titleCont .titleDescCont .ratingCont p {
   color: var(--grey-600);
 }
-.featuredCard h3,
-h2 {
+.card.featured h3,
+h2,
+h4 {
   color: var(--grey-900);
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -209,20 +239,74 @@ h2 {
   overflow: hidden;
   line-height: 2.4rem;
 }
-.featuredCard .footerCont {
+.card.featured .footerCont {
+  display: flex;
+  justify-content: space-between;
+}
+.card.progress .footerCont {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 4rem;
 }
-.featuredCard .priceCont {
+.card.featured .priceCont {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
-.featuredCard .priceCont p {
-  color: var(--grey-400);
+.card.progress .priceCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+  width: 100%;
+}
+.card.progress .progressBar {
+  width: 100%;
+  height: 1.5rem;
+  background: var(--brand-100);
+  border-radius: 3rem;
+  overflow: hidden;
+}
+
+.card.progress .progressFill {
+  height: 100%;
+  background: var(--brand-500);
+  border-radius: 3rem;
+}
+.card.progress .ctaBtnOutline {
+  width: 9rem;
+}
+.card .priceCont p {
   font-size: var(--helper-m-fs);
 }
-.featuredCard .primaryBtn {
+.card.featured .priceCont p {
+  color: var(--grey-400);
+}
+.card.progress .priceCont p {
+  color: var(--grey-900);
+}
+.card.featured .primaryBtn {
   height: 5.8rem;
+}
+.headingDescCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.headingDescCont a {
+  font-size: var(--under-m);
+  color: var(--brand-500);
+  text-decoration-line: underline;
+  text-underline-offset: 0.4rem;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+}
+.headingDescCont a:hover,
+.headingDescCont a:focus-visible {
+  color: var(--brand-600);
+}
+.headingDescCont a:active {
+  color: var(--brand-700);
 }

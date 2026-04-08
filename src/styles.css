@@ -282,7 +282,7 @@ main {
   padding: 1.7rem 2.5rem;
   border-radius: 8px;
   background-color: var(--brand-500);
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   display: flex;
   align-items: center;
   transition: 0.4s;
@@ -301,4 +301,32 @@ main {
 .primaryBtn:focus-visible {
   border-color: var(--brand-700);
   background-color: var(--brand-600);
+}
+
+.ctaBtnOutline {
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
+  border: 2px solid var(--brand-300);
+  background-color: transparent;
+  color: var(--brand-500);
+  font-size: var(--btn-s);
+  transition: 0.4s;
+  cursor: pointer;
+}
+.ctaBtnOutline:hover {
+  color: var(--grey-50);
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.ctaBtnOutline:active {
+  color: var(--grey-50);
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.ctaBtnOutline:focus-visible {
+  border-color: var(--brand-100);
+  border-style: dashed;
+  border-spacing: 2px;
+  background-color: var(--brand-700);
+  color: var(--grey-50);
 }
