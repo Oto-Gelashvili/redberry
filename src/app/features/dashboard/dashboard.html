@@ -54,7 +54,38 @@
       </div>
     </div>
   </section>
-  @if (progressCourses().length > 0) {
+  @if (isLoadingInProgress()) {
+    <section class="CoursesCont">
+      <div class="heading">
+        <h1>Continue Learning</h1>
+        <div class="headingDescCont">
+          <p>Pick up where you left</p>
+        </div>
+      </div>
+      <div class="coursesCardsCont">
+        @for (num of [1, 2, 3]; track num) {
+          <div class="card progress">
+            <div class="contentCont">
+              <div class="progressImgSkeleton shimmer"></div>
+              <div class="titleCont">
+                <div class="titleDescCont">
+                  <p class="skeletonLecturerLine shimmer"></p>
+                  <div class="skeletonRatingLine shimmer"></div>
+                </div>
+                <div class="progHeadginSkeleton shimmer"></div>
+              </div>
+            </div>
+            <div class="footerCont">
+              <div class="priceCont">
+                <div class="progBarSkeleton shimmer"></div>
+              </div>
+              <div class="progBtnSkeleton shimmer"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  } @else if (progressCourses().length > 0) {
     <section class="CoursesCont">
       <div class="heading">
         <h1>Continue Learning</h1>
@@ -105,30 +136,55 @@
       <p>Choose from our most popular courses and begin your journey</p>
     </div>
     <div class="coursesCardsCont">
-      @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
-        <div class="card featured">
-          <div class="contentCont">
-            <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
-            <div class="titleCont">
-              <div class="titleDescCont">
-                <p class="lecturer"><span>Lecturer</span> {{ featuredCourse.instructor.name }}</p>
-                <div class="ratingCont">
-                  <app-icon-library name="star" [size]="18"></app-icon-library>
-                  <p>{{ featuredCourse.avgRating ? featuredCourse.avgRating : '0' }}</p>
+      @if (isLoadingCourses()) {
+        @for (num of [1, 2, 3]; track num) {
+          <div class="card featured">
+            <div class="contentCont">
+              <div class="skeletonImg shimmer"></div>
+              <div class="titleCont">
+                <div class="titleDescCont">
+                  <div class="skeletonLecturerLine shimmer"></div>
+                  <div class="ratingCont skeletonRatingLine shimmer"></div>
                 </div>
+                <div class="skeletonHeadingLine shimmer"></div>
               </div>
-              <h3>{{ featuredCourse.title }}</h3>
+              <div class="featuredCourseDescP SkeletonLineP shimmer"></div>
             </div>
-            <p class="featuredCourseDescP">{{ featuredCourse.description }}</p>
-          </div>
-          <div class="footerCont">
-            <div class="priceCont">
-              <p>Starting from</p>
-              <h2>${{ featuredCourse.basePrice }}</h2>
+            <div class="footerCont">
+              <div class="priceCont">
+                <div class="startingSkeletonLine shimmer"></div>
+                <div class="priceSkeltonLine shimmer"></div>
+              </div>
+              <div class="skeletonBtn shimmer"></div>
             </div>
-            <a routerLink="/course"><button class="primaryBtn">Details</button></a>
           </div>
-        </div>
+        }
+      } @else {
+        @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
+          <div class="card featured">
+            <div class="contentCont">
+              <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
+              <div class="titleCont">
+                <div class="titleDescCont">
+                  <p class="lecturer"><span>Lecturer</span> {{ featuredCourse.instructor.name }}</p>
+                  <div class="ratingCont">
+                    <app-icon-library name="star" [size]="18"></app-icon-library>
+                    <p>{{ featuredCourse.avgRating ? featuredCourse.avgRating : '0' }}</p>
+                  </div>
+                </div>
+                <h3>{{ featuredCourse.title }}</h3>
+              </div>
+              <p class="featuredCourseDescP">{{ featuredCourse.description }}</p>
+            </div>
+            <div class="footerCont">
+              <div class="priceCont">
+                <p>Starting from</p>
+                <h2>${{ featuredCourse.basePrice }}</h2>
+              </div>
+              <a routerLink="/course"><button class="primaryBtn">Details</button></a>
+            </div>
+          </div>
+        }
       }
     </div>
   </section>
