@@ -1,4 +1,3 @@
-// modal.service.ts
 import { Injectable, signal, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
@@ -11,6 +10,7 @@ export class ModalService {
   isSignUpOpen = signal(false);
   isLogInOpen = signal(false);
   isProfileOpen = signal(false);
+  isPanelRendered = signal(false);
 
   openSignUp() {
     this.isLogInOpen.set(false);
@@ -28,6 +28,12 @@ export class ModalService {
     this.isSignUpOpen.set(false);
     this.isLogInOpen.set(false);
     this.isProfileOpen.set(true);
+  }
+  openSidePanel() {
+    this.isPanelRendered.set(true);
+  }
+  closeSidePanel() {
+    this.isPanelRendered.set(false);
   }
 
   async closeProfile() {

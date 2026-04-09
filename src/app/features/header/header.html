@@ -12,12 +12,12 @@
           <p>Browse Courses</p>
         </a>
         @if (authService.isAuthenticated()) {
-          <a routerLink="/courses" class="courses">
+          <button (click)="modalService.openSidePanel()" class="courses">
             <div class="imgCont">
               <app-icon-library name="browseIcon" [size]="26"></app-icon-library>
             </div>
             <p>Enrolled Courses</p>
-          </a>
+          </button>
         }
       </div>
 
@@ -89,3 +89,18 @@
     </div>
   </div>
 }
+<div
+  class="panel-backdrop"
+  [class.show]="modalService.isPanelRendered()"
+  (click)="modalService.closeSidePanel()"
+>
+  <div
+    class="panel-container"
+    [class.open]="modalService.isPanelRendered()"
+    (click)="$event.stopPropagation()"
+  >
+    @if (modalService.isPanelRendered()) {
+      <app-side-panel></app-side-panel>
+    }
+  </div>
+</div>

@@ -270,6 +270,7 @@ h5 {
     opacity: 0;
   }
 }
+
 main {
   /* padding: calc(var(--fixed-hader-height) + 6.4rem) 17.7rem; */
   padding: 6.4rem 17.7rem;
