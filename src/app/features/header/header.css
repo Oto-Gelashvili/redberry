@@ -113,13 +113,15 @@ nav .auth {
   position: absolute;
   top: 0;
   right: 0;
-
-  width: 79.4rem;
+  width: 100%;
+  max-width: 79.4rem;
   min-height: 100vh;
   background-color: var(--grey-100);
+  padding: 6rem 7.4rem;
 
   transform: translateX(100%);
   transition: 0.4s ease;
+  display: flex;
   opacity: 0;
 }
 

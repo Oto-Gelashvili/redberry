@@ -92,7 +92,7 @@
         <div class="headingDescCont">
           <p>Pick up where you left</p>
           @if (progressCourseAmount() > 4) {
-            <a routerLink="/courses">See All</a>
+            <button (click)="modalService.openSidePanel()">See All</button>
           }
         </div>
       </div>

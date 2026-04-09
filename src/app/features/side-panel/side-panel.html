@@ -1,1 +1,24 @@
-<div class="panel-content"></div>
+<div class="panel-content">
+  <div class="heading">
+    <h1>Enrolled Courses</h1>
+    <div class="enrollmentsAmountCont">
+      <p>Total Enrollments</p>
+      <h5>{{ this.enrolledCourses().length }}</h5>
+    </div>
+  </div>
+  @if (enrolledCourses().length === 0) {
+    <div class="content">
+      <div class="imgCont"><img src="PackageOpen.svg" alt="empty box icon" /></div>
+      <div class="nonImgCont">
+        <div class="textCont">
+          <h3>No Enrolled Courses Yet</h3>
+          <p>
+            Your learning journey starts here!<br />
+            Browse courses to get started.
+          </p>
+        </div>
+        <button class="primaryBtn">Browse Courses</button>
+      </div>
+    </div>
+  }
+</div>
