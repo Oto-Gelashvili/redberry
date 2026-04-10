@@ -35,7 +35,7 @@ export class SidePanel implements OnInit, OnDestroy {
     } catch {
       this.notyService.showError('Failed to load featured courses');
     } finally {
-      this.isLoadingCourses.set(true);
+      this.isLoadingCourses.set(false);
     }
   }
 }

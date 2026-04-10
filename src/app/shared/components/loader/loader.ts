@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './loader.html',
   styleUrl: './loader.css',
 })
-export class Loader {}
+export class Loader {
+  size = input<number>(20);
+  innerColor = input<string>('var(--warning)');
+}

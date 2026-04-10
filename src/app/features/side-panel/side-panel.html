@@ -8,7 +8,7 @@
   </div>
   @if (isLoadingCourses() === true) {
     <div class="content">
-      <app-loader></app-loader>
+      <app-loader [size]="50" [innerColor]="'var(--brand-500)'"></app-loader>
     </div>
   } @else if (enrolledCourses().length === 0) {
     <div class="content">
