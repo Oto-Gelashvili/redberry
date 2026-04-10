@@ -1,15 +1,17 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CoursesService } from '../../core/services/courses.service';
 import { EnrolledCourse } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
+import { IconLibrary } from '../../shared/components/icon-library/icon-library';
+import { Loader } from '../../shared/components/loader/loader';
 
 @Component({
   selector: 'app-side-panel',
-  imports: [],
+  imports: [IconLibrary, Loader],
   templateUrl: './side-panel.html',
   styleUrl: './side-panel.css',
 })
-export class SidePanel implements OnInit {
+export class SidePanel implements OnInit, OnDestroy {
   private readonly courseService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
   protected isLoadingCourses = signal(false);
@@ -17,6 +19,11 @@ export class SidePanel implements OnInit {
 
   ngOnInit() {
     this.loadCourses();
+
+    document.documentElement.style.overflow = 'hidden';
+  }
+  ngOnDestroy() {
+    document.documentElement.style.overflow = '';
   }
 
   private async loadCourses() {
@@ -28,7 +35,7 @@ export class SidePanel implements OnInit {
     } catch {
       this.notyService.showError('Failed to load featured courses');
     } finally {
-      this.isLoadingCourses.set(false);
+      this.isLoadingCourses.set(true);
     }
   }
 }

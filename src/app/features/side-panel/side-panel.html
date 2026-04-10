@@ -6,7 +6,11 @@
       <h5>{{ this.enrolledCourses().length }}</h5>
     </div>
   </div>
-  @if (enrolledCourses().length === 0) {
+  @if (isLoadingCourses() === true) {
+    <div class="content">
+      <app-loader></app-loader>
+    </div>
+  } @else if (enrolledCourses().length === 0) {
     <div class="content">
       <div class="imgCont"><img src="PackageOpen.svg" alt="empty box icon" /></div>
       <div class="nonImgCont">
@@ -19,6 +23,63 @@
         </div>
         <button class="primaryBtn">Browse Courses</button>
       </div>
+    </div>
+  } @else {
+    <div class="contentEnrolled">
+      @for (course of enrolledCourses(); track course.id) {
+        <div class="card">
+          <div class="top">
+            <img class="courseImg" [src]="course.course.image" [alt]="course.course.title" />
+            <div class="textContCourse">
+              <div class="titleDescCont">
+                <p class="lecturer"><span>Lecturer</span> {{ course.course.instructor.name }}</p>
+                <div class="ratingCont">
+                  <app-icon-library name="star" [size]="18"></app-icon-library>
+                  <p>
+                    {{ course.course.avgRating ? course.course.avgRating : '0' }}
+                  </p>
+                </div>
+              </div>
+              <h4>{{ course.course.title }}</h4>
+              <ul class="scheduleCont">
+                <li>
+                  <div class="iconCont">
+                    <img src="timeTable.svg" alt="weekly schedule icon" />
+                  </div>
+                  <p>{{ course.schedule.weeklySchedule.label }}</p>
+                </li>
+                <li>
+                  <div class="iconCont"><img src="clock.svg" alt="time slot icon" /></div>
+                  <p>{{ course.schedule.timeSlot.label }}</p>
+                </li>
+                <li>
+                  <div class="iconCont">
+                    <img src="inPerson.svg" alt="session type icon" />
+                  </div>
+                  <p>{{ course.schedule.sessionType.name }}</p>
+                </li>
+                @if (course.schedule.sessionType.name !== 'online') {
+                  <li>
+                    <div class="iconCont">
+                      <img src="location.svg" alt="location icon" />
+                    </div>
+                    <p>{{ course.schedule.location }}</p>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+          <div class="bot">
+            <div class="priceCont">
+              <p>{{ course.progress }}% Complete</p>
+              <div class="progressBar">
+                <div class="progressFill" [style.width.%]="course.progress"></div>
+              </div>
+            </div>
+            <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+          </div>
+        </div>
+      }
     </div>
   }
 </div>

@@ -23,13 +23,34 @@
 .enrollmentsAmountCont p {
   font-size: var(--s-fs);
 }
-.content {
+.content,
+.contentEnrolled {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
   flex-direction: column;
+}
+.contentEnrolled {
+  gap: 1.2rem;
+  justify-content: unset;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey-300) transparent;
+}
+
+.contentEnrolled::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.contentEnrolled::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.contentEnrolled::-webkit-scrollbar-thumb {
+  background-color: var(--grey-300);
+  border-radius: 999px;
 }
 .imgCont {
   padding: 3rem;
@@ -61,4 +82,116 @@
 }
 .primaryBtn {
   width: fit-content;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 62.3rem;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  gap: 1.6rem;
+  background-color: var(--grey-50);
+}
+.top {
+  display: flex;
+  gap: 1.8rem;
+}
+.courseImg {
+  width: 26.9rem;
+  height: 19.1rem;
+  border-radius: 1rem;
+}
+.textContCourse {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+.card .titleDescCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.card .titleDescCont p {
+  font-size: var(--xs-fs);
+  color: var(--grey-500);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.card p span {
+  color: var(--grey-400);
+}
+.card .ratingCont {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.card .titleDescCont .ratingCont p {
+  color: var(--grey-600);
+}
+h4 {
+  color: var(--grey-900);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.priceCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0.4rem;
+  width: 100%;
+}
+.priceCont p {
+  font-size: var(--s-fs);
+  color: var(--grey-900);
+}
+.progressBar {
+  width: 100%;
+  height: 1.5rem;
+  background: var(--brand-100);
+  border-radius: 3rem;
+  overflow: hidden;
+}
+.progressFill {
+  height: 100%;
+  background: var(--brand-500);
+  border-radius: 3rem;
+}
+.ctaBtnOutline {
+  width: 11.7rem;
+  font-size: var(--btn-s);
+}
+.scheduleCont {
+  display: flex;
+  flex-direction: column;
+  color: var(--grey-500);
+  font-size: var(--helper-rm-fs);
+  font-weight: var(--helper-r-fw);
+  list-style: none;
+  line-height: 2.6rem;
+}
+.scheduleCont li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.iconCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
 }

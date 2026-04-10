@@ -180,6 +180,22 @@ html {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   background-color: var(--grey-100);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--grey-300) transparent;
+}
+
+body::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--grey-100);
+  border-radius: 999px;
 }
 h1 {
   font-size: 4rem;
