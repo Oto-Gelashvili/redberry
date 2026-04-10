@@ -456,3 +456,7 @@ h4 {
   width: 9rem;
   height: 4.8rem;
 }
+.seeAllBtn {
+  outline: none;
+  border: none;
+}

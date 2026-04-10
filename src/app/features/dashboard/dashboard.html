@@ -10,7 +10,7 @@
               Find the skills you need to grow your career and learn at your own pace.
             </p>
           </div>
-          <a routerLink="/browse"><button class="primaryBtn">Browse Courses</button></a>
+          <a routerLink="/courses"><button class="primaryBtn">Browse Courses</button></a>
         </div>
       </div>
       <div class="heroCard Two">
@@ -22,7 +22,7 @@
               your progress, and stay on track toward completing your goals.
             </p>
           </div>
-          <a routerLink="/browse"><button class="primaryBtn">Start Learning</button></a>
+          <a routerLink="/courses"><button class="primaryBtn">Start Learning</button></a>
         </div>
       </div>
       <div class="heroCard Three">
@@ -30,7 +30,7 @@
           <div class="headingCont">
             <p class="heroHeading">Learn together, grow faster</p>
           </div>
-          <a routerLink="/browse"><button class="primaryBtn">Learn More</button></a>
+          <a routerLink="/courses"><button class="primaryBtn">Learn More</button></a>
         </div>
       </div>
     </div>
@@ -194,7 +194,7 @@
         <h1>Continue Learning</h1>
         <div class="headingDescCont">
           <p>Pick up where you left</p>
-          <a routerLink="/courses">See All</a>
+          <button class="seeAllBtn" (click)="modalService.openLogIn()">See All</button>
         </div>
       </div>
       <div class="coursesCardsCont blurred">
@@ -222,7 +222,7 @@
                   <div class="progressFill" [style.width.%]="65"></div>
                 </div>
               </div>
-              <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+              <button class="ctaBtnOutline">View</button>
             </div>
           </div>
         }

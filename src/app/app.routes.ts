@@ -6,4 +6,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/dashboard/dashboard').then((m) => m.Dashboard),
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'courses',
+    loadComponent: () => import('./features/courses/courses').then((m) => m.Courses),
+  },
 ];
