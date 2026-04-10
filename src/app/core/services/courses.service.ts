@@ -1,5 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { Course, EnrolledCourse } from '../../models/courses.model';
+import {
+  Category,
+  Course,
+  CoursesResponse,
+  EnrolledCourse,
+  Instructor,
+  Topic,
+} from '../../models/courses.model';
 import { AuthService } from './auth.service';
 
 const BASE_URL = 'https://api.redclass.redberryinternship.ge/api';
@@ -32,5 +39,41 @@ export class CoursesService {
       throw { status: res.status, error: json };
     }
     return json.data as EnrolledCourse[];
+  }
+  async getCourses(
+    page: number = 1,
+    filters: { categories?: number[]; topics?: number[]; instructors?: number[] } = {},
+  ): Promise<CoursesResponse> {
+    const params = new URLSearchParams();
+    params.set('page', String(page));
+
+    filters.categories?.forEach((id) => params.append('categories[]', String(id)));
+    filters.topics?.forEach((id) => params.append('topics[]', String(id)));
+    filters.instructors?.forEach((id) => params.append('instructors[]', String(id)));
+
+    const res = await fetch(`${BASE_URL}/courses?${params.toString()}`);
+    const json = await res.json();
+
+    if (!res.ok) throw { status: res.status, error: json };
+    return json as CoursesResponse;
+  }
+  async getCategories(): Promise<Category[]> {
+    const res = await fetch(`${BASE_URL}/categories`);
+    const json = await res.json();
+    return json.data as Category[];
+  }
+  async getTopics(categoryIds: number[] = []): Promise<Topic[]> {
+    const params = new URLSearchParams();
+    categoryIds.forEach((id) => params.append('categories[]', String(id)));
+    const url =
+      categoryIds.length > 0 ? `${BASE_URL}/topics?${params.toString()}` : `${BASE_URL}/topics`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return json.data as Topic[];
+  }
+  async getInstructors(): Promise<Instructor[]> {
+    const res = await fetch(`${BASE_URL}/instructors`);
+    const json = await res.json();
+    return json.data as Instructor[];
   }
 }

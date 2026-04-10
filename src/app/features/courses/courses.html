@@ -1,1 +1,142 @@
-<p>courses works!</p>
+<div class="coursesPage">
+  <aside class="sidebar">
+    <div class="filterSection">
+      <h3>Categories</h3>
+      <div class="filterItems">
+        @for (category of categories(); track category.id) {
+          <button
+            class="filterItem"
+            [class.selected]="selectedCategories().includes(category.id)"
+            (click)="toggleCategory(category.id)"
+            [disabled]="isLoadingCourses()"
+          >
+            <input
+              type="checkbox"
+              [checked]="selectedCategories().includes(category.id)"
+              tabindex="-1"
+            />
+            {{ category.name }}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="filterSection">
+      <h3>Topics</h3>
+      <div class="filterItems">
+        @for (topic of topics(); track topic.id) {
+          <button
+            class="filterItem"
+            [class.selected]="selectedTopics().includes(topic.id)"
+            (click)="toggleTopic(topic.id)"
+            [disabled]="isLoadingCourses()"
+          >
+            <input type="checkbox" [checked]="selectedTopics().includes(topic.id)" tabindex="-1" />
+            {{ topic.name }}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="filterSection">
+      <h3>Instructors</h3>
+      <div class="filterItems">
+        @for (instructor of instructors(); track instructor.id) {
+          <button
+            class="filterItem"
+            [class.selected]="selectedInstructors().includes(instructor.id)"
+            (click)="toggleInstructor(instructor.id)"
+            [disabled]="isLoadingCourses()"
+          >
+            <input
+              type="checkbox"
+              [checked]="selectedInstructors().includes(instructor.id)"
+              tabindex="-1"
+            />
+            {{ instructor.name }}
+          </button>
+        }
+      </div>
+    </div>
+    <button
+      (click)="clearAllFilters()"
+      [disabled]="
+        selectedCategories().length === 0 &&
+        selectedTopics().length === 0 &&
+        selectedInstructors().length === 0
+      "
+    >
+      Clear All Filters
+    </button>
+  </aside>
+
+  <div class="coursesContent">
+    @if (isLoadingCourses()) {
+      <app-loader></app-loader>
+    } @else {
+      @if (courses().length === 0) {
+        <p>No courses found</p>
+      }
+      <div class="coursesList">
+        @for (course of courses(); track course.id) {
+          <p>{{ course.title }}</p>
+        }
+      </div>
+
+      <div class="pagination">
+        <button
+          (click)="goToPage(currentPage() - 1)"
+          [disabled]="currentPage() === 1 || isLoadingCourses()"
+        >
+          Prev
+        </button>
+
+        @for (page of visiblePages(); track page) {
+          @if (page === 'dots-left') {
+            @if (editingDots() === 'left') {
+              <input
+                type="number"
+                [value]="dotsInputValue()"
+                (input)="dotsInputValue.set($any($event.target).value)"
+                (keydown)="onDotsInputKey($event)"
+                (blur)="onDotsInputBlur()"
+                [disabled]="isLoadingCourses()"
+                autofocus
+                style="width: 5rem"
+              />
+            } @else {
+              <button (click)="onDotsClick('left')" [disabled]="isLoadingCourses()">...</button>
+            }
+          } @else if (page === 'dots-right') {
+            @if (editingDots() === 'right') {
+              <input
+                type="number"
+                [value]="dotsInputValue()"
+                (input)="dotsInputValue.set($any($event.target).value)"
+                (keydown)="onDotsInputKey($event)"
+                (blur)="onDotsInputBlur()"
+                autofocus
+                style="width: 5rem"
+              />
+            } @else {
+              <button (click)="onDotsClick('right')" [disabled]="isLoadingCourses()">...</button>
+            }
+          } @else {
+            <button
+              (click)="goToPage(page)"
+              [disabled]="isLoadingCourses()"
+              [class.active]="currentPage() === page"
+            >
+              {{ page }}
+            </button>
+          }
+        }
+
+        <button
+          (click)="goToPage(currentPage() + 1)"
+          [disabled]="currentPage() === lastPage() || isLoadingCourses()"
+        >
+          Next
+        </button>
+      </div>
+    }
+  </div>
+</div>
