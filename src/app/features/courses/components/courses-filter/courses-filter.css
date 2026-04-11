@@ -1,0 +1,140 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 30.9rem;
+  height: 91.4rem;
+}
+
+.sideCont {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: 0.4s;
+}
+.sideCont:hover {
+  scrollbar-color: var(--grey-200) transparent;
+}
+
+.sideCont::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sideCont::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sideCont::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.sideCont:hover::-webkit-scrollbar-thumb {
+  background: var(--grey-300);
+}
+.filtersCont {
+  display: flex;
+  flex-direction: column;
+  gap: 5.6rem;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+h1 {
+  color: var(--grey-950);
+}
+.heading button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  outline: none;
+  border: none;
+  color: var(--grey-400);
+  cursor: pointer;
+  transition: 0.4s;
+  font-size: var(--btn-s);
+}
+.heading button:hover,
+.heading button:focus-visible {
+  color: var(--brand-500);
+}
+.heading button:active {
+  color: var(--brand-600);
+}
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  font-size: var(--m-fs);
+  color: var(--grey-500);
+}
+.filterItems {
+  display: flex;
+  font-size: var(--s-fs);
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filterItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  height: 3.9rem;
+  cursor: pointer;
+  transition: 0.4s;
+  background-color: var(--grey-50);
+  border-radius: 1.2rem;
+  border: none;
+  outline: none;
+  color: var(--grey-500);
+}
+
+.filterItem.selected {
+  color: var(--brand-400);
+}
+.filterItem:hover,
+.filterItem:focus-visible {
+  color: var(--brand-500);
+}
+.filterItem:active {
+  color: var(--brand-600);
+}
+.filterItem input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.filterItem:has(.avatar) {
+  gap: 1.2rem;
+}
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.4rem;
+}
+.avtiveCount {
+  border-top: 1px solid var(--grey-300);
+  padding-top: 1.6rem;
+  color: var(--grey-400);
+  font-size: var(--xs-fs);
+}
+.sideCont.dimmed {
+  opacity: 0.4;
+  pointer-events: none;
+  transition: 0.4s;
+}

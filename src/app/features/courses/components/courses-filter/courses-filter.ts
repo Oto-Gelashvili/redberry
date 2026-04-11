@@ -1,9 +1,10 @@
 import { Component, computed, input, output } from '@angular/core';
 import { Category, Instructor, Topic } from '../../../../models/courses.model';
+import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
 
 @Component({
   selector: 'app-courses-filter',
-  imports: [],
+  imports: [IconLibrary],
   templateUrl: './courses-filter.html',
   styleUrl: './courses-filter.css',
 })

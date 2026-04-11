@@ -1,43 +1,51 @@
 <div class="coursesPage">
-  <app-courses-filter
-    [categories]="categories()"
-    [topics]="topics()"
-    [instructors]="relevantInstructors()"
-    [selectedCategories]="selectedCategories()"
-    [selectedTopics]="selectedTopics()"
-    [selectedInstructors]="selectedInstructors()"
-    [isLoading]="isLoadingCourses()"
-    (categoryToggled)="toggleCategory($event)"
-    (topicToggled)="toggleTopic($event)"
-    (instructorToggled)="toggleInstructor($event)"
-    (filtersCleared)="clearAllFilters()"
-  ></app-courses-filter>
-
-  <app-sorter
-    [options]="courseSortOptions"
-    [initialSort]="selectedSortOption()"
-    (sortChanged)="onCourseSortChange($event)"
-  />
-
-  <div class="coursesContent">
-    @if (isLoadingCourses()) {
-      <app-loader></app-loader>
-    } @else {
-      @if (courses().length === 0) {
-        <p>No courses found</p>
-      }
-      <div class="coursesList">
-        @for (course of courses(); track course.id) {
-          <p>{{ course.title }}</p>
+  <div class="breadcrumbs">
+    <div class="left">
+      <a routerLink="/dashboard">Home</a>
+      <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+    </div>
+    <a routerLink="/courses">Browse</a>
+  </div>
+  <div class="mainCont">
+    <app-courses-filter
+      [categories]="categories()"
+      [topics]="topics()"
+      [instructors]="relevantInstructors()"
+      [selectedCategories]="selectedCategories()"
+      [selectedTopics]="selectedTopics()"
+      [selectedInstructors]="selectedInstructors()"
+      [isLoading]="isLoadingCourses()"
+      (categoryToggled)="toggleCategory($event)"
+      (topicToggled)="toggleTopic($event)"
+      (instructorToggled)="toggleInstructor($event)"
+      (filtersCleared)="clearAllFilters()"
+    ></app-courses-filter>
+    <div class="cardsCont">
+      <app-sorter
+        [options]="courseSortOptions"
+        [initialSort]="selectedSortOption()"
+        (sortChanged)="onCourseSortChange($event)"
+      />
+      <div class="coursesContent">
+        @if (isLoadingCourses()) {
+          <app-loader></app-loader>
+        } @else {
+          @if (courses().length === 0) {
+            <p>No courses found</p>
+          }
+          <div class="coursesList">
+            @for (course of courses(); track course.id) {
+              <p>{{ course.title }}</p>
+            }
+          </div>
+          <app-pagination
+            [currentPage]="currentPage()"
+            [lastPage]="lastPage()"
+            [isLoading]="isLoadingCourses()"
+            (pageChange)="goToPage($event)"
+          ></app-pagination>
         }
       </div>
-
-      <app-pagination
-        [currentPage]="currentPage()"
-        [lastPage]="lastPage()"
-        [isLoading]="isLoadingCourses()"
-        (pageChange)="goToPage($event)"
-      ></app-pagination>
-    }
+    </div>
   </div>
 </div>

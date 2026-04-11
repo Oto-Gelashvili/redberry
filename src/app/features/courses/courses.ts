@@ -10,7 +10,7 @@ import {
 } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Pagination } from '../../shared/components/pagination/pagination';
 import { CoursesFilter } from './components/courses-filter/courses-filter';
@@ -18,7 +18,7 @@ import { SorterComponent } from './components/sorter/sorter';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader, Pagination, CoursesFilter, SorterComponent],
+  imports: [Loader, Pagination, CoursesFilter, SorterComponent, RouterLink],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })

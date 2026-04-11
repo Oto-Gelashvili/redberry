@@ -1,0 +1,43 @@
+.coursesPage {
+  display: flex;
+  flex-direction: column;
+  gap: 3.4rem;
+}
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: var(--m-fs);
+}
+.breadcrumbs .left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.4rem;
+}
+.breadcrumbs a {
+  color: var(--grey-500);
+  transition: 0.4s;
+}
+.breadcrumbs a:last-child {
+  color: var(--brand-400);
+}
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  color: var(--brand-500);
+}
+.breadcrumbs a:active {
+  color: var(--brand-600);
+}
+
+.iconCont {
+  width: 1.2rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainCont {
+  display: flex;
+  gap: 9rem;
+}
