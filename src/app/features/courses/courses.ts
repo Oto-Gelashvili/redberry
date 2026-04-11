@@ -5,10 +5,11 @@ import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { Pagination } from '../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader],
+  imports: [Loader, Pagination],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
@@ -34,36 +35,6 @@ export class Courses implements OnInit {
   protected selectedInstructors = signal<number[]>([]);
 
   protected lastPage = computed(() => this.meta()?.lastPage ?? 1);
-  protected visiblePages = computed(() => {
-    const current = this.currentPage();
-    const last = this.lastPage();
-    const pages: (number | 'dots-left' | 'dots-right')[] = [];
-
-    if (last <= 5) {
-      for (let i = 1; i <= last; i++) pages.push(i);
-      return pages;
-    }
-
-    pages.push(1);
-    if (current <= 3) {
-      pages.push(2, 3);
-      if (current === 3) pages.push(4);
-      pages.push('dots-right');
-    } else if (current >= last - 2) {
-      pages.push('dots-left');
-      if (current === last - 2) pages.push(last - 3);
-      pages.push(last - 2, last - 1);
-    } else {
-      pages.push('dots-left');
-      pages.push(current - 1, current, current + 1);
-      pages.push('dots-right');
-    }
-    pages.push(last);
-    return pages;
-  });
-
-  protected editingDots = signal<'left' | 'right' | null>(null);
-  protected dotsInputValue = signal('');
 
   async ngOnInit() {
     const params = await firstValueFrom(this.route.queryParams);
@@ -196,33 +167,11 @@ export class Courses implements OnInit {
   }
 
   protected async goToPage(page: number) {
-    if (page < 1 || page > this.lastPage() || page === this.currentPage()) return;
     this.currentPage.set(page);
     await this.loadCourses();
     this.updateUrl();
   }
 
-  protected onDotsClick(side: 'left' | 'right') {
-    this.editingDots.set(side);
-    this.dotsInputValue.set('');
-  }
-
-  protected onDotsInputKey(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      const page = Number(this.dotsInputValue());
-      if (Number.isInteger(page)) {
-        this.goToPage(page);
-      }
-      this.editingDots.set(null);
-    }
-    if (event.key === 'Escape') {
-      this.editingDots.set(null);
-    }
-  }
-
-  protected onDotsInputBlur() {
-    this.editingDots.set(null);
-  }
   protected relevantInstructors = computed(() => {
     if (this.selectedCategories().length === 0 && this.selectedTopics().length === 0) {
       return this.instructors();

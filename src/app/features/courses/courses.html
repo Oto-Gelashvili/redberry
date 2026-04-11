@@ -81,62 +81,12 @@
         }
       </div>
 
-      <div class="pagination">
-        <button
-          (click)="goToPage(currentPage() - 1)"
-          [disabled]="currentPage() === 1 || isLoadingCourses()"
-        >
-          Prev
-        </button>
-
-        @for (page of visiblePages(); track page) {
-          @if (page === 'dots-left') {
-            @if (editingDots() === 'left') {
-              <input
-                type="number"
-                [value]="dotsInputValue()"
-                (input)="dotsInputValue.set($any($event.target).value)"
-                (keydown)="onDotsInputKey($event)"
-                (blur)="onDotsInputBlur()"
-                [disabled]="isLoadingCourses()"
-                autofocus
-                style="width: 5rem"
-              />
-            } @else {
-              <button (click)="onDotsClick('left')" [disabled]="isLoadingCourses()">...</button>
-            }
-          } @else if (page === 'dots-right') {
-            @if (editingDots() === 'right') {
-              <input
-                type="number"
-                [value]="dotsInputValue()"
-                (input)="dotsInputValue.set($any($event.target).value)"
-                (keydown)="onDotsInputKey($event)"
-                (blur)="onDotsInputBlur()"
-                autofocus
-                style="width: 5rem"
-              />
-            } @else {
-              <button (click)="onDotsClick('right')" [disabled]="isLoadingCourses()">...</button>
-            }
-          } @else {
-            <button
-              (click)="goToPage(page)"
-              [disabled]="isLoadingCourses()"
-              [class.active]="currentPage() === page"
-            >
-              {{ page }}
-            </button>
-          }
-        }
-
-        <button
-          (click)="goToPage(currentPage() + 1)"
-          [disabled]="currentPage() === lastPage() || isLoadingCourses()"
-        >
-          Next
-        </button>
-      </div>
+      <app-pagination
+        [currentPage]="currentPage()"
+        [lastPage]="lastPage()"
+        [isLoading]="isLoadingCourses()"
+        (pageChange)="goToPage($event)"
+      ></app-pagination>
     }
   </div>
 </div>

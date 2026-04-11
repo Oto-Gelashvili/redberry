@@ -1,0 +1,53 @@
+<div class="pagination">
+  <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1 || isLoading()">
+    Prev
+  </button>
+
+  @for (page of visiblePages(); track page) {
+    @if (page === 'dots-left') {
+      @if (editingDots() === 'left') {
+        <input
+          type="number"
+          [value]="dotsInputValue()"
+          (input)="dotsInputValue.set($any($event.target).value)"
+          (keydown)="onDotsInputKey($event)"
+          (blur)="onDotsInputBlur()"
+          [disabled]="isLoading()"
+          autofocus
+          style="width: 5rem"
+        />
+      } @else {
+        <button (click)="onDotsClick('left')" [disabled]="isLoading()">...</button>
+      }
+    } @else if (page === 'dots-right') {
+      @if (editingDots() === 'right') {
+        <input
+          type="number"
+          [value]="dotsInputValue()"
+          (input)="dotsInputValue.set($any($event.target).value)"
+          (keydown)="onDotsInputKey($event)"
+          (blur)="onDotsInputBlur()"
+          autofocus
+          style="width: 5rem"
+        />
+      } @else {
+        <button (click)="onDotsClick('right')" [disabled]="isLoading()">...</button>
+      }
+    } @else {
+      <button
+        (click)="goToPage(page)"
+        [disabled]="isLoading()"
+        [class.active]="currentPage() === page"
+      >
+        {{ page }}
+      </button>
+    }
+  }
+
+  <button
+    (click)="goToPage(currentPage() + 1)"
+    [disabled]="currentPage() === lastPage() || isLoading()"
+  >
+    Next
+  </button>
+</div>
