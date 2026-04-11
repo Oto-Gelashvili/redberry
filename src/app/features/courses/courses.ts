@@ -6,10 +6,11 @@ import { Loader } from '../../shared/components/loader/loader';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Pagination } from '../../shared/components/pagination/pagination';
+import { CoursesFilter } from './components/courses-filter/courses-filter';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader, Pagination],
+  imports: [Loader, Pagination, CoursesFilter],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })

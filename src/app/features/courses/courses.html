@@ -1,72 +1,17 @@
 <div class="coursesPage">
-  <aside class="sidebar">
-    <div class="filterSection">
-      <h3>Categories</h3>
-      <div class="filterItems">
-        @for (category of categories(); track category.id) {
-          <button
-            class="filterItem"
-            [class.selected]="selectedCategories().includes(category.id)"
-            (click)="toggleCategory(category.id)"
-            [disabled]="isLoadingCourses()"
-          >
-            <input
-              type="checkbox"
-              [checked]="selectedCategories().includes(category.id)"
-              tabindex="-1"
-            />
-            {{ category.name }}
-          </button>
-        }
-      </div>
-    </div>
-    <div class="filterSection">
-      <h3>Topics</h3>
-      <div class="filterItems">
-        @for (topic of topics(); track topic.id) {
-          <button
-            class="filterItem"
-            [class.selected]="selectedTopics().includes(topic.id)"
-            (click)="toggleTopic(topic.id)"
-            [disabled]="isLoadingCourses()"
-          >
-            <input type="checkbox" [checked]="selectedTopics().includes(topic.id)" tabindex="-1" />
-            {{ topic.name }}
-          </button>
-        }
-      </div>
-    </div>
-    <div class="filterSection">
-      <h3>Instructors</h3>
-      <div class="filterItems">
-        @for (instructor of relevantInstructors(); track instructor.id) {
-          <button
-            class="filterItem"
-            [class.selected]="selectedInstructors().includes(instructor.id)"
-            (click)="toggleInstructor(instructor.id)"
-            [disabled]="isLoadingCourses()"
-          >
-            <input
-              type="checkbox"
-              [checked]="selectedInstructors().includes(instructor.id)"
-              tabindex="-1"
-            />
-            {{ instructor.name }}
-          </button>
-        }
-      </div>
-    </div>
-    <button
-      (click)="clearAllFilters()"
-      [disabled]="
-        selectedCategories().length === 0 &&
-        selectedTopics().length === 0 &&
-        selectedInstructors().length === 0
-      "
-    >
-      Clear All Filters
-    </button>
-  </aside>
+  <app-courses-filter
+    [categories]="categories()"
+    [topics]="topics()"
+    [instructors]="relevantInstructors()"
+    [selectedCategories]="selectedCategories()"
+    [selectedTopics]="selectedTopics()"
+    [selectedInstructors]="selectedInstructors()"
+    [isLoading]="isLoadingCourses()"
+    (categoryToggled)="toggleCategory($event)"
+    (topicToggled)="toggleTopic($event)"
+    (instructorToggled)="toggleInstructor($event)"
+    (filtersCleared)="clearAllFilters()"
+  ></app-courses-filter>
 
   <div class="coursesContent">
     @if (isLoadingCourses()) {
