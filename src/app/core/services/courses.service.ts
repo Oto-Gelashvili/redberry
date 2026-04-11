@@ -42,7 +42,12 @@ export class CoursesService {
   }
   async getCourses(
     page: number = 1,
-    filters: { categories?: number[]; topics?: number[]; instructors?: number[] } = {},
+    filters: {
+      categories?: number[];
+      topics?: number[];
+      instructors?: number[];
+      sort?: string;
+    } = {},
   ): Promise<CoursesResponse> {
     const params = new URLSearchParams();
     params.set('page', String(page));
@@ -50,6 +55,9 @@ export class CoursesService {
     filters.categories?.forEach((id) => params.append('categories[]', String(id)));
     filters.topics?.forEach((id) => params.append('topics[]', String(id)));
     filters.instructors?.forEach((id) => params.append('instructors[]', String(id)));
+    if (filters.sort) {
+      params.set('sort', filters.sort);
+    }
 
     const res = await fetch(`${BASE_URL}/courses?${params.toString()}`);
     const json = await res.json();

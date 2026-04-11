@@ -81,3 +81,14 @@ export interface Instructor {
   name: string;
   avatar: string;
 }
+export interface SortOption {
+  key: string;
+  label: string;
+}
+export const COURSES_SORT_OPTIONS: SortOption[] = [
+  { key: 'newest', label: `Newest First` },
+  { key: 'price_asc', label: `Price: Low to High` },
+  { key: 'price_desc', label: `Price: High to Low` },
+  { key: 'popular', label: `Most Popular` },
+  { key: 'title_asc', label: `Title: A-Z` },
+];

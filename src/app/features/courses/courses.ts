@@ -1,16 +1,24 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CoursesService } from '../../core/services/courses.service';
-import { Category, Course, CoursesMeta, Instructor, Topic } from '../../models/courses.model';
+import {
+  Category,
+  Course,
+  COURSES_SORT_OPTIONS,
+  CoursesMeta,
+  Instructor,
+  Topic,
+} from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Pagination } from '../../shared/components/pagination/pagination';
 import { CoursesFilter } from './components/courses-filter/courses-filter';
+import { SorterComponent } from './components/sorter/sorter';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader, Pagination, CoursesFilter],
+  imports: [Loader, Pagination, CoursesFilter, SorterComponent],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
@@ -35,6 +43,9 @@ export class Courses implements OnInit {
   protected instructors = signal<Instructor[]>([]);
   protected selectedInstructors = signal<number[]>([]);
 
+  readonly courseSortOptions = [...COURSES_SORT_OPTIONS];
+  protected selectedSortOption = signal('');
+
   protected lastPage = computed(() => this.meta()?.lastPage ?? 1);
 
   async ngOnInit() {
@@ -52,6 +63,7 @@ export class Courses implements OnInit {
     this.selectedCategories.set(parseIds(params['categories']));
     this.selectedTopics.set(parseIds(params['topics']));
     this.selectedInstructors.set(parseIds(params['instructors']));
+    this.selectedSortOption.set(params['sort']);
 
     await this.init();
   }
@@ -59,10 +71,10 @@ export class Courses implements OnInit {
   private async init() {
     await Promise.all([
       this.loadCategories(),
-      this.loadTopics(),
+      this.loadTopics(this.selectedCategories()),
       this.loadInstructors(),
-      this.loadCourses(),
     ]);
+    await this.loadCourses();
   }
 
   private updateUrl() {
@@ -74,6 +86,7 @@ export class Courses implements OnInit {
         topics: this.selectedTopics().length > 0 ? this.selectedTopics().join(',') : null,
         instructors:
           this.selectedInstructors().length > 0 ? this.selectedInstructors().join(',') : null,
+        sort: this.selectedSortOption() ? this.selectedSortOption() : null,
       },
       replaceUrl: true,
     });
@@ -95,6 +108,7 @@ export class Courses implements OnInit {
         categories: this.selectedCategories(),
         topics: this.selectedTopics(),
         instructors: this.selectedInstructors(),
+        sort: this.selectedSortOption(),
       });
       this.courses.set(res.data);
       this.meta.set(res.meta);
@@ -169,6 +183,13 @@ export class Courses implements OnInit {
 
   protected async goToPage(page: number) {
     this.currentPage.set(page);
+    await this.loadCourses();
+    this.updateUrl();
+  }
+
+  protected async onCourseSortChange(option: string) {
+    this.selectedSortOption.set(option);
+    this.currentPage.set(1);
     await this.loadCourses();
     this.updateUrl();
   }
