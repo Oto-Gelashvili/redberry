@@ -3,6 +3,8 @@ import { CoursesService } from '../../core/services/courses.service';
 import { Category, Course, CoursesMeta, Instructor, Topic } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
+import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -13,6 +15,9 @@ import { Loader } from '../../shared/components/loader/loader';
 export class Courses implements OnInit {
   private readonly coursesService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
+
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   protected courses = signal<Course[]>([]);
   protected meta = signal<CoursesMeta | null>(null);
@@ -60,8 +65,23 @@ export class Courses implements OnInit {
   protected editingDots = signal<'left' | 'right' | null>(null);
   protected dotsInputValue = signal('');
 
-  ngOnInit() {
-    this.init();
+  async ngOnInit() {
+    const params = await firstValueFrom(this.route.queryParams);
+
+    const parseIds = (param: string | undefined): number[] => {
+      if (!param) return [];
+      return param
+        .split(',')
+        .map(Number)
+        .filter((n) => !isNaN(n));
+    };
+
+    this.currentPage.set(Number(params['page']) || 1);
+    this.selectedCategories.set(parseIds(params['categories']));
+    this.selectedTopics.set(parseIds(params['topics']));
+    this.selectedInstructors.set(parseIds(params['instructors']));
+
+    await this.init();
   }
 
   private async init() {
@@ -71,6 +91,20 @@ export class Courses implements OnInit {
       this.loadInstructors(),
       this.loadCourses(),
     ]);
+  }
+
+  private updateUrl() {
+    this.router.navigate([], {
+      queryParams: {
+        page: this.currentPage() > 1 ? this.currentPage() : null,
+        categories:
+          this.selectedCategories().length > 0 ? this.selectedCategories().join(',') : null,
+        topics: this.selectedTopics().length > 0 ? this.selectedTopics().join(',') : null,
+        instructors:
+          this.selectedInstructors().length > 0 ? this.selectedInstructors().join(',') : null,
+      },
+      replaceUrl: true,
+    });
   }
 
   private async loadCategories() {
@@ -114,6 +148,7 @@ export class Courses implements OnInit {
 
     this.currentPage.set(1);
     await this.loadCourses();
+    this.updateUrl();
   }
   protected async toggleCategory(id: number) {
     const next = this.selectedCategories().includes(id)
@@ -130,6 +165,7 @@ export class Courses implements OnInit {
     this.selectedTopics.update((ids) => ids.filter((id) => validTopicIds.has(id)));
 
     await this.loadCourses();
+    this.updateUrl();
   }
   private async loadTopics(categoryIds: number[] = []) {
     try {
@@ -146,21 +182,24 @@ export class Courses implements OnInit {
     );
     this.currentPage.set(1);
     await this.loadCourses();
+    this.updateUrl();
   }
 
   protected async clearAllFilters() {
     this.selectedCategories.set([]);
     this.selectedTopics.set([]);
+    this.selectedInstructors.set([]);
     this.currentPage.set(1);
     await this.loadTopics();
     await this.loadCourses();
-    this.selectedInstructors.set([]);
+    this.updateUrl();
   }
 
   protected async goToPage(page: number) {
     if (page < 1 || page > this.lastPage() || page === this.currentPage()) return;
     this.currentPage.set(page);
     await this.loadCourses();
+    this.updateUrl();
   }
 
   protected onDotsClick(side: 'left' | 'right') {
@@ -184,4 +223,11 @@ export class Courses implements OnInit {
   protected onDotsInputBlur() {
     this.editingDots.set(null);
   }
+  protected relevantInstructors = computed(() => {
+    if (this.selectedCategories().length === 0 && this.selectedTopics().length === 0) {
+      return this.instructors();
+    }
+    const relevantIds = new Set(this.courses().map((c) => c.instructor.id));
+    return this.instructors().filter((i) => relevantIds.has(i.id));
+  });
 }

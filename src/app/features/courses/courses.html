@@ -39,7 +39,7 @@
     <div class="filterSection">
       <h3>Instructors</h3>
       <div class="filterItems">
-        @for (instructor of instructors(); track instructor.id) {
+        @for (instructor of relevantInstructors(); track instructor.id) {
           <button
             class="filterItem"
             [class.selected]="selectedInstructors().includes(instructor.id)"
