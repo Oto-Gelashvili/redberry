@@ -1,7 +1,10 @@
 <div class="customSelect" [class.open]="isOpen()">
-  <div class="customSelectHeading" (click)="toggle()">
-    <p class="defaultOption">{{ selectedOption()?.label }}</p>
-    <span class="material-symbols-outlined arrow">expand_more</span>
+  <div class="customSelectHeading" tabindex="0" (click)="toggle()" (keydown)="toggle()">
+    <div class="labelCont">
+      <p>Sort By:</p>
+      <p class="defaultOption">{{ selectedOption()?.label }}</p>
+    </div>
+    <app-icon-library class="icon" name="dropdownBold" [size]="20"></app-icon-library>
   </div>
   @if (isOpen()) {
     <ul class="customSelectBody" animate.enter="open-animation" animate.leave="close-animation">

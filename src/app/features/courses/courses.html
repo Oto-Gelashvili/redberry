@@ -21,11 +21,18 @@
       (filtersCleared)="clearAllFilters()"
     ></app-courses-filter>
     <div class="cardsCont">
-      <app-sorter
-        [options]="courseSortOptions"
-        [initialSort]="selectedSortOption()"
-        (sortChanged)="onCourseSortChange($event)"
-      />
+      <div class="heading">
+        <p>
+          Showing
+          {{ courses().length + (meta()?.perPage ?? 0) * ((meta()?.currentPage ?? 1) - 1) }} out of
+          {{ meta()?.total }}
+        </p>
+        <app-sorter
+          [options]="courseSortOptions"
+          [initialSort]="selectedSortOption()"
+          (sortChanged)="onCourseSortChange($event)"
+        />
+      </div>
       <div class="coursesContent">
         @if (isLoadingCourses()) {
           <app-loader></app-loader>

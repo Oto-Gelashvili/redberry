@@ -1,9 +1,10 @@
 import { Component, computed, effect, input, OnInit, output, signal } from '@angular/core';
 import { SortOption } from '../../../../models/courses.model';
+import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
 
 @Component({
   selector: 'app-sorter',
-  imports: [],
+  imports: [IconLibrary],
   templateUrl: './sorter.html',
   styleUrl: './sorter.css',
 })
