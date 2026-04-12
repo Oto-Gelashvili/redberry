@@ -15,10 +15,11 @@ import { firstValueFrom } from 'rxjs';
 import { Pagination } from '../../shared/components/pagination/pagination';
 import { CoursesFilter } from './components/courses-filter/courses-filter';
 import { SorterComponent } from './components/sorter/sorter';
+import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader, Pagination, CoursesFilter, SorterComponent, RouterLink],
+  imports: [Loader, Pagination, CoursesFilter, SorterComponent, RouterLink, IconLibrary],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
@@ -33,6 +34,7 @@ export class Courses implements OnInit {
   protected meta = signal<CoursesMeta | null>(null);
   protected currentPage = signal(1);
   protected isLoadingCourses = signal(false);
+  protected isLoadingInit = signal(false);
 
   protected categories = signal<Category[]>([]);
   protected selectedCategories = signal<number[]>([]);
@@ -69,12 +71,14 @@ export class Courses implements OnInit {
   }
 
   private async init() {
+    this.isLoadingInit.set(true);
     await Promise.all([
       this.loadCategories(),
       this.loadTopics(this.selectedCategories()),
       this.loadInstructors(),
+      this.loadCourses(),
     ]);
-    await this.loadCourses();
+    this.isLoadingInit.set(false);
   }
 
   private updateUrl() {

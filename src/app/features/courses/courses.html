@@ -1,59 +1,102 @@
 <div class="coursesPage">
-  <div class="breadcrumbs">
-    <div class="left">
-      <a routerLink="/dashboard">Home</a>
-      <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
-    </div>
-    <a routerLink="/courses">Browse</a>
-  </div>
-  <div class="mainCont">
-    <app-courses-filter
-      [categories]="categories()"
-      [topics]="topics()"
-      [instructors]="relevantInstructors()"
-      [selectedCategories]="selectedCategories()"
-      [selectedTopics]="selectedTopics()"
-      [selectedInstructors]="selectedInstructors()"
-      [isLoading]="isLoadingCourses()"
-      (categoryToggled)="toggleCategory($event)"
-      (topicToggled)="toggleTopic($event)"
-      (instructorToggled)="toggleInstructor($event)"
-      (filtersCleared)="clearAllFilters()"
-    ></app-courses-filter>
-    <div class="cardsCont">
-      <div class="heading">
-        <p>
-          Showing
-          {{ courses().length + (meta()?.perPage ?? 0) * ((meta()?.currentPage ?? 1) - 1) }} out of
-          {{ meta()?.total }}
-        </p>
-        <app-sorter
-          [options]="courseSortOptions"
-          [initialSort]="selectedSortOption()"
-          (sortChanged)="onCourseSortChange($event)"
-        />
+  @if (isLoadingInit()) {
+    <app-loader class="loader" [size]="40" [innerColor]="'var(--brand-500)'"></app-loader>
+  } @else {
+    <div class="breadcrumbs">
+      <div class="left">
+        <a routerLink="/dashboard">Home</a>
+        <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
       </div>
-      <div class="coursesContent">
-        @if (isLoadingCourses()) {
-          <app-loader></app-loader>
-        } @else {
+      <a routerLink="/courses">Browse</a>
+    </div>
+    <div class="mainCont">
+      <app-courses-filter
+        [categories]="categories()"
+        [topics]="topics()"
+        [instructors]="relevantInstructors()"
+        [selectedCategories]="selectedCategories()"
+        [selectedTopics]="selectedTopics()"
+        [selectedInstructors]="selectedInstructors()"
+        [isLoading]="isLoadingCourses()"
+        (categoryToggled)="toggleCategory($event)"
+        (topicToggled)="toggleTopic($event)"
+        (instructorToggled)="toggleInstructor($event)"
+        (filtersCleared)="clearAllFilters()"
+      ></app-courses-filter>
+      <div class="cardsCont">
+        <div class="heading">
           @if (courses().length === 0) {
             <p>No courses found</p>
+          } @else {
+            <p>
+              Showing
+              {{ courses().length + (meta()?.perPage ?? 0) * ((meta()?.currentPage ?? 1) - 1) }} out
+              of
+              {{ meta()?.total }}
+            </p>
           }
-          <div class="coursesList">
-            @for (course of courses(); track course.id) {
-              <p>{{ course.title }}</p>
+          <app-sorter
+            [options]="courseSortOptions"
+            [initialSort]="selectedSortOption()"
+            (sortChanged)="onCourseSortChange($event)"
+          />
+        </div>
+        @if (isLoadingCourses()) {
+          <app-loader class="loader" [size]="40" [innerColor]="'var(--brand-500)'"></app-loader>
+        } @else {
+          <div class="coursesContent">
+            @if (courses().length === 0) {
+              <h2 class="noFoundHeading">Search for something else</h2>
+            } @else {
+              @for (course of courses(); track course.id) {
+                <div class="courseCard">
+                  <img [src]="course.image" [alt]="course.title" />
+                  <div class="textCont">
+                    <div class="textContHeading">
+                      <div class="instructorCont">
+                        <p class="instructorDesc">{{ course.instructor.name }}</p>
+                        <div></div>
+                        <p class="weekDesc">{{ course.durationWeeks }} Weeks</p>
+                      </div>
+                      <div class="ratingCont">
+                        <app-icon-library name="star" [size]="18"></app-icon-library>
+                        <p>
+                          {{ course.avgRating ? course.avgRating : '0' }}
+                        </p>
+                      </div>
+                    </div>
+                    <h3>{{ course.title }}</h3>
+                  </div>
+                  <button (click)="toggleCategory(course.category.id)" class="categoryCont">
+                    <app-icon-library
+                      class="icon"
+                      [name]="course.category.icon"
+                      [size]="24"
+                    ></app-icon-library>
+                    <p>{{ course.category.name }}</p>
+                  </button>
+                  <div class="cardFooter">
+                    <div class="priceCont">
+                      <p>Starting from</p>
+                      <h3>${{ course.basePrice }}</h3>
+                    </div>
+                    <button class="primaryBtn">Details</button>
+                  </div>
+                </div>
+              }
             }
           </div>
         }
+        @if (courses().length > 0) {
+          <app-pagination
+            class="pagination"
+            [currentPage]="currentPage()"
+            [lastPage]="lastPage()"
+            [isLoading]="isLoadingCourses()"
+            (pageChange)="goToPage($event)"
+          ></app-pagination>
+        }
       </div>
-      <app-pagination
-        class="pagination"
-        [currentPage]="currentPage()"
-        [lastPage]="lastPage()"
-        [isLoading]="isLoadingCourses()"
-        (pageChange)="goToPage($event)"
-      ></app-pagination>
     </div>
-  </div>
+  }
 </div>

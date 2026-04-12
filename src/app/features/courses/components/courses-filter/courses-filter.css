@@ -3,40 +3,15 @@
   flex-direction: column;
   gap: 2.4rem;
   width: 30.9rem;
-  height: 91.4rem;
 }
 
 .sideCont {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
   transition: 0.4s;
 }
-.sideCont:hover {
-  scrollbar-color: var(--grey-200) transparent;
-}
 
-.sideCont::-webkit-scrollbar {
-  width: 8px;
-}
-
-.sideCont::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sideCont::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 999px;
-  transition: background 0.2s ease;
-}
-
-.sideCont:hover::-webkit-scrollbar-thumb {
-  background: var(--grey-300);
-}
 .filtersCont {
   display: flex;
   flex-direction: column;
@@ -75,6 +50,33 @@ h1 {
   gap: 2.4rem;
   font-size: var(--m-fs);
   color: var(--grey-500);
+  max-height: 25rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: 0.4s;
+}
+.filterSection:hover {
+  scrollbar-color: var(--grey-200) transparent;
+}
+
+.filterSection::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filterSection::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filterSection::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.filterSection:hover::-webkit-scrollbar-thumb {
+  background: var(--grey-300);
 }
 .filterItems {
   display: flex;

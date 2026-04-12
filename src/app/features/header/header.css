@@ -2,7 +2,7 @@ header {
   padding: 2.4rem 17.7rem;
   border-bottom: 1px solid var(--grey-200);
   box-shadow: rgba(0, 0, 0, 0.04);
-  height: var(--fixed-hader-height);
+  height: var(--fixed-header-height);
   position: sticky;
   top: 0;
   z-index: 100;
