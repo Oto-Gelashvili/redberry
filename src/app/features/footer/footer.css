@@ -1,0 +1,116 @@
+footer {
+  padding: 8rem 17.7rem 2rem 17.7rem;
+  background-color: var(--grey-100);
+  display: flex;
+  flex-direction: column;
+  gap: 7.4rem;
+  border-top: 1px solid var(--grey-200);
+}
+.copyCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--grey-500);
+  font-size: var(--m-fs);
+  font-weight: var(--helper-r-fw);
+}
+.copyCont span {
+  color: var(--brand-500);
+  cursor: pointer;
+  transition: 0.4s;
+}
+.copyCont span:hover {
+  color: var(--brand-600);
+}
+.leftCont {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+.headingCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.socialsCont {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+.brandCont {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.brandCont img {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+.brandCont p {
+  font-size: var(--xl-fs);
+  color: var(--brand-800);
+}
+.desc {
+  font-size: var(--xs-fs);
+  color: var(--brand-800);
+}
+.socialsCont img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  transition: 0.4s;
+}
+.rightCont {
+  display: flex;
+  gap: 12rem;
+}
+.mainFooterCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sectionCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.rightCont h4 {
+  color: var(--brand-800);
+}
+.linksCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  color: var(--grey-500);
+  font-size: var(--m-fs);
+  font-weight: var(--helper-r-fw);
+}
+.linksCont button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+  color: var(--grey-500);
+  font-size: var(--m-fs);
+  font-weight: var(--helper-r-fw);
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+}
+.linksCont a {
+  transition: 0.4s;
+}
+.linksCont button:hover,
+.linksCont a:hover,
+.linksCont button:focus-visible,
+.linksCont a:focus-visible {
+  color: var(--brand-500);
+}
+.linksCont button:active,
+.linksCont a:active {
+  color: var(--brand-600);
+}
+.withIcon a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
