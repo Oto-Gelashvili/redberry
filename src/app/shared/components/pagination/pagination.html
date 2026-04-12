@@ -1,6 +1,6 @@
 <div class="pagination">
   <button (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1 || isLoading()">
-    Prev
+    <app-icon-library class="rotate" name="arrow" [size]="12"></app-icon-library>
   </button>
 
   @for (page of visiblePages(); track page) {
@@ -28,7 +28,6 @@
           (keydown)="onDotsInputKey($event)"
           (blur)="onDotsInputBlur()"
           autofocus
-          style="width: 5rem"
         />
       } @else {
         <button (click)="onDotsClick('right')" [disabled]="isLoading()">...</button>
@@ -48,6 +47,6 @@
     (click)="goToPage(currentPage() + 1)"
     [disabled]="currentPage() === lastPage() || isLoading()"
   >
-    Next
+    <app-icon-library name="arrow" [size]="12"></app-icon-library>
   </button>
 </div>

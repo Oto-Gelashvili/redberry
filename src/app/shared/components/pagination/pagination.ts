@@ -1,8 +1,9 @@
 import { Component, computed, input, output, signal } from '@angular/core';
+import { IconLibrary } from '../icon-library/icon-library';
 
 @Component({
   selector: 'app-pagination',
-  imports: [],
+  imports: [IconLibrary],
   templateUrl: './pagination.html',
   styleUrl: './pagination.css',
 })

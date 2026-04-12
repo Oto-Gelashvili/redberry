@@ -1,0 +1,47 @@
+.pagination {
+  justify-self: center;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+.pagination button,
+.pagination input {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.4rem;
+  transition: 0.4s;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid var(--grey-200);
+  background-color: var(--grey-50);
+  color: var(--brand-500);
+  font-size: var(--btn-s);
+}
+.pagination button.active {
+  background-color: var(--brand-600);
+  border-color: var(--brand-500);
+  color: var(--grey-50);
+}
+.pagination button:disabled {
+  background-color: var(--grey-50);
+  border-color: var(--grey-200);
+  color: var(--grey-200);
+}
+
+.pagination button:hover,
+.pagination button:focus-visible,
+.pagination input:hover,
+.pagination input:focus-visible {
+  background-color: var(--brand-500);
+  border-color: var(--brand-500);
+  color: var(--grey-50);
+}
+.pagination button:active,
+.pagination input:active {
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+  color: var(--grey-50);
+}
+.pagination .rotate {
+  transform: rotate(180deg);
+}

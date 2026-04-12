@@ -38,14 +38,15 @@
               <p>{{ course.title }}</p>
             }
           </div>
-          <app-pagination
-            [currentPage]="currentPage()"
-            [lastPage]="lastPage()"
-            [isLoading]="isLoadingCourses()"
-            (pageChange)="goToPage($event)"
-          ></app-pagination>
         }
       </div>
+      <app-pagination
+        class="pagination"
+        [currentPage]="currentPage()"
+        [lastPage]="lastPage()"
+        [isLoading]="isLoadingCourses()"
+        (pageChange)="goToPage($event)"
+      ></app-pagination>
     </div>
   </div>
 </div>
