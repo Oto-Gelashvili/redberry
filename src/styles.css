@@ -105,6 +105,7 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
+  object-fit: cover;
 }
 
 /* 7. Inherit fonts for form controls */

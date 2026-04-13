@@ -2,16 +2,71 @@
   @if (isLoading()) {
     <app-loader class="loader" [size]="40" [innerColor]="'var(--brand-500)'"></app-loader>
   } @else {
-    <div class="breadcrumbs">
-      <div class="left">
-        <a routerLink="/dashboard">Home</a>
-        <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+    <div class="heading">
+      <div class="breadcrumbs">
+        <div class="left">
+          <a routerLink="/dashboard">Home</a>
+          <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+        </div>
+        <div class="left">
+          <a routerLink="/courses">Browse</a>
+          <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+        </div>
+        <a routerLink="/courses">{{ course()?.category?.name }}</a>
       </div>
-      <div class="left">
-        <a routerLink="/courses">Browse</a>
-        <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+      <h1>{{ course()?.title }}</h1>
+    </div>
+    <div class="mainCont">
+      <div class="courseDetailsCont">
+        <div class="imgCont">
+          <img [src]="course()?.image" [alt]="course()?.title" />
+          <div class="metaCont">
+            <div class="leftPart">
+              <div>
+                <app-icon-library [size]="24" name="weekCalendar"></app-icon-library>
+                <p>{{ course()?.durationWeeks }} Weeks</p>
+              </div>
+              <div>
+                <app-icon-library [size]="24" name="clock"></app-icon-library>
+                <p>{{ (course()?.durationWeeks ?? 0) * 4 }} Hours</p>
+              </div>
+            </div>
+            <div class="rightPart">
+              <div class="ratingCont">
+                <app-icon-library name="starBig" [size]="26"></app-icon-library>
+                <p>
+                  {{ averageRating() }}
+                </p>
+              </div>
+              <a
+                [routerLink]="['/courses']"
+                [queryParams]="{ categories: course()?.category?.id }"
+                class="categoryCont"
+              >
+                <app-icon-library
+                  class="icon"
+                  [name]="course()?.category?.icon!"
+                  [size]="24"
+                ></app-icon-library>
+                <p>{{ course()?.category?.name }}</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <a
+          [routerLink]="['/courses']"
+          [queryParams]="{ instructors: course()?.instructor?.id }"
+          class="instructorBtn"
+        >
+          <img [src]="course()?.instructor?.avatar" alt="instructor avatar" />
+          <p>{{ course()?.instructor?.name }}</p></a
+        >
+        <div class="descCont">
+          <h4>Course Description</h4>
+          <p>{{ course()?.description }}</p>
+        </div>
       </div>
-      <a routerLink="/courses">{{ course()?.category?.name }}</a>
+      <div class="enrollCont"></div>
     </div>
   }
 </div>

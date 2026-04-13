@@ -1,14 +1,15 @@
-import { Component, inject, OnInit, DestroyRef, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, signal, computed } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CoursesService } from '../../core/services/courses.service';
-import { Course } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
+import { CourseSingle } from '../../models/courses.model';
+import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 
 @Component({
   selector: 'app-course-details',
-  imports: [Loader],
+  imports: [Loader, IconLibrary, RouterLink],
   templateUrl: './course-details.html',
   styleUrl: './course-details.css',
 })
@@ -18,7 +19,7 @@ export class CourseDetails {
   private readonly notyService = inject(NotificationService);
 
   protected courseId = signal<number | null>(null);
-  protected course = signal<Course | null>(null);
+  protected course = signal<CourseSingle | null>(null);
   protected isLoading = signal(true);
   private currentId: number | null = null;
 
@@ -40,4 +41,12 @@ export class CourseDetails {
       }
     });
   }
+  protected averageRating = computed(() => {
+    const reviews = this.course()?.reviews;
+    if (!reviews || reviews.length === 0) {
+      return 0;
+    }
+    const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+    return (sum / reviews.length).toFixed(1);
+  });
 }

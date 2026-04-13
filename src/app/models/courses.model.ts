@@ -25,6 +25,24 @@ export interface Course {
   };
 }
 
+export interface CourseSingle {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  basePrice: number;
+  durationWeeks: number;
+  isFeatured: boolean;
+
+  reviews: { userId: number; rating: number }[];
+  isRated: boolean;
+
+  category: Category;
+  topic: Topic;
+  instructor: Instructor;
+
+  enrollment?: EnrolledCourse;
+}
 export interface EnrolledCourse {
   id: number;
   quantity: number;

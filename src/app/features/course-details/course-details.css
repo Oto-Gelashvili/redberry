@@ -5,9 +5,20 @@
 .coursesDetailsPage {
   display: flex;
   flex-direction: column;
-  gap: 3.4rem;
-  /* min-height: calc(100vh - var(--fixed-header-height)); */
+  gap: 2.4rem;
   flex: 1;
+}
+.coursesDetailsPage .heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+.coursesDetailsPage .heading h1 {
+  color: var(--grey-900);
+  width: 90.3rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .breadcrumbs {
   display: flex;
@@ -40,4 +51,104 @@
   justify-content: center;
   align-items: center;
   display: flex;
+}
+.mainCont {
+  display: flex;
+  gap: 13.3rem;
+  justify-content: space-between;
+}
+.courseDetailsCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  width: 90.3rem;
+}
+.imgCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.imgCont img {
+  height: 47.45rem;
+  border-radius: 1rem;
+}
+
+.imgCont .metaCont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--grey-600);
+  font-size: var(--xs-fs);
+}
+.metaCont .leftPart {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.metaCont .leftPart div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.metaCont .ratingCont {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.metaCont .rightPart {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+.categoryCont,
+.instructorBtn {
+  border-radius: 1.2rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--grey-50);
+  font-size: var(--s-fs);
+  color: var(--grey-500);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  cursor: pointer;
+  transition: 0.4s;
+  outline: none;
+  border: none;
+  height: 3.9rem;
+  line-height: 2.4rem;
+}
+.categoryCont:hover,
+.categoryCont:focus-visible,
+.instructorBtn:hover,
+.instructorBtn:focus-visible {
+  color: var(--brand-500);
+}
+.categoryCont:active,
+.instructorBtn:active {
+  color: var(--brand-600);
+}
+.categoryCont .icon {
+  color: var(--grey-600);
+}
+.instructorBtn {
+  width: fit-content;
+  height: unset;
+  gap: 1.2rem;
+}
+.instructorBtn img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.4rem;
+}
+.descCont {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  color: var(--grey-600);
+  font-size: var(--s-fs);
+  line-height: 2.4rem;
+}
+.descCont h4 {
+  color: var(--grey-400);
 }
