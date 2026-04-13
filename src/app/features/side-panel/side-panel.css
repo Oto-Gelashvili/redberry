@@ -99,8 +99,10 @@
 }
 .courseImg {
   width: 26.9rem;
+  min-width: 26.9rem;
   height: 19.1rem;
   border-radius: 1rem;
+  object-fit: cover;
 }
 .textContCourse {
   display: flex;

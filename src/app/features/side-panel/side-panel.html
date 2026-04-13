@@ -29,7 +29,7 @@
   } @else {
     <div class="contentEnrolled">
       @for (course of enrolledCourses(); track course.id) {
-        <div class="card">
+        <div class="card" animate.enter="fade-in" animate.leave="fade-out">
           <div class="top">
             <img class="courseImg" [src]="course.course.image" [alt]="course.course.title" />
             <div class="textContCourse">

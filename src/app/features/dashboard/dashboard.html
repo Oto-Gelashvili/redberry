@@ -98,7 +98,7 @@
       </div>
       <div class="coursesCardsCont">
         @for (progressCourse of progressCourses(); track progressCourse.id) {
-          <div class="card progress">
+          <div class="card progress" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
               <img [src]="progressCourse.course.image" [alt]="progressCourse.course.title" />
               <div class="titleCont">
@@ -163,7 +163,7 @@
         }
       } @else {
         @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
-          <div class="card featured">
+          <div class="card featured" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
               <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
               <div class="titleCont">

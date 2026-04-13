@@ -49,7 +49,7 @@
               <h2 class="noFoundHeading">Search for something else</h2>
             } @else {
               @for (course of courses(); track course.id) {
-                <div class="courseCard">
+                <div class="courseCard" animate.enter="fade-in" animate.leave="fade-out">
                   <img [src]="course.image" [alt]="course.title" />
                   <div class="textCont">
                     <div class="textContHeading">
