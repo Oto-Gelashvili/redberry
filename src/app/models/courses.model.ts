@@ -53,11 +53,7 @@ export interface EnrolledCourse {
   schedule: CourseSchedule;
 }
 export interface CourseSchedule {
-  weeklySchedule: {
-    id: number;
-    label: string;
-    days: string[];
-  };
+  weeklySchedule: WeeklySchedule;
   timeSlot: {
     id: number;
     label: string;
@@ -110,3 +106,8 @@ export const COURSES_SORT_OPTIONS: SortOption[] = [
   { key: 'popular', label: `Most Popular` },
   { key: 'title_asc', label: `Title: A-Z` },
 ];
+export interface WeeklySchedule {
+  id: number;
+  label: string;
+  days: string[];
+}

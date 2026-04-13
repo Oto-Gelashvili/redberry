@@ -1,0 +1,90 @@
+.enrollSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 53rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+.customSelect {
+  position: relative;
+  user-select: none;
+}
+.selectHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+h3 {
+  width: 100%;
+  text-align: start;
+}
+.selectHeading button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: space-between;
+  color: var(--brand-800);
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.4s;
+  width: 100%;
+}
+.selectHeading button:hover,
+.selectHeading button:focus-visible {
+  color: var(--brand-500);
+}
+.selectHeading button:active {
+  color: var(--brand-600);
+}
+.dropdown-content {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: var(--grey-800);
+  margin-top: 1.8rem;
+}
+.option-button {
+  background-color: var(--grey-50);
+  border: 1px solid var(--grey-200);
+  padding: 1rem;
+  border-radius: 1.2rem;
+  height: 9.1rem;
+  width: 100%;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.customSelect:has(.open-animation) .icon {
+  color: var(--brand-500);
+}
+.customSelect:has(.close-animation) .icon {
+  color: var(--brand-500);
+}
+.option-button:hover,
+.option-button:focus-visible {
+  color: var(--grey-50);
+  background-color: var(--brand-500);
+  border-color: var(--brand-500);
+}
+.option-button:active {
+  color: var(--grey-50);
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.option-button.selected {
+  background-color: var(--brand-100);
+  color: var(--brand-500);
+  border-color: var(--brand-300);
+}
+.option-button:disabled {
+  background-color: var(--grey-100);
+  color: var(--grey-200);
+  border-color: var(--grey-200);
+}

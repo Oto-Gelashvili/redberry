@@ -1,0 +1,70 @@
+<div class="enrollSection">
+  <form>
+    <form [formGroup]="enrollmentForm">
+      <div class="customSelect" [class.open]="isScheduleOpen()">
+        <div class="selectHeading">
+          @if (isWeeksLoading()) {
+            <app-loader [size]="20" [innerColor]="'var(--brand-800)'"></app-loader>
+          } @else {
+            <img src="firstIcon.svg" alt="first icon" />
+          }
+          <button type="button" class="dropdown-trigger" (click)="toggleSchedule()">
+            <h3>Weekly Schedule</h3>
+            <app-icon-library class="icon" name="dropdownBig" [size]="28"></app-icon-library>
+          </button>
+        </div>
+
+        @if (isScheduleOpen()) {
+          <div
+            class="dropdown-content"
+            animate.enter="open-animation"
+            animate.leave="close-animation"
+          >
+            @for (schedule of allSchedules; track schedule.id) {
+              <button
+                type="button"
+                class="option-button"
+                [class.selected]="selectedScheduleId() === schedule.id"
+                [disabled]="!isScheduleAvailable(schedule.id)"
+                (click)="selectSchedule(schedule.id)"
+              >
+                <h5>{{ schedule.label }}</h5>
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- @if (enrollmentForm.get('schedule')?.value) {
+        <div class="dropdown-group">
+          <button type="button" class="dropdown-trigger" (click)="toggleTime()">
+            <span class="label-text">
+              {{ getSelectedTimeLabel() || 'Select Time Slot' }}
+            </span>
+            <span class="arrow" [class.open]="isTimeOpen()">▼</span>
+          </button>
+
+          @if (isTimeOpen()) {
+            <div class="dropdown-content">
+              @for (slot of timeSlots(); track slot.id) {
+                <button
+                  type="button"
+                  class="option-button"
+                  [class.active]="enrollmentForm.get('timeSlot')?.value === slot.id"
+                  (click)="selectTime(slot.id)"
+                >
+                  {{ slot.time }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      } -->
+    </form>
+  </form>
+  @if (!authService.isAuthenticated()) {
+    not authed
+  } @else if (!authService.user()?.profileComplete) {
+    profile not complete
+  }
+</div>

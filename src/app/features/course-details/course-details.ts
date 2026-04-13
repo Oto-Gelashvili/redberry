@@ -6,10 +6,11 @@ import { NotificationService } from '../../core/services/notification.service';
 import { Loader } from '../../shared/components/loader/loader';
 import { CourseSingle } from '../../models/courses.model';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
+import { EnrollSection } from './components/enroll-section/enroll-section';
 
 @Component({
   selector: 'app-course-details',
-  imports: [Loader, IconLibrary, RouterLink],
+  imports: [Loader, IconLibrary, RouterLink, EnrollSection],
   templateUrl: './course-details.html',
   styleUrl: './course-details.css',
 })
