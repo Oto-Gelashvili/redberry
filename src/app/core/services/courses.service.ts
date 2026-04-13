@@ -84,4 +84,12 @@ export class CoursesService {
     const json = await res.json();
     return json.data as Instructor[];
   }
+  async getCourseById(id: number): Promise<Course> {
+    const res = await fetch(`${BASE_URL}/courses/${id}`);
+    const json = await res.json();
+
+    if (!res.ok) throw json;
+
+    return json.data as Course;
+  }
 }

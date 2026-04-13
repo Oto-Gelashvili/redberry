@@ -1,0 +1,7 @@
+@if (isLoading()) {
+  <app-loader [size]="50" />
+} @else {
+  <h1>{{ course()?.title }}</h1>
+  <img [src]="course()?.image" />
+  <p>{{ course()?.description }}</p>
+}

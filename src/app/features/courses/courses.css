@@ -187,6 +187,7 @@
 .courseCard .cardFooter .primaryBtn {
   height: 100%;
   font-size: var(--btn-s);
+  color: var(--grey-50);
 }
 .loader {
   flex: 1;

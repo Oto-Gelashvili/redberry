@@ -82,6 +82,7 @@
 }
 .primaryBtn {
   width: fit-content;
+  color: var(--grey-50);
 }
 .card {
   display: flex;
@@ -173,7 +174,9 @@ h4 {
 .ctaBtnOutline {
   width: 11.7rem;
   font-size: var(--btn-s);
+  text-align: center;
 }
+
 .scheduleCont {
   display: flex;
   flex-direction: column;

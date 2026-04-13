@@ -10,7 +10,7 @@
               Find the skills you need to grow your career and learn at your own pace.
             </p>
           </div>
-          <a routerLink="/courses"><button class="primaryBtn">Browse Courses</button></a>
+          <a routerLink="/courses" class="primaryBtn">Browse Courses</a>
         </div>
       </div>
       <div class="heroCard Two">
@@ -22,7 +22,7 @@
               your progress, and stay on track toward completing your goals.
             </p>
           </div>
-          <a routerLink="/courses"><button class="primaryBtn">Start Learning</button></a>
+          <a routerLink="/courses" class="primaryBtn">Start Learning</a>
         </div>
       </div>
       <div class="heroCard Three">
@@ -30,7 +30,7 @@
           <div class="headingCont">
             <p class="heroHeading">Learn together, grow faster</p>
           </div>
-          <a routerLink="/courses"><button class="primaryBtn">Learn More</button></a>
+          <a routerLink="/courses" class="primaryBtn">Learn More</a>
         </div>
       </div>
     </div>
@@ -123,7 +123,9 @@
                   <div class="progressFill" [style.width.%]="progressCourse.progress"></div>
                 </div>
               </div>
-              <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+              <a class="ctaBtnOutline" [routerLink]="['/courses', progressCourse.course.id]">
+                View
+              </a>
             </div>
           </div>
         }
@@ -181,7 +183,7 @@
                 <p>Starting from</p>
                 <h2>${{ featuredCourse.basePrice }}</h2>
               </div>
-              <a routerLink="/course"><button class="primaryBtn">Details</button></a>
+              <a class="primaryBtn" [routerLink]="['/courses', featuredCourse.id]"> Details </a>
             </div>
           </div>
         }

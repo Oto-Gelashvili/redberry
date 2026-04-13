@@ -80,7 +80,7 @@
                       <p>Starting from</p>
                       <h3>${{ course.basePrice }}</h3>
                     </div>
-                    <button class="primaryBtn">Details</button>
+                    <a class="primaryBtn" [routerLink]="['/courses', course.id]"> Details </a>
                   </div>
                 </div>
               }

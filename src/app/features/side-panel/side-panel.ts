@@ -4,16 +4,19 @@ import { EnrolledCourse } from '../../models/courses.model';
 import { NotificationService } from '../../core/services/notification.service';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { Loader } from '../../shared/components/loader/loader';
+import { RouterLink } from '@angular/router';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-side-panel',
-  imports: [IconLibrary, Loader],
+  imports: [IconLibrary, Loader, RouterLink],
   templateUrl: './side-panel.html',
   styleUrl: './side-panel.css',
 })
 export class SidePanel implements OnInit, OnDestroy {
   private readonly courseService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
+  protected readonly modalService = inject(ModalService);
   protected isLoadingCourses = signal(false);
   protected enrolledCourses = signal<EnrolledCourse[]>([]);
 

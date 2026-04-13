@@ -21,7 +21,9 @@
             Browse courses to get started.
           </p>
         </div>
-        <button class="primaryBtn">Browse Courses</button>
+        <a class="primaryBtn" routerLink="/courses" (click)="modalService.closeSidePanel()"
+          >Browse</a
+        >
       </div>
     </div>
   } @else {
@@ -76,7 +78,13 @@
                 <div class="progressFill" [style.width.%]="course.progress"></div>
               </div>
             </div>
-            <a routerLink="/course"><button class="ctaBtnOutline">View</button></a>
+            <a
+              class="ctaBtnOutline"
+              [routerLink]="['/courses', course.course.id]"
+              (click)="modalService.closeSidePanel()"
+            >
+              View
+            </a>
           </div>
         </div>
       }
