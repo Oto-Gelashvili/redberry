@@ -1,0 +1,43 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+.coursesDetailsPage {
+  display: flex;
+  flex-direction: column;
+  gap: 3.4rem;
+  /* min-height: calc(100vh - var(--fixed-header-height)); */
+  flex: 1;
+}
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: var(--m-fs);
+}
+.breadcrumbs .left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.4rem;
+}
+.breadcrumbs a {
+  color: var(--grey-500);
+  transition: 0.4s;
+}
+.breadcrumbs a:last-child {
+  color: var(--brand-400);
+}
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  color: var(--brand-500);
+}
+.breadcrumbs a:active {
+  color: var(--brand-600);
+}
+.loader {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

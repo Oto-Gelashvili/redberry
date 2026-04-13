@@ -64,7 +64,7 @@
       </div>
       <div class="coursesCardsCont">
         @for (num of [1, 2, 3]; track num) {
-          <div class="card progress">
+          <div class="card progress" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
               <div class="progressImgSkeleton shimmer"></div>
               <div class="titleCont">
@@ -152,13 +152,7 @@
               </div>
               <div class="featuredCourseDescP SkeletonLineP shimmer"></div>
             </div>
-            <div class="footerCont">
-              <div class="priceCont">
-                <div class="startingSkeletonLine shimmer"></div>
-                <div class="priceSkeltonLine shimmer"></div>
-              </div>
-              <div class="skeletonBtn shimmer"></div>
-            </div>
+            <div class="footerContSkeleton shimmer"></div>
           </div>
         }
       } @else {
@@ -201,7 +195,7 @@
       </div>
       <div class="coursesCardsCont blurred">
         @for (num of [1, 2, 3]; track num) {
-          <div class="card progress">
+          <div class="card progress" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
               <div class="img-wrapper">
                 <img ngSrc="courseTemplateImg.png" fill alt="course image" />

@@ -1,8 +1,14 @@
+:host {
+  display: flex;
+  flex: 1;
+}
 .coursesPage {
   display: flex;
   flex-direction: column;
+  flex: 1;
+
   gap: 3.4rem;
-  min-height: calc(100vh - var(--fixed-header-height));
+  /* min-height: calc(100vh - var(--fixed-header-height)); */
 }
 .breadcrumbs {
   display: flex;

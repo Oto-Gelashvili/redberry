@@ -1,7 +1,17 @@
-@if (isLoading()) {
-  <app-loader [size]="50" />
-} @else {
-  <h1>{{ course()?.title }}</h1>
-  <img [src]="course()?.image" />
-  <p>{{ course()?.description }}</p>
-}
+<div class="coursesDetailsPage">
+  @if (isLoading()) {
+    <app-loader class="loader" [size]="40" [innerColor]="'var(--brand-500)'"></app-loader>
+  } @else {
+    <div class="breadcrumbs">
+      <div class="left">
+        <a routerLink="/dashboard">Home</a>
+        <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+      </div>
+      <div class="left">
+        <a routerLink="/courses">Browse</a>
+        <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
+      </div>
+      <a routerLink="/courses">{{ course()?.category?.name }}</a>
+    </div>
+  }
+</div>
