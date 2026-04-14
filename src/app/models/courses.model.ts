@@ -54,12 +54,7 @@ export interface EnrolledCourse {
 }
 export interface CourseSchedule {
   weeklySchedule: WeeklySchedule;
-  timeSlot: {
-    id: number;
-    label: string;
-    startTime: string;
-    endTime: string;
-  };
+  timeSlot: TimeSlot;
   sessionType: {
     id: number;
     courseScheduleId: number;
@@ -110,4 +105,10 @@ export interface WeeklySchedule {
   id: number;
   label: string;
   days: string[];
+}
+export interface TimeSlot {
+  id: number;
+  label: string;
+  startTime: string;
+  endTime: string;
 }

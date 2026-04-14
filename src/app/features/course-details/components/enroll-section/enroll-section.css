@@ -17,6 +17,7 @@ form {
   display: flex;
   align-items: center;
   gap: 0.8rem;
+  color: var(--grey-400);
 }
 h3 {
   width: 100%;
@@ -31,8 +32,8 @@ h3 {
   align-items: center;
   gap: 0.8rem;
   justify-content: space-between;
-  color: var(--brand-800);
   background-color: transparent;
+  color: inherit;
   cursor: pointer;
   transition: 0.4s;
   width: 100%;
@@ -51,6 +52,33 @@ h3 {
   color: var(--grey-800);
   margin-top: 1.8rem;
 }
+.timeSlotCont .dropdown-content {
+  gap: 0.6rem;
+}
+.timeSlotCont .option-button {
+  padding: 1.5rem;
+  height: unset;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--grey-500);
+}
+.option-button .timeSlotIcon {
+  color: var(--grey-600);
+}
+.timeSlotCont .option-button .timeTextCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: start;
+}
+.timeSlotLabel {
+  font-size: var(--xs-fs);
+}
+.timeSlotDesc {
+  font-size: var(--helper-rxs-fs);
+  font-weight: var(--helper-rxs-fw);
+}
 .option-button {
   background-color: var(--grey-50);
   border: 1px solid var(--grey-200);
@@ -68,23 +96,43 @@ h3 {
   color: var(--brand-500);
 }
 .option-button:hover,
-.option-button:focus-visible {
+.timeSlotCont .option-button:hover,
+.option-button:focus-visible,
+.timeSlotCont .option-button:focus-visible {
   color: var(--grey-50);
   background-color: var(--brand-500);
   border-color: var(--brand-500);
 }
-.option-button:active {
+.option-button:active,
+.timeSlotCont .option-button:active {
   color: var(--grey-50);
   background-color: var(--brand-600);
   border-color: var(--brand-600);
 }
-.option-button.selected {
+.option-button.selected,
+.timeSlotCont .option-button.selected {
   background-color: var(--brand-100);
   color: var(--brand-500);
   border-color: var(--brand-300);
 }
+.option-button:hover .timeSlotIcon,
+.option-button:focus-visible .timeSlotIcon {
+  color: var(--grey-50);
+}
+.option-button:active .timeSlotIcon {
+  color: var(--grey-50);
+}
+.option-button.selected .timeSlotIcon {
+  color: var(--brand-500);
+}
 .option-button:disabled {
-  background-color: var(--grey-100);
-  color: var(--grey-200);
-  border-color: var(--grey-200);
+  background-color: var(--grey-100) !important;
+  color: var(--grey-200) !important;
+  border-color: var(--grey-200) !important;
+}
+.option-button:disabled .timeSlotIcon {
+  color: var(--grey-200) !important;
+}
+.relevant {
+  color: var(--brand-800);
 }
