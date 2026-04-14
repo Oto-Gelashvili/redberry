@@ -171,9 +171,36 @@
       </button>
     </div>
   </form>
-  @if (!authService.isAuthenticated()) {
-    not authed
-  } @else if (!authService.user()?.profileComplete) {
-    profile not complete
+  @if (!authService.isAuthenticated() || !authService.user()?.profileComplete) {
+    <div class="authCont">
+      <div class="warningCont">
+        <div class="warningTitleCont">
+          <app-icon-library name="authWarning" [size]="22"></app-icon-library>
+          <p class="warningTitle">
+            {{
+              !authService.isAuthenticated() ? 'Authentication Required' : 'Complete Your Profile'
+            }}
+          </p>
+        </div>
+        <p class="warningDesc">
+          {{
+            !authService.isAuthenticated()
+              ? 'You need sign in to your profile before enrolling in this course.'
+              : 'You need to fill in your profile details before enrolling in this course.'
+          }}
+        </p>
+      </div>
+      @if (!authService.isAuthenticated()) {
+        <button (click)="modalService.openLogIn()">
+          <p>Sign In</p>
+          <app-icon-library name="arrowThin" [size]="16"></app-icon-library>
+        </button>
+      } @else {
+        <button (click)="modalService.openProfile()">
+          <p>Complete</p>
+          <app-icon-library name="arrowThin" [size]="16"></app-icon-library>
+        </button>
+      }
+    </div>
   }
 </div>

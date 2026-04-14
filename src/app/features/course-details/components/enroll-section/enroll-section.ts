@@ -7,6 +7,7 @@ import { SessionType, TimeSlot, WeeklySchedule } from '../../../../models/course
 import { NotificationService } from '../../../../core/services/notification.service';
 import { Loader } from '../../../../shared/components/loader/loader';
 import { DecimalPipe } from '@angular/common';
+import { ModalService } from '../../../../core/services/modal.service';
 
 @Component({
   selector: 'app-enroll-section',
@@ -16,6 +17,7 @@ import { DecimalPipe } from '@angular/common';
 })
 export class EnrollSection implements OnInit {
   protected readonly authService = inject(AuthService);
+  protected readonly modalService = inject(ModalService);
   protected readonly enrollService = inject(EnrollService);
   protected readonly notyService = inject(NotificationService);
   protected isScheduleOpen = signal(true);

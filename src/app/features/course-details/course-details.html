@@ -12,7 +12,9 @@
           <a routerLink="/courses">Browse</a>
           <div class="iconCont"><img src="arrowRight.svg" alt="right arrow icon" /></div>
         </div>
-        <a routerLink="/courses">{{ course()?.category?.name }}</a>
+        <a [routerLink]="['/courses']" [queryParams]="{ categories: course()?.category?.id }">{{
+          course()?.category?.name
+        }}</a>
       </div>
       <h1>{{ course()?.title }}</h1>
     </div>

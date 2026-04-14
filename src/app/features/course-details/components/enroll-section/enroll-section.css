@@ -245,3 +245,56 @@ h3 {
   background-color: var(--brand-50);
   color: var(--brand-200);
 }
+.authCont {
+  background-color: rgba(248, 250, 252, 1);
+  border: 1px solid rgba(229, 231, 235, 1);
+  padding: 2rem;
+  border-radius: 1.2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.authCont button {
+  background-color: var(--brand-50);
+  border: 1px solid var(--brand-200);
+  border-radius: 0.8rem;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--brand-600);
+  font-size: var(--helper-rm-fs);
+  font-weight: var(--helper-rxs-fw);
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.authCont button:hover,
+.authCont button:focus-visible {
+  background-color: var(--brand-100);
+}
+.authCont button:active {
+  background-color: var(--brand-500);
+  color: var(--grey-50);
+}
+.warningTitleCont {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.warningTitle {
+  font-size: var(--s-fs);
+  color: var(--grey-800);
+}
+.warningDesc {
+  color: var(--grey-400);
+  font-size: var(--helper-rs-fs);
+  font-weight: var(--helper-rxs-fw);
+  max-width: 35.1rem;
+}
+.warningCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
