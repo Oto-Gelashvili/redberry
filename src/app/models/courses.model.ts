@@ -55,14 +55,7 @@ export interface EnrolledCourse {
 export interface CourseSchedule {
   weeklySchedule: WeeklySchedule;
   timeSlot: TimeSlot;
-  sessionType: {
-    id: number;
-    courseScheduleId: number;
-    name: string;
-    priceModifier: number;
-    availableSeats: number;
-    location: string;
-  };
+  sessionType: SessionType;
   location: string;
 }
 export interface CoursesMeta {
@@ -111,4 +104,12 @@ export interface TimeSlot {
   label: string;
   startTime: string;
   endTime: string;
+}
+export interface SessionType {
+  id: number;
+  courseScheduleId: number;
+  name: string;
+  priceModifier: number;
+  availableSeats: number;
+  location: string;
 }

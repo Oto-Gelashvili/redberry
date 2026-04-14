@@ -67,9 +67,81 @@
               ></app-icon-library>
               <div class="timeTextCont">
                 <p class="timeSlotLabel">{{ timeSlot.label }}</p>
-                <p class="timeSlotDesc">{{ timeSlot.time }}</p>
+                <p class="timeSlotDesc">
+                  {{ getTimeSlotTime(timeSlot.id) }}
+                </p>
               </div>
             </button>
+          }
+        </div>
+      }
+    </div>
+    <div class="customSelect sessionTypeCont" [class.open]="isSessionOpen()">
+      <div class="selectHeading" [class.relevant]="isSessionOpen()">
+        @if (isSessionTypeLoading()) {
+          <app-loader [size]="28" [innerColor]="'var(--brand-800)'"></app-loader>
+        } @else {
+          <app-icon-library name="third" [size]="28"></app-icon-library>
+        }
+        <button type="button" (click)="toggleSessionType()">
+          <h3>Session Type</h3>
+          <app-icon-library class="icon" name="dropdownBig" [size]="28"></app-icon-library>
+        </button>
+      </div>
+
+      @if (isSessionOpen()) {
+        <div
+          class="dropdown-content"
+          animate.enter="open-animation"
+          animate.leave="close-animation"
+        >
+          @for (sessionType of allSessionTypes; track sessionType.id) {
+            <div class="optionCont">
+              <button
+                type="button"
+                class="option-button"
+                [class.selected]="selectedSessionTypeId() === sessionType.id"
+                [disabled]="!isSessionTypeAvaliable(sessionType.id)"
+                (click)="selectSessionType(sessionType.id)"
+              >
+                <app-icon-library [name]="sessionType.icon" [size]="26"></app-icon-library>
+                <h5>
+                  {{ sessionType.label }}
+                </h5>
+                <div class="locationDesc">
+                  <app-icon-library name="location" [size]="12"></app-icon-library>
+                  <p [title]="getSessionTypeData(sessionType.id)?.location ?? sessionType.address">
+                    {{ getSessionTypeData(sessionType.id)?.location ?? sessionType.address }}
+                  </p>
+                </div>
+                <p class="priceDesc">
+                  {{
+                    getSessionTypeData(sessionType.id)
+                      ? formatPriceModifier(getSessionTypeData(sessionType.id)!.priceModifier)
+                      : sessionType.price
+                  }}
+                </p>
+              </button>
+              <div class="seatsCont">
+                @let seats = getSessionTypeData(sessionType.id)?.availableSeats;
+                @if (seats != null && seats < 5) {
+                  <app-icon-library name="warning" [size]="16"></app-icon-library>
+                }
+                <p
+                  class="seatDesc"
+                  [class.lowSeats]="seats != null && seats < 5"
+                  [class.noSeats]="seats == null"
+                >
+                  {{
+                    seats == null
+                      ? 'No Seats Available'
+                      : seats < 5
+                        ? 'Only ' + seats + ' Seats Remaining'
+                        : seats + ' Seats Available'
+                  }}
+                </p>
+              </div>
+            </div>
           }
         </div>
       }

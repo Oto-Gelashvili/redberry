@@ -55,6 +55,9 @@ h3 {
 .timeSlotCont .dropdown-content {
   gap: 0.6rem;
 }
+.sessionTypeCont .dropdown-content {
+  gap: 0.8rem;
+}
 .timeSlotCont .option-button {
   padding: 1.5rem;
   height: unset;
@@ -63,6 +66,16 @@ h3 {
   gap: 1rem;
   color: var(--grey-500);
 }
+.sessionTypeCont .option-button {
+  padding: 1.5rem 2rem;
+  height: 13.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .option-button .timeSlotIcon {
   color: var(--grey-600);
 }
@@ -88,6 +101,7 @@ h3 {
   width: 100%;
   transition: 0.4s;
   cursor: pointer;
+  min-width: 0;
 }
 .customSelect:has(.open-animation) .icon {
   color: var(--brand-500);
@@ -135,4 +149,41 @@ h3 {
 }
 .relevant {
   color: var(--brand-800);
+}
+.locationDesc {
+  font-size: var(--helper-rs-fs);
+  font-weight: var(--helper-rxs-fw);
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.locationDesc p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.priceDesc {
+  font-size: var(--xs-fs);
+  margin-top: 0.6rem;
+}
+.optionCont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  color: var(--grey-700);
+  font-size: var(--helper-m-fs);
+  width: 100%;
+  min-width: 0;
+}
+.lowSeats {
+  color: var(--warning);
+}
+.noSeats {
+  color: var(--grey-600);
+}
+.seatsCont {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }

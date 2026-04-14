@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TimeSlot, WeeklySchedule } from '../../models/courses.model';
+import { SessionType, TimeSlot, WeeklySchedule } from '../../models/courses.model';
 
 const BASE_URL = 'https://api.redclass.redberryinternship.ge/api';
 
@@ -22,5 +22,19 @@ export class EnrollService {
       throw { status: res.status, error: json };
     }
     return json.data as TimeSlot[];
+  }
+  async getSessionType(
+    courseId: number,
+    weeklyScheduleId: number,
+    timeSlotId: number,
+  ): Promise<SessionType[]> {
+    const res = await fetch(
+      `${BASE_URL}/courses/${courseId}/session-types?weekly_schedule_id=${weeklyScheduleId}&time_slot_id=${timeSlotId}`,
+    );
+    const json = await res.json();
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+    return json.data as SessionType[];
   }
 }
