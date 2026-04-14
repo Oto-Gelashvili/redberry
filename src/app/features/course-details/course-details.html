@@ -67,7 +67,7 @@
         </div>
       </div>
       @if (course()) {
-        <app-enroll-section [courseId]="course()!.id" />
+        <app-enroll-section [courseId]="course()!.id" [basePrice]="course()!.basePrice" />
       }
     </div>
   }

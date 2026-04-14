@@ -78,7 +78,7 @@
                   <div class="cardFooter">
                     <div class="priceCont">
                       <p>Starting from</p>
-                      <h3>${{ course.basePrice }}</h3>
+                      <h3>${{ course.basePrice | number: '1.0-2' }}</h3>
                     </div>
                     <a class="primaryBtn" [routerLink]="['/courses', course.id]"> Details </a>
                   </div>

@@ -7,10 +7,10 @@ import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { ModalService } from '../../core/services/modal.service';
 import { AuthService } from '../../core/services/auth.service';
-
+import { DecimalPipe } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
-  imports: [IconLibrary, RouterLink, NgOptimizedImage],
+  imports: [IconLibrary, RouterLink, NgOptimizedImage, DecimalPipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
@@ -6,10 +6,11 @@ import { EnrollService } from '../../../../core/services/enroll.service';
 import { SessionType, TimeSlot, WeeklySchedule } from '../../../../models/courses.model';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { Loader } from '../../../../shared/components/loader/loader';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-enroll-section',
-  imports: [ReactiveFormsModule, IconLibrary, Loader],
+  imports: [ReactiveFormsModule, IconLibrary, Loader, DecimalPipe],
   templateUrl: './enroll-section.html',
   styleUrl: './enroll-section.css',
 })
@@ -24,6 +25,7 @@ export class EnrollSection implements OnInit {
   protected isTimeSlotLoading = signal(false);
   protected isSessionTypeLoading = signal(false);
   readonly courseId = input.required<number>();
+  readonly basePrice = input.required<number>();
   protected avaliableWeeks = signal<WeeklySchedule[] | undefined>(undefined);
   protected avaliableTimeSlots = signal<TimeSlot[] | undefined>(undefined);
   protected avaliableSessionTypes = signal<SessionType[] | undefined>(undefined);
@@ -174,8 +176,15 @@ export class EnrollSection implements OnInit {
     if (hour === 0) hour = 12;
     return `${hour}:${minute} ${period}`;
   }
-  protected formatPriceModifier(price: number | string): string {
-    if (parseFloat(price as string) === 0) return 'Included';
-    return `+ $${Math.round(Number(price))}`;
-  }
+
+  protected readonly totalPrice = computed(() => {
+    const total = Number(this.basePrice()) + Number(this.modifierPrice());
+    return total;
+  });
+  protected readonly modifierPrice = computed(() => {
+    const selected = this.selectedSessionTypeId();
+    const modifier =
+      this.avaliableSessionTypes()?.find((s) => s.id === selected)?.priceModifier ?? 0;
+    return modifier;
+  });
 }

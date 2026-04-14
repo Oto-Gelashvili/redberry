@@ -16,10 +16,19 @@ import { Pagination } from '../../shared/components/pagination/pagination';
 import { CoursesFilter } from './components/courses-filter/courses-filter';
 import { SorterComponent } from './components/sorter/sorter';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-courses',
-  imports: [Loader, Pagination, CoursesFilter, SorterComponent, RouterLink, IconLibrary],
+  imports: [
+    Loader,
+    Pagination,
+    CoursesFilter,
+    SorterComponent,
+    RouterLink,
+    IconLibrary,
+    DecimalPipe,
+  ],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })

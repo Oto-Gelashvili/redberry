@@ -117,23 +117,26 @@
                 <p class="priceDesc">
                   {{
                     getSessionTypeData(sessionType.id)
-                      ? formatPriceModifier(getSessionTypeData(sessionType.id)!.priceModifier)
+                      ? getSessionTypeData(sessionType.id)!.priceModifier == 0
+                        ? 'Included'
+                        : '+ $' +
+                          (getSessionTypeData(sessionType.id)!.priceModifier | number: '1.0-2')
                       : sessionType.price
                   }}
                 </p>
               </button>
               <div class="seatsCont">
                 @let seats = getSessionTypeData(sessionType.id)?.availableSeats;
-                @if (seats != null && seats < 5) {
+                @if (seats != null && seats < 5 && seats != 0) {
                   <app-icon-library name="warning" [size]="16"></app-icon-library>
                 }
                 <p
                   class="seatDesc"
-                  [class.lowSeats]="seats != null && seats < 5"
-                  [class.noSeats]="seats == null"
+                  [class.lowSeats]="seats != null && seats < 5 && seats > 0"
+                  [class.noSeats]="seats === 0 || seats == null"
                 >
                   {{
-                    seats == null
+                    seats == null || seats === 0
                       ? 'No Seats Available'
                       : seats < 5
                         ? 'Only ' + seats + ' Seats Remaining'
@@ -145,6 +148,27 @@
           }
         </div>
       }
+    </div>
+    <div class="totalCont">
+      <div class="priceCont">
+        <h4>Total Price</h4>
+        <h2>${{ totalPrice() | number: '1.0-2' }}</h2>
+      </div>
+      <div class="seperatedPriceCont">
+        <div class="priceCont">
+          <p>Base Price</p>
+          <p class="price">+ ${{ basePrice() | number: '1.0-2' }}</p>
+        </div>
+        <div class="priceCont">
+          <p>Session Type</p>
+          <p class="price">
+            {{ modifierPrice() == 0 ? 'Included' : '+ $' + (modifierPrice() | number: '1.0-2') }}
+          </p>
+        </div>
+      </div>
+      <button class="submitBtn">
+        <h4>Enroll Now</h4>
+      </button>
     </div>
   </form>
   @if (!authService.isAuthenticated()) {

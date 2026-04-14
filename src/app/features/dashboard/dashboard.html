@@ -175,7 +175,7 @@
             <div class="footerCont">
               <div class="priceCont">
                 <p>Starting from</p>
-                <h2>${{ featuredCourse.basePrice }}</h2>
+                <h2>${{ featuredCourse.basePrice | number: '1.0-2' }}</h2>
               </div>
               <a class="primaryBtn" [routerLink]="['/courses', featuredCourse.id]"> Details </a>
             </div>
