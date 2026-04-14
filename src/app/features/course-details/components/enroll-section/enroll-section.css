@@ -182,6 +182,9 @@ h3 {
 .noSeats {
   color: var(--grey-600);
 }
+.noSeatsSelected {
+  color: var(--error);
+}
 .seatsCont {
   display: flex;
   align-items: center;
@@ -227,6 +230,9 @@ h3 {
   transition: 0.4s;
   color: var(--grey-50);
   background-color: var(--brand-500);
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .submitBtn:hover {
@@ -244,6 +250,7 @@ h3 {
 .submitBtn:disabled {
   background-color: var(--brand-50);
   color: var(--brand-200);
+  border-color: transparent;
 }
 .authCont {
   background-color: rgba(248, 250, 252, 1);

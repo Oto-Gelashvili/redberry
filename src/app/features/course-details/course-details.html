@@ -68,8 +68,15 @@
           <p>{{ course()?.description }}</p>
         </div>
       </div>
-      @if (course()) {
-        <app-enroll-section [courseId]="course()!.id" [basePrice]="course()!.basePrice" />
+      @if (course()?.enrollment) {
+        <h1>You are already enrolled</h1>
+      }
+      @if (course() && course()?.enrollment === null) {
+        <app-enroll-section
+          [courseId]="course()!.id"
+          [basePrice]="course()!.basePrice"
+          (enrolled)="reloadCourse()"
+        />
       }
     </div>
   }

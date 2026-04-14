@@ -50,4 +50,11 @@ export class CourseDetails {
     const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
     return (sum / reviews.length).toFixed(1);
   });
+
+  protected async reloadCourse() {
+    if (!this.courseId()) return;
+
+    const updated = await this.coursesService.getCourseById(this.courseId()!);
+    this.course.set(updated);
+  }
 }

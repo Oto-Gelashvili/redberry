@@ -85,10 +85,15 @@ export class CoursesService {
     const json = await res.json();
     return json.data as Instructor[];
   }
-  async getCourseById(id: number): Promise<CourseSingle> {
-    const res = await fetch(`${BASE_URL}/courses/${id}`);
-    const json = await res.json();
 
+  async getCourseById(id: number): Promise<CourseSingle> {
+    const res = await fetch(`${BASE_URL}/courses/${id}`, {
+      headers: {
+        Authorization: `Bearer ${this.authService.token()}`,
+      },
+    });
+
+    const json = await res.json();
     if (!res.ok) throw json;
 
     return json.data as CourseSingle;

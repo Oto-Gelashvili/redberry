@@ -1,5 +1,5 @@
 <div class="enrollSection">
-  <form [formGroup]="enrollmentForm">
+  <form (submit)="onSubmit(); $event.preventDefault()">
     <div class="customSelect" [class.open]="isScheduleOpen()">
       <div class="selectHeading" [class.relevant]="isScheduleOpen()">
         @if (isWeeksLoading()) {
@@ -134,6 +134,9 @@
                   class="seatDesc"
                   [class.lowSeats]="seats != null && seats < 5 && seats > 0"
                   [class.noSeats]="seats === 0 || seats == null"
+                  [class.noSeatsSelected]="
+                    (seats === 0 || seats == null) && sessionType.id === selectedSessionTypeId()
+                  "
                 >
                   {{
                     seats == null || seats === 0
@@ -166,8 +169,12 @@
           </p>
         </div>
       </div>
-      <button class="submitBtn">
-        <h4>Enroll Now</h4>
+      <button class="submitBtn" type="submit" [disabled]="!canSubmit() || isSubmitting()">
+        @if (isSubmitting()) {
+          <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
+        } @else {
+          <h4>Enroll Now</h4>
+        }
       </button>
     </div>
   </form>

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
@@ -34,6 +34,8 @@ export class EnrollSection implements OnInit {
   protected selectedScheduleId = signal<number | null>(null);
   protected selectedTimeSlotId = signal<number | null>(null);
   protected selectedSessionTypeId = signal<number | null>(null);
+  enrolled = output<void>();
+  protected isSubmitting = signal(false);
   protected readonly allSchedules = [
     { id: 1, label: 'Mon - Wed' },
     { id: 2, label: 'Tue - Thu' },
@@ -50,12 +52,6 @@ export class EnrollSection implements OnInit {
     { id: 2, label: 'In-Person', icon: 'InPerson', price: '+ $50', address: 'Chavchavadze St.34' },
     { id: 3, label: 'Hybrid', icon: 'Hybrid', price: '+ $30', address: 'Chavchavadze St.34' },
   ];
-
-  enrollmentForm = new FormGroup({
-    schedule: new FormControl('', Validators.required),
-    timeSlot: new FormControl({ value: '', disabled: true }, Validators.required),
-    sessionType: new FormControl({ value: '', disabled: true }, Validators.required),
-  });
 
   ngOnInit(): void {
     this.loadWeeklySchedules(this.courseId());
@@ -189,4 +185,48 @@ export class EnrollSection implements OnInit {
       this.avaliableSessionTypes()?.find((s) => s.id === selected)?.priceModifier ?? 0;
     return modifier;
   });
+
+  protected readonly canSubmit = computed(() => {
+    if (!this.authService.isAuthenticated()) return false;
+    if (!this.authService.user()?.profileComplete) return false;
+    if (!this.selectedScheduleId() || !this.selectedTimeSlotId() || !this.selectedSessionTypeId())
+      return false;
+
+    const selectedSession = this.avaliableSessionTypes()?.find(
+      (s) => s.id === this.selectedSessionTypeId(),
+    );
+    if (!selectedSession || selectedSession.availableSeats === 0) return false;
+
+    return true;
+  });
+
+  async onSubmit() {
+    if (this.isSubmitting()) return;
+    const sessionType = this.avaliableSessionTypes()?.find(
+      (s) => s.id === this.selectedSessionTypeId(),
+    );
+    if (!sessionType) return;
+
+    try {
+      this.isSubmitting.set(true);
+      await this.enrollService.enroll(this.courseId(), sessionType.courseScheduleId);
+      this.notyService.showSuccess('Successfully enrolled!');
+      this.enrolled.emit();
+    } catch (error: any) {
+      if (error.status === 401) {
+        this.notyService.showError('Unauthenticated');
+      }
+      if (error.status === 409) {
+        this.notyService.showError('warning modal to be done');
+      }
+      if (error.status === 422) {
+        const messages = Object.values(error.error.errors).flat().join(', ');
+        this.notyService.showError(messages);
+      } else {
+        this.notyService.showError('Failed to enroll');
+      }
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
 }
