@@ -3,11 +3,18 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../../core/services/auth.service';
 import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
 import { EnrollService } from '../../../../core/services/enroll.service';
-import { SessionType, TimeSlot, WeeklySchedule } from '../../../../models/courses.model';
+import {
+  ConflictType,
+  EnrollmentModalData,
+  SessionType,
+  TimeSlot,
+  WeeklySchedule,
+} from '../../../../models/courses.model';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { Loader } from '../../../../shared/components/loader/loader';
 import { DecimalPipe } from '@angular/common';
 import { ModalService } from '../../../../core/services/modal.service';
+import { EnrollmentModal } from '../../../../shared/components/enrollment-modal/enrollment-modal';
 
 @Component({
   selector: 'app-enroll-section',
@@ -185,7 +192,6 @@ export class EnrollSection implements OnInit {
       this.avaliableSessionTypes()?.find((s) => s.id === selected)?.priceModifier ?? 0;
     return modifier;
   });
-
   protected readonly canSubmit = computed(() => {
     if (!this.authService.isAuthenticated()) return false;
     if (!this.authService.user()?.profileComplete) return false;
@@ -202,23 +208,35 @@ export class EnrollSection implements OnInit {
 
   async onSubmit() {
     if (this.isSubmitting()) return;
-    const sessionType = this.avaliableSessionTypes()?.find(
-      (s) => s.id === this.selectedSessionTypeId(),
-    );
-    if (!sessionType) return;
 
     try {
       this.isSubmitting.set(true);
-      await this.enrollService.enroll(this.courseId(), sessionType.courseScheduleId);
-      this.notyService.showSuccess('Successfully enrolled!');
-      this.enrolled.emit();
+      await this.enroll();
     } catch (error: any) {
       if (error.status === 401) {
         this.notyService.showError('Unauthenticated');
       }
+
       if (error.status === 409) {
-        this.notyService.showError('warning modal to be done');
+        const conflicts = error.error.conflicts;
+
+        const conflictedCourses = conflicts.map((c: ConflictType) => c.conflictingCourseName);
+
+        const conflictedSchedule = conflicts[0].schedule;
+        const confirmed = await this.modalService.openEnrollmentModal({
+          type: 'warning',
+          title: 'Enrollment Conflict',
+          icon: 'warning.svg',
+          conflictedCourses,
+          schedule: conflictedSchedule,
+        });
+        if (!confirmed) return;
+
+        await this.enroll(true);
+
+        return;
       }
+
       if (error.status === 422) {
         const messages = Object.values(error.error.errors).flat().join(', ');
         this.notyService.showError(messages);
@@ -228,5 +246,17 @@ export class EnrollSection implements OnInit {
     } finally {
       this.isSubmitting.set(false);
     }
+  }
+
+  private async enroll(force = false) {
+    const sessionType = this.avaliableSessionTypes()?.find(
+      (s) => s.id === this.selectedSessionTypeId(),
+    );
+    if (!sessionType) return;
+
+    await this.enrollService.enroll(this.courseId(), sessionType.courseScheduleId, force);
+
+    this.notyService.showSuccess('Successfully enrolled!');
+    this.enrolled.emit();
   }
 }

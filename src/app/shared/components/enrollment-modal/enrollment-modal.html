@@ -1,0 +1,21 @@
+<div class="cont">
+  <div class="contentCont">
+    <img [src]="data().icon" [alt]="data().type" />
+    <h2>{{ data().title }}</h2>
+    @if (data().type === 'warning') {
+      @if (data().conflictedCourses?.length) {
+        <p>You are already enrolled in:</p>
+
+        @for (course of data().conflictedCourses; track course) {
+          <span class="highlight">"{{ course }}"</span>
+        }
+
+        <p>with schedule: {{ data().schedule }}</p>
+      }
+    }
+  </div>
+  <div class="btnCont">
+    <button class="ctaBtnOutline" (click)="onContinue()">Continue Anyway</button>
+    <button class="primaryBtn" (click)="onCancel()">Cancel</button>
+  </div>
+</div>

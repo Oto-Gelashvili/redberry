@@ -113,3 +113,17 @@ export interface SessionType {
   availableSeats: number;
   location: string;
 }
+export type EnrollmentModalData = {
+  type: string;
+  title: string;
+  icon: string;
+  conflictedCourses?: string[];
+  schedule?: string;
+  onConfirm?: () => void;
+};
+export type ConflictType = {
+  requestedCourseId: number;
+  conflictingEnrollmentId: number;
+  conflictingCourseName: string;
+  schedule: string;
+};

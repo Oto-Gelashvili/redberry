@@ -262,6 +262,7 @@ h5 {
 .incompleteCircleIndicator {
   background-color: var(--warning);
 }
+
 .fade-in {
   animation: fade-in 0.4s;
 }

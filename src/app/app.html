@@ -3,4 +3,70 @@
   <router-outlet />
 </main>
 <app-footer></app-footer>
+@if (modalService.isSignUpOpen()) {
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="modalService.closeAll()"
+  >
+    <div (click)="$event.stopPropagation()">
+      <app-sign-up />
+    </div>
+  </div>
+}
+
+@if (modalService.isLogInOpen()) {
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="modalService.closeAll()"
+  >
+    <div (click)="$event.stopPropagation()">
+      <app-log-in />
+    </div>
+  </div>
+}
+
+@if (modalService.isProfileOpen()) {
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="modalService.closeProfile()"
+  >
+    <div (click)="$event.stopPropagation()">
+      <app-profile />
+    </div>
+  </div>
+}
+
+@if (modalService.enrollmentModal()) {
+  <div
+    class="backdrop"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+    (click)="modalService.closeEnrollmentModal()"
+  >
+    <div (click)="$event.stopPropagation()">
+      <app-enrollment-modal [data]="modalService.enrollmentModal()!" />
+    </div>
+  </div>
+}
+<div
+  class="panel-backdrop"
+  [class.show]="modalService.isPanelRendered()"
+  (click)="modalService.closeSidePanel()"
+>
+  <div
+    class="panel-container"
+    [class.open]="modalService.isPanelRendered()"
+    (click)="$event.stopPropagation()"
+  >
+    @if (modalService.isPanelRendered()) {
+      <app-side-panel />
+    }
+  </div>
+</div>
 <app-notification-modal></app-notification-modal>
