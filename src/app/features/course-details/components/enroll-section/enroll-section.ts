@@ -1,11 +1,9 @@
 import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
 import { EnrollService } from '../../../../core/services/enroll.service';
 import {
   ConflictType,
-  EnrollmentModalData,
   SessionType,
   TimeSlot,
   WeeklySchedule,
@@ -14,11 +12,10 @@ import { NotificationService } from '../../../../core/services/notification.serv
 import { Loader } from '../../../../shared/components/loader/loader';
 import { DecimalPipe } from '@angular/common';
 import { ModalService } from '../../../../core/services/modal.service';
-import { EnrollmentModal } from '../../../../shared/components/enrollment-modal/enrollment-modal';
 
 @Component({
   selector: 'app-enroll-section',
-  imports: [ReactiveFormsModule, IconLibrary, Loader, DecimalPipe],
+  imports: [IconLibrary, Loader, DecimalPipe],
   templateUrl: './enroll-section.html',
   styleUrl: './enroll-section.css',
 })

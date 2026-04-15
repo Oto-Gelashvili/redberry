@@ -17,7 +17,7 @@ export class EnrolledSection {
   private readonly enrollService = inject(EnrollService);
   protected readonly modalService = inject(ModalService);
   protected readonly notyService = inject(NotificationService);
-
+  readonly courseTitle = input.required<string>();
   readonly data = input.required<EnrolledCourse>();
   protected formatName = formatName;
   protected formatTimeSlotLabel = formatTimeSlotLabel;
@@ -26,10 +26,16 @@ export class EnrolledSection {
 
   async onSubmit() {
     if (this.isSubmitting()) return;
-
     try {
       this.isSubmitting.set(true);
       await this.enrollService.completeCourse(this.data().id);
+      this.modalService.openEnrollmentModal({
+        type: 'completed',
+        title: 'Congratulations!',
+        icon: 'congrats.svg',
+        courseTitle: this.courseTitle(),
+      });
+
       this.completed.emit();
     } catch (error: any) {
       if (error.status === 401 || error.status === 403) {

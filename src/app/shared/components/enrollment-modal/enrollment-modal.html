@@ -22,6 +22,11 @@
     @if (data().type === 'profileIncomplete') {
       <p>You need to complete your profile before enrolling in this course.</p>
     }
+    @if (data().type === 'completed') {
+      <p>
+        You've completed <span class="highlight">"{{ data().courseTitle }}"</span> Course!
+      </p>
+    }
   </div>
   <div class="btnCont">
     @if (data().type === 'warning' || data().type === 'profileIncomplete') {

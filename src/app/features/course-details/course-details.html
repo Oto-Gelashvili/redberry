@@ -71,6 +71,7 @@
       @if (enrollment()) {
         <app-enrolled-section
           [data]="enrollment()!"
+          [courseTitle]="course()!.title"
           (completed)="reloadCourse()"
         ></app-enrolled-section>
       }
