@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SessionType, TimeSlot, WeeklySchedule } from '../../models/courses.model';
+import { EnrolledCourse, SessionType, TimeSlot, WeeklySchedule } from '../../models/courses.model';
 import { AuthService } from './auth.service';
 
 const BASE_URL = 'https://api.redclass.redberryinternship.ge/api';
@@ -40,7 +40,11 @@ export class EnrollService {
     return json.data as SessionType[];
   }
 
-  async enroll(courseId: number, courseScheduleId: number, force: boolean = false): Promise<any> {
+  async enroll(
+    courseId: number,
+    courseScheduleId: number,
+    force: boolean = false,
+  ): Promise<EnrolledCourse> {
     const res = await fetch(`${BASE_URL}/enrollments`, {
       method: 'POST',
       headers: {
@@ -53,6 +57,20 @@ export class EnrollService {
     if (!res.ok) {
       throw { status: res.status, error: json };
     }
-    return json;
+    return json.data as EnrolledCourse;
+  }
+  async completeCourse(courseId: number): Promise<EnrolledCourse> {
+    const res = await fetch(`${BASE_URL}/enrollments/${courseId}/complete`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.token()}`,
+      },
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+    return json.data as EnrolledCourse;
   }
 }

@@ -1,0 +1,62 @@
+@let enrolled = data();
+<div class="enrolledCard">
+  <div class="sheduleInfoCont">
+    @if (enrolled.completedAt === null) {
+      <div class="state">
+        <h4>Enrolled</h4>
+      </div>
+    } @else {
+      <div class="state completed">
+        <h4>Completed</h4>
+      </div>
+    }
+    <div class="detailCont">
+      <img src="timeTable.svg" alt="weekly schedule icon" />
+      <p>{{ enrolled.schedule.weeklySchedule.label }}</p>
+    </div>
+    <div class="detailCont">
+      <img src="clock.svg" alt="time slot icon" />
+      <p>{{ formatTimeSlotLabel(enrolled.schedule.timeSlot.label) }}</p>
+    </div>
+    <div class="detailCont">
+      <img
+        [src]="enrolled.schedule.sessionType.name === 'online' ? 'online.svg' : 'inPerson.svg'"
+        alt="session type icon"
+      />
+      <p>{{ formatName(enrolled.schedule.sessionType.name) }}</p>
+    </div>
+    @if (enrolled.schedule.location) {
+      <div class="detailCont">
+        <img src="location.svg" alt="location icon" />
+        <p>{{ enrolled.schedule.location }}</p>
+      </div>
+    }
+  </div>
+  <div class="otherInfoCont">
+    <div class="progressCont">
+      <h4>{{ enrolled.progress }}% Complete</h4>
+      <div class="progressBar">
+        <div class="progressFill" [style.width.%]="enrolled.progress"></div>
+      </div>
+    </div>
+    @if (enrolled.completedAt === null) {
+      <button class="primaryBtn" type="button" [disabled]="isSubmitting()" (click)="onSubmit()">
+        @if (isSubmitting()) {
+          <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
+        } @else {
+          <p>Complete Course</p>
+          <app-icon-library name="checkmark24" [size]="24"></app-icon-library>
+        }
+      </button>
+    } @else {
+      <button class="primaryBtn" type="button" [disabled]="isSubmitting()" (click)="onSubmit()">
+        @if (isSubmitting()) {
+          <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
+        } @else {
+          <p>Retake Course</p>
+          <app-icon-library name="checkmark24" [size]="24"></app-icon-library>
+        }
+      </button>
+    }
+  </div>
+</div>

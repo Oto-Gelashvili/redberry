@@ -52,13 +52,20 @@
                 </li>
                 <li>
                   <div class="iconCont"><img src="clock.svg" alt="time slot icon" /></div>
-                  <p>{{ course.schedule.timeSlot.label }}</p>
+                  <p>{{ formatTimeSlotLabel(course.schedule.timeSlot.label) }}</p>
                 </li>
                 <li>
                   <div class="iconCont">
-                    <img src="inPerson.svg" alt="session type icon" />
+                    <img
+                      [src]="
+                        course.schedule.sessionType.name === 'online'
+                          ? 'online.svg'
+                          : 'inPerson.svg'
+                      "
+                      alt="session type icon"
+                    />
                   </div>
-                  <p>{{ course.schedule.sessionType.name }}</p>
+                  <p>{{ formatName(course.schedule.sessionType.name) }}</p>
                 </li>
                 @if (course.schedule.sessionType.name !== 'online') {
                   <li>

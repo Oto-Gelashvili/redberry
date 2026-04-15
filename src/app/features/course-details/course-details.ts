@@ -8,10 +8,11 @@ import { CourseSingle } from '../../models/courses.model';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { EnrollSection } from './components/enroll-section/enroll-section';
 import { AuthService } from '../../core/services/auth.service';
+import { EnrolledSection } from './components/enrolled-section/enrolled-section';
 
 @Component({
   selector: 'app-course-details',
-  imports: [Loader, IconLibrary, RouterLink, EnrollSection],
+  imports: [Loader, IconLibrary, RouterLink, EnrollSection, EnrolledSection],
   templateUrl: './course-details.html',
   styleUrl: './course-details.css',
 })
@@ -44,7 +45,7 @@ export class CourseDetails {
       }
     });
   }
-  readonly enrollmentState = computed(() => {
+  readonly enrollment = computed(() => {
     const course = this.course();
     const user = this.authService.user();
 
@@ -66,7 +67,11 @@ export class CourseDetails {
   protected async reloadCourse() {
     if (!this.courseId()) return;
 
-    const updated = await this.coursesService.getCourseById(this.courseId()!);
-    this.course.set(updated);
+    try {
+      const updated = await this.coursesService.getCourseById(this.courseId()!);
+      this.course.set(updated);
+    } catch {
+      this.notyService.showError('Failed to refresh course');
+    }
   }
 }
