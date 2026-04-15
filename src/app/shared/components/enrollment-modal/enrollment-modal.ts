@@ -19,4 +19,8 @@ export class EnrollmentModal {
   onCancel() {
     this.modalService.closeEnrollmentModal(false);
   }
+  showProfile() {
+    this.modalService.closeEnrollmentModal(false);
+    this.modalService.openProfile();
+  }
 }

@@ -13,9 +13,27 @@
         <p>with schedule: {{ data().schedule }}</p>
       }
     }
+    @if (data().type === 'enrolled') {
+      <p>
+        You've successfully enrolled to the
+        <span class="highlight">"{{ data().courseTitle }}"</span> Course!
+      </p>
+    }
+    @if (data().type === 'profileIncomplete') {
+      <p>You need to complete your profile before enrolling in this course.</p>
+    }
   </div>
   <div class="btnCont">
-    <button class="ctaBtnOutline" (click)="onContinue()">Continue Anyway</button>
-    <button class="primaryBtn" (click)="onCancel()">Cancel</button>
+    @if (data().type === 'warning' || data().type === 'profileIncomplete') {
+      @if (data().type === 'warning') {
+        <button class="ctaBtnOutline" (click)="onContinue()">Continue Anyway</button>
+      } @else {
+        <button class="ctaBtnOutline" (click)="showProfile()">Complete Profile</button>
+      }
+
+      <button class="primaryBtn" (click)="onCancel()">Cancel</button>
+    } @else {
+      <button class="primaryBtn" (click)="onCancel()">Done</button>
+    }
   </div>
 </div>

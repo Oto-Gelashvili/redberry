@@ -35,6 +35,7 @@ export class EnrollSection implements OnInit {
   protected isSessionTypeLoading = signal(false);
   readonly courseId = input.required<number>();
   readonly basePrice = input.required<number>();
+  readonly courseTitle = input.required<string>();
   protected avaliableWeeks = signal<WeeklySchedule[] | undefined>(undefined);
   protected avaliableTimeSlots = signal<TimeSlot[] | undefined>(undefined);
   protected avaliableSessionTypes = signal<SessionType[] | undefined>(undefined);
@@ -193,8 +194,8 @@ export class EnrollSection implements OnInit {
     return modifier;
   });
   protected readonly canSubmit = computed(() => {
-    if (!this.authService.isAuthenticated()) return false;
-    if (!this.authService.user()?.profileComplete) return false;
+    // if (!this.authService.isAuthenticated()) return false;
+    // if (!this.authService.user()?.profileComplete) return false;
     if (!this.selectedScheduleId() || !this.selectedTimeSlotId() || !this.selectedSessionTypeId())
       return false;
 
@@ -214,7 +215,9 @@ export class EnrollSection implements OnInit {
       await this.enroll();
     } catch (error: any) {
       if (error.status === 401) {
-        this.notyService.showError('Unauthenticated');
+        this.modalService.openSignUp();
+        this.notyService.showError('You need to be authenticated');
+        return;
       }
 
       if (error.status === 409) {
@@ -231,15 +234,17 @@ export class EnrollSection implements OnInit {
           schedule: conflictedSchedule,
         });
         if (!confirmed) return;
-
         await this.enroll(true);
-
         return;
       }
 
       if (error.status === 422) {
-        const messages = Object.values(error.error.errors).flat().join(', ');
-        this.notyService.showError(messages);
+        this.modalService.openEnrollmentModal({
+          type: 'profileIncomplete',
+          title: 'Complete your profile to continue',
+          icon: 'profileIncomplete.svg',
+        });
+        return;
       } else {
         this.notyService.showError('Failed to enroll');
       }
@@ -256,7 +261,12 @@ export class EnrollSection implements OnInit {
 
     await this.enrollService.enroll(this.courseId(), sessionType.courseScheduleId, force);
 
-    this.notyService.showSuccess('Successfully enrolled!');
+    this.modalService.openEnrollmentModal({
+      type: 'enrolled',
+      title: 'Enrollment Confirmed! ',
+      icon: 'enrolled.svg',
+      courseTitle: this.courseTitle(),
+    });
     this.enrolled.emit();
   }
 }

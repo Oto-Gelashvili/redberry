@@ -119,7 +119,7 @@ export type EnrollmentModalData = {
   icon: string;
   conflictedCourses?: string[];
   schedule?: string;
-  onConfirm?: () => void;
+  courseTitle?: string;
 };
 export type ConflictType = {
   requestedCourseId: number;

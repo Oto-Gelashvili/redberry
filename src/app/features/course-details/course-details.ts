@@ -7,6 +7,7 @@ import { Loader } from '../../shared/components/loader/loader';
 import { CourseSingle } from '../../models/courses.model';
 import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { EnrollSection } from './components/enroll-section/enroll-section';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-course-details',
@@ -18,6 +19,7 @@ export class CourseDetails {
   private route = inject(ActivatedRoute);
   private readonly coursesService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
+  private readonly authService = inject(AuthService);
 
   protected courseId = signal<number | null>(null);
   protected course = signal<CourseSingle | null>(null);
@@ -42,6 +44,16 @@ export class CourseDetails {
       }
     });
   }
+  readonly enrollmentState = computed(() => {
+    const course = this.course();
+    const user = this.authService.user();
+
+    if (!course) return null;
+
+    if (!user) return null;
+
+    return course.enrollment;
+  });
   protected averageRating = computed(() => {
     const reviews = this.course()?.reviews;
     if (!reviews || reviews.length === 0) {
