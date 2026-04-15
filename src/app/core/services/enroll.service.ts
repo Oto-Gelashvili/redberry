@@ -73,4 +73,18 @@ export class EnrollService {
     }
     return json.data as EnrolledCourse;
   }
+  async retakeCourse(enrollmentId: number): Promise<void> {
+    const res = await fetch(`${BASE_URL}/enrollments/${enrollmentId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.authService.token()}`,
+      },
+    });
+
+    const json = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+  }
 }

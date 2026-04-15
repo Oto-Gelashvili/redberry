@@ -39,24 +39,16 @@
         <div class="progressFill" [style.width.%]="enrolled.progress"></div>
       </div>
     </div>
-    @if (enrolled.completedAt === null) {
-      <button class="primaryBtn" type="button" [disabled]="isSubmitting()" (click)="onSubmit()">
-        @if (isSubmitting()) {
-          <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
-        } @else {
-          <p>Complete Course</p>
-          <app-icon-library name="checkmark24" [size]="24"></app-icon-library>
-        }
-      </button>
-    } @else {
-      <button class="primaryBtn" type="button" [disabled]="isSubmitting()" (click)="onSubmit()">
-        @if (isSubmitting()) {
-          <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
-        } @else {
-          <p>Retake Course</p>
-          <app-icon-library name="checkmark24" [size]="24"></app-icon-library>
-        }
-      </button>
-    }
+    <button class="primaryBtn" type="button" [disabled]="isSubmitting()" (click)="onSubmit()">
+      @if (isSubmitting()) {
+        <app-loader [size]="20" [innerColor]="'var(--brand-500)'"></app-loader>
+      } @else if (enrolled.completedAt === null) {
+        <p>Complete Course</p>
+        <app-icon-library name="checkmark24" [size]="24"></app-icon-library>
+      } @else {
+        <p>Retake Course</p>
+        <app-icon-library name="rotate24" [size]="24"></app-icon-library>
+      }
+    </button>
   </div>
 </div>

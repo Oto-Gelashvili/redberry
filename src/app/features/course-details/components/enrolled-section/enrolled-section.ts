@@ -22,21 +22,26 @@ export class EnrolledSection {
   protected formatName = formatName;
   protected formatTimeSlotLabel = formatTimeSlotLabel;
   protected isSubmitting = signal(false);
-  completed = output<void>();
+  refresh = output<void>();
 
   async onSubmit() {
     if (this.isSubmitting()) return;
     try {
       this.isSubmitting.set(true);
-      await this.enrollService.completeCourse(this.data().id);
-      this.modalService.openEnrollmentModal({
-        type: 'completed',
-        title: 'Congratulations!',
-        icon: 'congrats.svg',
-        courseTitle: this.courseTitle(),
-      });
+      if (this.data().completedAt) {
+        await this.enrollService.retakeCourse(this.data().id);
+        this.notyService.showSuccess('Course can be retaken again');
+      } else {
+        await this.enrollService.completeCourse(this.data().id);
+        this.modalService.openEnrollmentModal({
+          type: 'completed',
+          title: 'Congratulations!',
+          icon: 'congrats.svg',
+          courseTitle: this.courseTitle(),
+        });
+      }
 
-      this.completed.emit();
+      this.refresh.emit();
     } catch (error: any) {
       if (error.status === 401 || error.status === 403) {
         this.modalService.openSignUp();
@@ -48,7 +53,7 @@ export class EnrolledSection {
         this.notyService.showError('No query results for model.');
         return;
       } else {
-        this.notyService.showError('Failed to complete course');
+        this.notyService.showError('Server error, try again');
       }
     } finally {
       this.isSubmitting.set(false);

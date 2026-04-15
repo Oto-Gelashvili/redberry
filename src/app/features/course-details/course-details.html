@@ -72,7 +72,7 @@
         <app-enrolled-section
           [data]="enrollment()!"
           [courseTitle]="course()!.title"
-          (completed)="reloadCourse()"
+          (refresh)="reloadCourse()"
         ></app-enrolled-section>
       }
       @if (!enrollment()) {
