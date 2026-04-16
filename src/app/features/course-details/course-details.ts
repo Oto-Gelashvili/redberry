@@ -9,6 +9,7 @@ import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { EnrollSection } from './components/enroll-section/enroll-section';
 import { AuthService } from '../../core/services/auth.service';
 import { EnrolledSection } from './components/enrolled-section/enrolled-section';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course-details',
@@ -21,6 +22,7 @@ export class CourseDetails {
   private readonly coursesService = inject(CoursesService);
   private readonly notyService = inject(NotificationService);
   private readonly authService = inject(AuthService);
+  private title = inject(Title);
 
   protected courseId = signal<number | null>(null);
   protected course = signal<CourseSingle | null>(null);
@@ -38,6 +40,7 @@ export class CourseDetails {
       try {
         const course = await this.coursesService.getCourseById(id);
         this.course.set(course);
+        this.title.setTitle(`${course.title}`);
       } catch {
         this.notyService.showError('Failed to load course');
       } finally {

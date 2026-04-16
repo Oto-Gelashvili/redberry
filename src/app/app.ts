@@ -27,7 +27,6 @@ import { SidePanel } from './features/side-panel/side-panel';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('redberry');
   protected readonly modalService = inject(ModalService);
   @HostListener('document:keydown.escape')
   async onEscape() {
