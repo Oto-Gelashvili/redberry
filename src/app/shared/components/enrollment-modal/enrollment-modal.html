@@ -10,7 +10,7 @@
           <span class="highlight">"{{ course }}"</span>
         }
 
-        <p>with schedule: {{ data().schedule }}</p>
+        <p>with schedule: {{ formatTimeSlotLabel(data().schedule!) }}</p>
       }
     }
     @if (data().type === 'enrolled') {
@@ -28,6 +28,10 @@
       </p>
     }
   </div>
+  @if (data().type === 'completed' && !data().isRated) {
+    <app-rater [(rating)]="rating" />
+  }
+
   <div class="btnCont">
     @if (data().type === 'warning' || data().type === 'profileIncomplete') {
       @if (data().type === 'warning') {
@@ -36,9 +40,9 @@
         <button class="ctaBtnOutline" (click)="showProfile()">Complete Profile</button>
       }
 
-      <button class="primaryBtn" (click)="onCancel()">Cancel</button>
+      <button class="primaryBtn" (click)="close()">Cancel</button>
     } @else {
-      <button class="primaryBtn" (click)="onCancel()">Done</button>
+      <button class="primaryBtn" (click)="close()">Done</button>
     }
   </div>
 </div>

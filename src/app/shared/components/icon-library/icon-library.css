@@ -7,3 +7,7 @@ svg {
   fill: none;
   transition: 0.4s;
 }
+.pointer {
+  cursor: pointer;
+  transition: 0.4s;
+}

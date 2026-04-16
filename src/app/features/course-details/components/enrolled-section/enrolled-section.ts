@@ -18,6 +18,8 @@ export class EnrolledSection {
   protected readonly modalService = inject(ModalService);
   protected readonly notyService = inject(NotificationService);
   readonly courseTitle = input.required<string>();
+  readonly courseId = input.required<number>();
+  readonly isRated = input.required<boolean>();
   readonly data = input.required<EnrolledCourse>();
   protected formatName = formatName;
   protected formatTimeSlotLabel = formatTimeSlotLabel;
@@ -33,11 +35,13 @@ export class EnrolledSection {
         this.notyService.showSuccess('Course can be retaken again');
       } else {
         await this.enrollService.completeCourse(this.data().id);
-        this.modalService.openEnrollmentModal({
+        const result = await this.modalService.openEnrollmentModal({
           type: 'completed',
           title: 'Congratulations!',
           icon: 'congrats.svg',
           courseTitle: this.courseTitle(),
+          courseId: this.courseId(),
+          isRated: this.isRated(),
         });
       }
 

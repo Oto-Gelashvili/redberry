@@ -1,0 +1,17 @@
+.raterCont {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  align-items: center;
+  font-size: var(--s-fs);
+  color: var(--brand-400);
+}
+.startsCont {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  color: var(--grey-100);
+}
+.activeStar {
+  color: var(--warning);
+}

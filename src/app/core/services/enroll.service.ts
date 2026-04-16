@@ -87,4 +87,18 @@ export class EnrollService {
       throw { status: res.status, error: json };
     }
   }
+  async submitReview(courseId: number, rating: number): Promise<void> {
+    const res = await fetch(`${BASE_URL}/courses/${courseId}/reviews`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.authService.token()}`,
+      },
+      body: JSON.stringify({ rating }),
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      throw { status: res.status, error: json };
+    }
+  }
 }

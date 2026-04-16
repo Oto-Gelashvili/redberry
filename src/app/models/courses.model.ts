@@ -120,6 +120,8 @@ export type EnrollmentModalData = {
   conflictedCourses?: string[];
   schedule?: string;
   courseTitle?: string;
+  courseId?: number;
+  isRated?: boolean;
 };
 export type ConflictType = {
   requestedCourseId: number;

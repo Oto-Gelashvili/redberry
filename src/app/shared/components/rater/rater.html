@@ -1,0 +1,15 @@
+<div class="raterCont">
+  <p>Rate your experience</p>
+  <div class="startsCont">
+    @for (num of [1, 2, 3, 4, 5]; track num) {
+      <app-icon-library
+        name="star-46"
+        [size]="46"
+        [class.activeStar]="num <= hoveredStar() || num <= rating()"
+        (mouseenter)="hoveredStar.set(num)"
+        (mouseleave)="hoveredStar.set(0)"
+        (click)="rating.set(num)"
+      ></app-icon-library>
+    }
+  </div>
+</div>

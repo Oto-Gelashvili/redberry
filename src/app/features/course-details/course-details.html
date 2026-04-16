@@ -71,7 +71,9 @@
       @if (enrollment()) {
         <app-enrolled-section
           [data]="enrollment()!"
+          [courseId]="course()!.id"
           [courseTitle]="course()!.title"
+          [isRated]="course()!.isRated"
           (refresh)="reloadCourse()"
         ></app-enrolled-section>
       }
