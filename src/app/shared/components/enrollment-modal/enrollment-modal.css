@@ -48,3 +48,6 @@
   justify-content: center;
   font-size: var(--btn-s);
 }
+.rater {
+  color: var(--brand-400);
+}

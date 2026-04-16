@@ -3,8 +3,8 @@
   <div class="startsCont">
     @for (num of [1, 2, 3, 4, 5]; track num) {
       <app-icon-library
-        name="star-46"
-        [size]="46"
+        [name]="'star-' + size()"
+        [size]="size()"
         [class.activeStar]="num <= hoveredStar() || num <= rating()"
         (mouseenter)="hoveredStar.set(num)"
         (mouseleave)="hoveredStar.set(0)"

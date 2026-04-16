@@ -29,7 +29,9 @@
     }
   </div>
   @if (data().type === 'completed' && !data().isRated) {
-    <app-rater [(rating)]="rating" />
+    <div class="rater">
+      <app-rater [size]="46" [(rating)]="rating" />
+    </div>
   }
 
   <div class="btnCont">

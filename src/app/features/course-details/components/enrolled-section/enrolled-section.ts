@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { EnrolledCourse } from '../../../../models/courses.model';
 import { formatName, formatTimeSlotLabel } from '../../../../shared/utils/format.utils';
 import { IconLibrary } from '../../../../shared/components/icon-library/icon-library';
@@ -6,10 +6,11 @@ import { EnrollService } from '../../../../core/services/enroll.service';
 import { ModalService } from '../../../../core/services/modal.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { Loader } from '../../../../shared/components/loader/loader';
+import { Rater } from '../../../../shared/components/rater/rater';
 
 @Component({
   selector: 'app-enrolled-section',
-  imports: [IconLibrary, Loader],
+  imports: [IconLibrary, Loader, Rater],
   templateUrl: './enrolled-section.html',
   styleUrl: './enrolled-section.css',
 })
@@ -25,7 +26,17 @@ export class EnrolledSection {
   protected formatTimeSlotLabel = formatTimeSlotLabel;
   protected isSubmitting = signal(false);
   refresh = output<void>();
+  protected rating = signal(0);
+  protected isRatingOpen = signal(true);
 
+  constructor() {
+    effect(() => {
+      const rating = this.rating();
+      if (rating > 0) {
+        this.submitRating(rating);
+      }
+    });
+  }
   async onSubmit() {
     if (this.isSubmitting()) return;
     try {
@@ -62,5 +73,18 @@ export class EnrolledSection {
     } finally {
       this.isSubmitting.set(false);
     }
+  }
+
+  private async submitRating(rating: number) {
+    try {
+      await this.enrollService.submitReview(this.courseId(), rating);
+      this.notyService.showSuccess('Rating Submitted');
+      this.refresh.emit();
+    } catch {
+      this.notyService.showError('Failed to submit review');
+    }
+  }
+  protected closeRatingCont() {
+    this.isRatingOpen.set(false);
   }
 }

@@ -50,5 +50,16 @@
         <app-icon-library name="rotate24" [size]="24"></app-icon-library>
       }
     </button>
+    @if (enrolled.completedAt !== null && !isRated() && isRatingOpen()) {
+      <div class="rater">
+        <app-icon-library
+          name="closeRating"
+          class="closeRatingBtn"
+          [size]="22"
+          (click)="closeRatingCont()"
+        ></app-icon-library>
+        <app-rater [size]="50" [(rating)]="rating" />
+      </div>
+    }
   </div>
 </div>

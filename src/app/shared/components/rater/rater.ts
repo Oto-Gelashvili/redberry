@@ -1,4 +1,4 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, input, model, signal } from '@angular/core';
 import { IconLibrary } from '../icon-library/icon-library';
 
 @Component({
@@ -10,4 +10,5 @@ import { IconLibrary } from '../icon-library/icon-library';
 export class Rater {
   readonly rating = model<number>(0);
   protected hoveredStar = signal(0);
+  readonly size = input.required<number>();
 }
