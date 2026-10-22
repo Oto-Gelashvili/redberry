@@ -116,8 +116,7 @@ export class SignUp {
     this.generalError.set(null);
 
     try {
-      const res = await this.authService.register(formData);
-      this.authService.setSession(res.data.user, res.data.token);
+      await this.authService.register(formData);
       this.modalService.closeAll();
     } catch (err: any) {
       if (err.status === 422) {

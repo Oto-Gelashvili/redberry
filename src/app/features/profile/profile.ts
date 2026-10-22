@@ -143,21 +143,18 @@ export class Profile {
   }
   protected async onSubmit() {
     const v = this.profileForm.value;
-    const formData = new FormData();
-    formData.append('full_name', v.fullName!);
-    formData.append('mobile_number', v.mobile!);
-    formData.append('age', String(v.age!));
-    if (this.selectedFile()) {
-      formData.append('avatar', this.selectedFile()!);
-    }
 
     this.isLoading.set(true);
     this.serverErrors.set({});
     this.generalError.set(null);
 
     try {
-      const res = await this.authService.updateProfile(formData);
-      this.authService.updateUser(res.data);
+      await this.authService.updateProfile({
+        fullName: v.fullName!.trim(),
+        mobileNumber: v.mobile!,
+        age: Number(v.age),
+        avatar: this.selectedFile(),
+      });
       this.notyService.showSuccess('Profile updated successfully');
       this.modalService.closeAll();
     } catch (err: any) {
@@ -165,8 +162,7 @@ export class Profile {
         this.generalError.set('Session expired. Please log in again.');
         this.authService.logout();
       } else if (err.status === 422) {
-        const errors = err.error.errors ?? {};
-        this.serverErrors.set(errors);
+        this.serverErrors.set(err.error.errors ?? {});
       } else {
         this.generalError.set('Something went wrong. Please try again.');
       }

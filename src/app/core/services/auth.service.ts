@@ -1,121 +1,166 @@
 import { Injectable, signal, computed } from '@angular/core';
+import type { Session, User as SupabaseUser } from '@supabase/supabase-js';
+import { supabase } from './supabase';
 
 export interface User {
-  id: number;
+  id: string;
   username: string;
   email: string;
-  avatar: string;
-  fullName: string;
-  mobileNumber: string;
-  age: number;
+  avatar: string | null;
+  fullName: string | null;
+  mobileNumber: string | null;
+  age: number | null;
   profileComplete: boolean;
 }
-
-const BASE_URL = 'https://api.redclass.redberryinternship.ge/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _user = signal<User | null>(null);
-  private _token = signal<string | null>(null);
+  private _session = signal<Session | null>(null);
 
   user = this._user.asReadonly();
-  token = this._token.asReadonly();
-
-  isAuthenticated = computed(() => !!this._token());
+  // kept so your other services still compile until we migrate them
+  token = computed(() => this._session()?.access_token ?? null);
+  isAuthenticated = computed(() => !!this._session());
 
   constructor() {
-    const savedToken = localStorage.getItem('token');
-    if (savedToken) {
-      this._token.set(savedToken);
-      this.fetchMe();
-    }
-  }
+    supabase.auth.onAuthStateChange((event, session) => {
+      this._session.set(session);
 
-  async fetchMe() {
-    try {
-      const res = await fetch(`${BASE_URL}/me`, {
-        headers: { Authorization: `Bearer ${this._token()}` },
-      });
-
-      if (res.status === 401) {
+      if (!session) {
         this._user.set(null);
-        this._token.set(null);
-        localStorage.removeItem('token');
         return;
       }
+      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
+        setTimeout(() => this.loadProfile(session.user), 0);
+      }
+    });
+  }
 
-      const json = await res.json();
-      this._user.set(json.data);
-    } catch {
-      // network error on app start — keep existing session state
-    }
+  private async loadProfile(authUser: SupabaseUser) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', authUser.id)
+      .single();
+
+    if (error || !data) return;
+
+    this._user.set({
+      id: data.id,
+      username: data.username,
+      email: authUser.email!,
+      avatar: data.avatar,
+      fullName: data.full_name,
+      mobileNumber: data.mobile_number,
+      age: data.age,
+      profileComplete: data.profile_complete,
+    });
   }
-  setSession(user: User, token: string) {
-    this._user.set(user);
-    this._token.set(token);
-    localStorage.setItem('token', token);
-  }
+
   updateUser(user: User) {
     this._user.set(user);
   }
-  async logout() {
-    try {
-      await fetch(`${BASE_URL}/logout`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${this._token()}` },
-      });
-    } catch {
-      // if network fails
-    } finally {
-      this._user.set(null);
-      this._token.set(null);
-      localStorage.removeItem('token');
-    }
-  }
+
   async logIn(credentials: { email: string; password: string }) {
-    const res = await fetch(`${BASE_URL}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    });
+    const { data, error } = await supabase.auth.signInWithPassword(credentials);
 
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw { status: res.status, error: json };
+    if (error) {
+      // keep the shape your LogIn component already expects
+      throw { status: 401, error: { message: error.message } };
     }
+    await this.loadProfile(data.user);
+  }
 
-    return json as { data: { user: User; token: string } };
+  async logout() {
+    await supabase.auth.signOut();
+    // onAuthStateChange clears the signals
   }
 
   async register(formData: FormData) {
-    const res = await fetch(`${BASE_URL}/register`, {
-      method: 'POST',
-      body: formData,
+    const username = formData.get('username') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const avatar = formData.get('avatar') as File | null;
+
+    // 1. username taken?
+    const { data: available, error: rpcError } = await supabase.rpc('is_username_available', {
+      name: username,
     });
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw { status: res.status, error: json };
+    if (rpcError) throw { status: 500, error: rpcError };
+    if (!available) {
+      throw { status: 422, error: { errors: { username: ['Username is already taken'] } } };
     }
 
-    return json as { data: { user: User; token: string } };
+    // 2. create the account (trigger creates the profile row)
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username } },
+    });
+
+    if (error) {
+      if (error.code === 'user_already_exists') {
+        throw { status: 422, error: { errors: { email: ['Email is already registered'] } } };
+      }
+      throw { status: error.status ?? 500, error };
+    }
+    if (!data.session || !data.user) {
+      throw { status: 500, error: { message: 'Disable "Confirm email" in Supabase for now.' } };
+    }
+
+    // 3. avatar (optional)
+    if (avatar && avatar.size > 0) {
+      const ext = avatar.name.split('.').pop();
+      const path = `${data.user.id}/avatar.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from('avatars')
+        .upload(path, avatar, { upsert: true });
+
+      if (!upErr) {
+        const { data: pub } = supabase.storage.from('avatars').getPublicUrl(path);
+        await supabase
+          .from('profiles')
+          .update({ avatar: `${pub.publicUrl}?v=${Date.now()}` }) // cache-bust on re-upload
+          .eq('id', data.user.id);
+      }
+    }
+
+    await this.loadProfile(data.user);
   }
 
-  async updateProfile(formData: FormData) {
-    const res = await fetch(`${BASE_URL}/profile`, {
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${this._token()}` },
-      body: formData,
-    });
+  // Plain object instead of FormData. I haven't seen your profile component yet.
+  async updateProfile(values: {
+    fullName: string;
+    mobileNumber: string;
+    age: number;
+    avatar?: File | null;
+  }) {
+    const userId = this._session()?.user.id;
+    if (!userId) throw { status: 401, error: { message: 'Not logged in' } };
 
-    const json = await res.json();
-
-    if (!res.ok) {
-      throw { status: res.status, error: json };
+    let avatarUrl: string | undefined;
+    if (values.avatar) {
+      const ext = values.avatar.name.split('.').pop();
+      const path = `${userId}/avatar.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from('avatars')
+        .upload(path, values.avatar, { upsert: true });
+      if (upErr) throw { status: 400, error: upErr };
+      avatarUrl = `${supabase.storage.from('avatars').getPublicUrl(path).data.publicUrl}?v=${Date.now()}`;
     }
 
-    return json as { data: User };
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        full_name: values.fullName,
+        mobile_number: values.mobileNumber,
+        age: values.age,
+        ...(avatarUrl && { avatar: avatarUrl }),
+      })
+      .eq('id', userId);
+
+    if (error) throw { status: 400, error };
+    await this.loadProfile(this._session()!.user);
   }
 }
