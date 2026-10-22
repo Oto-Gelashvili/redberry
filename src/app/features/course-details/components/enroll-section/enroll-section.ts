@@ -243,7 +243,9 @@ export class EnrollSection implements OnInit {
         });
         return;
       } else {
-        this.notyService.showError('Failed to enroll');
+        this.notyService.showError(
+          'Failed to enroll, you are most likely already enrolled to this course',
+        );
       }
     } finally {
       this.isSubmitting.set(false);

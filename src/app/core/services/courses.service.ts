@@ -9,16 +9,10 @@ import {
   Topic,
 } from '../../models/courses.model';
 import { AuthService } from './auth.service';
-import { supabase } from './supabase'; // adjust to where your supabase.ts lives
+import { supabase } from './supabase';
+import { COURSE_SELECT, ENROLLMENT_SELECT, mapCourse, mapEnrollment, mapTopic } from './mappers';
 
 const PER_PAGE = 9;
-
-const COURSE_SELECT = `
-  id, title, description, image, base_price, duration_weeks, is_featured, avg_rating, review_count,
-  category:categories(id, name, icon),
-  topic:topics(id, name, category_id),
-  instructor:instructors(id, name, avatar)
-`;
 
 const SORTS: Record<string, { column: string; ascending: boolean }> = {
   newest: { column: 'created_at', ascending: false },
@@ -27,28 +21,6 @@ const SORTS: Record<string, { column: string; ascending: boolean }> = {
   popular: { column: 'review_count', ascending: false }, // switch to enrollments later
   title_asc: { column: 'title', ascending: true },
 };
-
-// snake_case rows from the database -> your camelCase models
-function mapTopic(t: any): Topic {
-  return { id: t.id, name: t.name, categoryId: t.category_id };
-}
-
-function mapCourse(r: any): Course {
-  return {
-    id: r.id,
-    title: r.title,
-    description: r.description,
-    image: r.image,
-    basePrice: r.base_price,
-    durationWeeks: r.duration_weeks,
-    isFeatured: r.is_featured,
-    avgRating: r.avg_rating,
-    reviewCount: r.review_count,
-    category: r.category,
-    topic: mapTopic(r.topic),
-    instructor: r.instructor,
-  };
-}
 
 @Injectable({ providedIn: 'root' })
 export class CoursesService {
@@ -144,23 +116,49 @@ export class CoursesService {
     if (error) throw { status: 400, message: error.message };
     if (!data) throw { status: 404, message: 'Course not found' };
 
+    // Read the session directly: authService.user() may not be loaded yet right after a page refresh
+    const { data: sessionData } = await supabase.auth.getSession();
+    const userId = sessionData.session?.user.id;
+
     const reviews = (data.reviews as any[]).map((r) => ({ userId: r.user_id, rating: r.rating }));
-    const userId = this.authService.user()?.id;
+
+    let enrollment: EnrolledCourse | undefined;
+    if (userId) {
+      const { data: e } = await supabase
+        .from('enrollments')
+        .select(ENROLLMENT_SELECT)
+        .eq('course_id', id)
+        .maybeSingle();
+      if (e) enrollment = mapEnrollment(e);
+    }
 
     return {
       ...mapCourse(data),
       reviews,
       isRated: !!userId && reviews.some((r) => r.userId === userId),
-      // `enrollment` gets filled in when we migrate enrollments
+      enrollment,
     };
   }
 
-  // These two still call the old API and will keep failing until we migrate enrollments.
-  // Leave them as they are for now.
-  async getCoursesInProgress(): Promise<EnrolledCourse[]> {
-    /* unchanged */ return [];
-  }
   async getEnrolledCourses(): Promise<EnrolledCourse[]> {
-    /* unchanged */ return [];
+    return this.loadEnrollments(false);
+  }
+
+  async getCoursesInProgress(): Promise<EnrolledCourse[]> {
+    return this.loadEnrollments(true);
+  }
+  private async loadEnrollments(onlyInProgress: boolean): Promise<EnrolledCourse[]> {
+    if (!this.authService.isAuthenticated())
+      throw { status: 401, error: { message: 'Unauthenticated' } };
+
+    let query = supabase
+      .from('enrollments')
+      .select(ENROLLMENT_SELECT)
+      .order('created_at', { ascending: false });
+    if (onlyInProgress) query = query.is('completed_at', null);
+
+    const { data, error } = await query;
+    if (error) throw { status: 400, error };
+    return (data as any[]).map(mapEnrollment);
   }
 }

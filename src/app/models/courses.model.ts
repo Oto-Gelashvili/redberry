@@ -48,7 +48,7 @@ export interface EnrolledCourse {
   quantity: number;
   totalPrice: number;
   progress: number;
-  completedAt?: string;
+  completedAt: string | null;
   course: Course;
   schedule: CourseSchedule;
 }
