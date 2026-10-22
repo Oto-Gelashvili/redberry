@@ -34,7 +34,7 @@ export interface CourseSingle {
   durationWeeks: number;
   isFeatured: boolean;
 
-  reviews: { userId: number; rating: number }[];
+  reviews: { userId: string; rating: number }[];
   isRated: boolean;
 
   category: Category;

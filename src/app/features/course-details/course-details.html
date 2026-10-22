@@ -60,7 +60,11 @@
           [queryParams]="{ instructors: course()?.instructor?.id }"
           class="instructorBtn"
         >
-          <img [src]="course()?.instructor?.avatar" alt="instructor avatar" />
+          <app-avatar
+            [src]="course()?.instructor?.avatar"
+            [name]="course()?.instructor?.name ?? ''"
+            [size]="30"
+          />
           <p>{{ course()?.instructor?.name }}</p></a
         >
         <div class="descCont">

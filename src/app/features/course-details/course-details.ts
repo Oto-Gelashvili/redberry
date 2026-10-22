@@ -10,10 +10,11 @@ import { EnrollSection } from './components/enroll-section/enroll-section';
 import { AuthService } from '../../core/services/auth.service';
 import { EnrolledSection } from './components/enrolled-section/enrolled-section';
 import { Title } from '@angular/platform-browser';
+import { Avatar } from '../../shared/components/avatar/avatar';
 
 @Component({
   selector: 'app-course-details',
-  imports: [Loader, IconLibrary, RouterLink, EnrollSection, EnrolledSection],
+  imports: [Loader, IconLibrary, RouterLink, EnrollSection, EnrolledSection, Avatar],
   templateUrl: './course-details.html',
   styleUrl: './course-details.css',
 })

@@ -9,38 +9,63 @@ import {
   Topic,
 } from '../../models/courses.model';
 import { AuthService } from './auth.service';
+import { supabase } from './supabase'; // adjust to where your supabase.ts lives
 
-const BASE_URL = 'https://api.redclass.redberryinternship.ge/api';
+const PER_PAGE = 9;
+
+const COURSE_SELECT = `
+  id, title, description, image, base_price, duration_weeks, is_featured, avg_rating, review_count,
+  category:categories(id, name, icon),
+  topic:topics(id, name, category_id),
+  instructor:instructors(id, name, avatar)
+`;
+
+const SORTS: Record<string, { column: string; ascending: boolean }> = {
+  newest: { column: 'created_at', ascending: false },
+  price_asc: { column: 'base_price', ascending: true },
+  price_desc: { column: 'base_price', ascending: false },
+  popular: { column: 'review_count', ascending: false }, // switch to enrollments later
+  title_asc: { column: 'title', ascending: true },
+};
+
+// snake_case rows from the database -> your camelCase models
+function mapTopic(t: any): Topic {
+  return { id: t.id, name: t.name, categoryId: t.category_id };
+}
+
+function mapCourse(r: any): Course {
+  return {
+    id: r.id,
+    title: r.title,
+    description: r.description,
+    image: r.image,
+    basePrice: r.base_price,
+    durationWeeks: r.duration_weeks,
+    isFeatured: r.is_featured,
+    avgRating: r.avg_rating,
+    reviewCount: r.review_count,
+    category: r.category,
+    topic: mapTopic(r.topic),
+    instructor: r.instructor,
+  };
+}
 
 @Injectable({ providedIn: 'root' })
 export class CoursesService {
   private readonly authService = inject(AuthService);
 
   async getFeaturedCourses(): Promise<Course[]> {
-    const res = await fetch(`${BASE_URL}/courses/featured`);
-    const json = await res.json();
-    return json.data as Course[];
+    const { data, error } = await supabase
+      .from('courses')
+      .select(COURSE_SELECT)
+      .eq('is_featured', true)
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) throw { status: 400, error };
+    return (data as any[]).map(mapCourse);
   }
-  async getCoursesInProgress(): Promise<EnrolledCourse[]> {
-    const res = await fetch(`${BASE_URL}/courses/in-progress`, {
-      headers: { Authorization: `Bearer ${this.authService.token()}` },
-    });
-    const json = await res.json();
-    if (!res.ok) {
-      throw { status: res.status, error: json };
-    }
-    return json.data as EnrolledCourse[];
-  }
-  async getEnrolledCourses(): Promise<EnrolledCourse[]> {
-    const res = await fetch(`${BASE_URL}/enrollments`, {
-      headers: { Authorization: `Bearer ${this.authService.token()}` },
-    });
-    const json = await res.json();
-    if (!res.ok) {
-      throw { status: res.status, error: json };
-    }
-    return json.data as EnrolledCourse[];
-  }
+
   async getCourses(
     page: number = 1,
     filters: {
@@ -50,52 +75,92 @@ export class CoursesService {
       sort?: string;
     } = {},
   ): Promise<CoursesResponse> {
-    const params = new URLSearchParams();
-    params.set('page', String(page));
+    const from = (page - 1) * PER_PAGE;
+    const sort = SORTS[filters.sort ?? ''] ?? SORTS['newest'];
 
-    filters.categories?.forEach((id) => params.append('categories[]', String(id)));
-    filters.topics?.forEach((id) => params.append('topics[]', String(id)));
-    filters.instructors?.forEach((id) => params.append('instructors[]', String(id)));
-    if (filters.sort) {
-      params.set('sort', filters.sort);
+    let query = supabase.from('courses').select(COURSE_SELECT, { count: 'exact' });
+
+    if (filters.categories?.length) query = query.in('category_id', filters.categories);
+    if (filters.topics?.length) query = query.in('topic_id', filters.topics);
+    if (filters.instructors?.length) query = query.in('instructor_id', filters.instructors);
+
+    const { data, error, count } = await query
+      .order(sort.column, { ascending: sort.ascending })
+      .order('id', { ascending: true }) // stable order across pages
+      .range(from, from + PER_PAGE - 1);
+
+    if (error) {
+      // page number beyond the last page (e.g. from an old URL) -> fall back to page 1
+      if (error.code === 'PGRST103' && page > 1) return this.getCourses(1, filters);
+      throw { status: 400, error };
     }
 
-    const res = await fetch(`${BASE_URL}/courses?${params.toString()}`);
-    const json = await res.json();
+    const total = count ?? 0;
+    return {
+      data: (data as any[]).map(mapCourse),
+      meta: {
+        currentPage: page,
+        lastPage: Math.max(1, Math.ceil(total / PER_PAGE)),
+        perPage: PER_PAGE,
+        total,
+      },
+    };
+  }
 
-    if (!res.ok) throw { status: res.status, error: json };
-    return json as CoursesResponse;
-  }
   async getCategories(): Promise<Category[]> {
-    const res = await fetch(`${BASE_URL}/categories`);
-    const json = await res.json();
-    return json.data as Category[];
+    const { data, error } = await supabase
+      .from('categories')
+      .select('id, name, icon')
+      .order('name');
+    if (error) throw { status: 400, error };
+    return data as Category[];
   }
+
   async getTopics(categoryIds: number[] = []): Promise<Topic[]> {
-    const params = new URLSearchParams();
-    categoryIds.forEach((id) => params.append('categories[]', String(id)));
-    const url =
-      categoryIds.length > 0 ? `${BASE_URL}/topics?${params.toString()}` : `${BASE_URL}/topics`;
-    const res = await fetch(url);
-    const json = await res.json();
-    return json.data as Topic[];
+    let query = supabase.from('topics').select('id, name, category_id').order('name');
+    if (categoryIds.length) query = query.in('category_id', categoryIds);
+
+    const { data, error } = await query;
+    if (error) throw { status: 400, error };
+    return (data as any[]).map(mapTopic);
   }
+
   async getInstructors(): Promise<Instructor[]> {
-    const res = await fetch(`${BASE_URL}/instructors`);
-    const json = await res.json();
-    return json.data as Instructor[];
+    const { data, error } = await supabase
+      .from('instructors')
+      .select('id, name, avatar')
+      .order('name');
+    if (error) throw { status: 400, error };
+    return data as Instructor[];
   }
 
   async getCourseById(id: number): Promise<CourseSingle> {
-    const res = await fetch(`${BASE_URL}/courses/${id}`, {
-      headers: {
-        Authorization: `Bearer ${this.authService.token()}`,
-      },
-    });
+    const { data, error } = await supabase
+      .from('courses')
+      .select(`${COURSE_SELECT}, reviews(user_id, rating)`)
+      .eq('id', id)
+      .maybeSingle();
 
-    const json = await res.json();
-    if (!res.ok) throw json;
+    if (error) throw { status: 400, message: error.message };
+    if (!data) throw { status: 404, message: 'Course not found' };
 
-    return json.data as CourseSingle;
+    const reviews = (data.reviews as any[]).map((r) => ({ userId: r.user_id, rating: r.rating }));
+    const userId = this.authService.user()?.id;
+
+    return {
+      ...mapCourse(data),
+      reviews,
+      isRated: !!userId && reviews.some((r) => r.userId === userId),
+      // `enrollment` gets filled in when we migrate enrollments
+    };
+  }
+
+  // These two still call the old API and will keep failing until we migrate enrollments.
+  // Leave them as they are for now.
+  async getCoursesInProgress(): Promise<EnrolledCourse[]> {
+    /* unchanged */ return [];
+  }
+  async getEnrolledCourses(): Promise<EnrolledCourse[]> {
+    /* unchanged */ return [];
   }
 }

@@ -67,9 +67,7 @@
                 [checked]="selectedInstructors().includes(instructor.id)"
                 tabindex="-1"
               />
-              @if (instructor.avatar) {
-                <img [src]="instructor.avatar" [alt]="instructor.name" class="avatar" />
-              }
+              <app-avatar [src]="instructor.avatar" [name]="instructor.name" [size]="28" />
               {{ instructor.name }}
             </button>
           }
