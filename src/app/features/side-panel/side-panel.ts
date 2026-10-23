@@ -35,9 +35,7 @@ export class SidePanel implements OnInit, OnDestroy {
   private async loadCourses() {
     this.isLoadingCourses.set(true);
     try {
-      const courses = await this.courseService.getEnrolledCourses();
-      const inProgress = courses.filter((course) => course.progress < 100);
-      this.enrolledCourses.set(inProgress);
+      this.enrolledCourses.set(await this.courseService.getCoursesInProgress());
     } catch {
       this.notyService.showError('Failed to load featured courses');
     } finally {

@@ -157,6 +157,8 @@
 .card.featured {
   gap: 2.4rem;
   max-width: calc((100vw - 35.4rem) / 3);
+  height: 52.5rem;
+  justify-content: space-between;
 }
 .card.progress {
   gap: 0.8rem;
