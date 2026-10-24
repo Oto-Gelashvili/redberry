@@ -98,12 +98,17 @@ export class AuthService {
       password,
       options: { data: { username } },
     });
-
     if (error) {
       if (error.code === 'user_already_exists') {
         throw { status: 422, error: { errors: { email: ['Email is already registered'] } } };
       }
-      throw { status: error.status ?? 500, error };
+      if (error.code === 'weak_password') {
+        throw { status: 422, error: { errors: { password: [error.message] } } };
+      }
+      if (error.code === 'email_address_invalid') {
+        throw { status: 422, error: { errors: { email: ['Please enter a valid email address'] } } };
+      }
+      throw { status: error.status ?? 500, error: { message: error.message } };
     }
     if (!data.session || !data.user) {
       throw { status: 500, error: { message: 'Disable "Confirm email" in Supabase for now.' } };

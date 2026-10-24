@@ -67,9 +67,14 @@
             ></app-icon-library>
           </button>
         </div>
-        @if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
+
+        @if (serverErrors()['password']?.length) {
           <p class="error" animate.enter="showError" animate.leave="hideError">
-            Min 3 characters required
+            {{ serverErrors()['password'][0] }}
+          </p>
+        } @else if (signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched) {
+          <p class="error" animate.enter="showError" animate.leave="hideError">
+            Min 6 characters required
           </p>
         }
       </div>

@@ -29,7 +29,7 @@ export class SignUp {
   protected signUpForm = new FormGroup({
     email: new FormControl<string>('you@example.com', [Validators.required, Validators.email]),
     username: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl<string>('', [Validators.required]),
     avatar: new FormControl(''),
   });
@@ -120,16 +120,20 @@ export class SignUp {
       this.modalService.closeAll();
     } catch (err: any) {
       if (err.status === 422) {
-        const errors = err.error.errors ?? {};
+        const errors = err.error?.errors ?? {};
         this.serverErrors.set(errors);
 
         if (errors['email']) {
           this.steps.set(1);
+        } else if (errors['password']) {
+          this.steps.set(2);
         } else if (errors['username']) {
           this.steps.set(3);
+        } else {
+          this.generalError.set(err.error?.message ?? 'Something went wrong. Please try again.');
         }
       } else {
-        this.generalError.set('Something went wrong. Please try again.');
+        this.generalError.set(err.error?.message ?? 'Something went wrong. Please try again.');
       }
     } finally {
       this.isLoading.set(false);
