@@ -4,10 +4,11 @@ import { IconLibrary } from '../../shared/components/icon-library/icon-library';
 import { AuthService } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ModalService } from '../../core/services/modal.service';
+import { Hamburger } from './components/hamburger/hamburger';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, IconLibrary],
+  imports: [RouterLink, IconLibrary, Hamburger],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

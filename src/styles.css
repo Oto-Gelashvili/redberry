@@ -36,6 +36,7 @@
   --btn-m: 2rem;
   --btn-s: 1.6rem;
 
+  --padding-inline: 17.7rem;
   /* colors */
   --brand-50: #eeedfc;
   --brand-100: #dddbfa;
@@ -289,7 +290,7 @@ h5 {
 
 main {
   /* padding: calc(var(--fixed-hader-height) + 6.4rem) 17.7rem; */
-  padding: 6.4rem 17.7rem;
+  padding: 6.4rem var(--padding-inline);
   min-height: calc(100vh - var(--fixed-header-height));
   display: flex;
 }
@@ -404,5 +405,25 @@ main:has(.dashboard) {
     max-height: 0;
     margin: 0;
     pointer-events: none;
+  }
+}
+@media screen and (max-width: 1440px) {
+  :root {
+    --padding-inline: 8.4rem;
+  }
+}
+@media screen and (max-width: 1024px) {
+  :root {
+    --padding-inline: 6.4rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  :root {
+    --padding-inline: 4.8rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  :root {
+    --padding-inline: 2.4rem;
   }
 }

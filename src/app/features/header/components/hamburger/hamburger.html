@@ -1,0 +1,73 @@
+<button
+  type="button"
+  class="hamburgerCont"
+  [class.open]="isOpen()"
+  [attr.aria-expanded]="isOpen()"
+  aria-label="Toggle menu"
+  (click)="toggleMenu()"
+>
+  <span class="line"></span>
+  <span class="line"></span>
+  <span class="line"></span>
+</button>
+@if (isOpen()) {
+  <div
+    class="hamburgerMenu"
+    [class.open]="isOpen()"
+    animate.enter="fade-in"
+    animate.leave="fade-out"
+  >
+    <div class="courseCont">
+      <a routerLink="/courses" class="courses border-bottom" (click)="close()">
+        <app-icon-library name="courseIcon" [size]="26"></app-icon-library>
+        <p>Browse Courses</p>
+      </a>
+      @if (authService.isAuthenticated()) {
+        <button (click)="modalService.openSidePanel(); close()" class="courses border-bottom">
+          <app-icon-library name="browseIcon" [size]="26"></app-icon-library>
+
+          <p>Enrolled Courses</p>
+        </button>
+        @if (authService.user()?.avatar) {
+          <button (click)="modalService.openProfile(); close()" class="courses border-bottom">
+            <div class="imgCont">
+              <img [src]="authService.user()?.avatar" alt="user avatar" class="avatarIcon" />
+              <div
+                class="circleIndicator"
+                [class.incompleteCircleIndicator]="!authService.user()?.profileComplete"
+              ></div>
+            </div>
+            <p>Your Profile</p>
+          </button>
+        } @else {
+          <button (click)="modalService.openProfile(); close()" class="courses border-bottom">
+            <div class="imgCont">
+              <app-icon-library
+                tabindex="0"
+                name="avatarIcon"
+                class="avatarIcon"
+                [circleColor]="authService.user()?.profileComplete ? '#1dc31d' : '#F4A316'"
+                [size]="52"
+              ></app-icon-library>
+            </div>
+            <p>Your Profile</p>
+          </button>
+        }
+        <div class="courses">
+          <button (click)="authService.logout(); close()" class="hambBtn">Log out</button>
+        </div>
+      } @else {
+        <div class="courses">
+          <button class="hambBtn Outline" (click)="modalService.openLogIn(); close()">
+            Log In
+          </button>
+        </div>
+        <div class="courses">
+          <button class="hambBtn Primary" (click)="modalService.openSignUp(); close()">
+            Sign Up
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+}

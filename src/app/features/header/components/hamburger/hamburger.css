@@ -1,0 +1,152 @@
+@import '../../../../../styles/shared-header.css';
+:host {
+  display: none;
+}
+
+.hamburgerCont {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: 0.4s;
+}
+
+.line {
+  width: 30px;
+  height: 3px;
+  background-color: var(--brand-400);
+  border-radius: 10px;
+  transition: all 0.4s ease-in-out;
+}
+
+.open .line:first-child {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.open .line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.open .line:last-child {
+  transform: translateY(-9px) rotate(-45deg);
+}
+.hamburgerMenu {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  margin-top: 2.4rem;
+  flex-direction: column;
+  right: var(--padding-inline);
+  background-color: var(--grey-100);
+  width: 250px;
+  z-index: 100;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--brand-100);
+}
+
+.hamburgerMenu .courseCont {
+  flex-direction: column;
+}
+.courseCont {
+  gap: 0;
+}
+
+.courses {
+  font-size: var(--s-fs);
+  padding: 1.2rem;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  border-radius: 0;
+  height: 54px;
+}
+.courses:hover {
+  color: var(--brand-500);
+}
+.border-bottom {
+  border-bottom: 1px solid var(--grey-200);
+}
+.avatarIcon {
+  width: 32px;
+  height: 32px;
+}
+.circleIndicator {
+  width: 10px;
+  height: 10px;
+}
+.hambBtn {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+  color: var(--grey-50);
+  width: 100%;
+  background-color: var(--brand-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hambBtn:hover,
+.hambBtn:focus-visible {
+  color: var(--brand-400);
+  border-color: var(--brand-400);
+  background-color: transparent;
+}
+.hambBtn:active {
+  color: var(--brand-500);
+}
+.hambBtn.Outline {
+  border: 2px solid var(--brand-300);
+  background-color: transparent;
+  color: var(--brand-500);
+}
+.hambBtn.Outline:hover {
+  color: var(--grey-50);
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.hambBtn.Outline:active {
+  color: var(--grey-50);
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.hambBtn.Outline:focus-visible {
+  border-color: var(--brand-100);
+  border-style: dashed;
+  border-spacing: 2px;
+  background-color: var(--brand-700);
+  color: var(--grey-50);
+}
+.hambBtn.Primary {
+  background-color: var(--brand-500);
+  border: 2px solid transparent;
+  color: var(--grey-50);
+}
+.hambBtn.Primary:hover {
+  color: var(--grey-50);
+  background-color: var(--brand-600);
+  border-color: var(--brand-600);
+}
+.hambBtn.Primary:active {
+  color: var(--grey-50);
+  background-color: var(--brand-700);
+  border-color: var(--brand-700);
+}
+.hambBtn.Primary:focus-visible {
+  border-color: var(--brand-700);
+  background-color: var(--brand-600);
+}
+
+@media screen and (max-width: 1024px) {
+  :host {
+    display: flex;
+  }
+}

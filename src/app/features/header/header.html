@@ -20,7 +20,6 @@
           </button>
         }
       </div>
-
       <div class="auth">
         @if (!authService.isAuthenticated()) {
           <button class="ctaBtnOutline" (click)="modalService.openLogIn()">Log In</button>
@@ -49,6 +48,7 @@
           ></app-icon-library>
         }
       </div>
+      <app-hamburger></app-hamburger>
     </nav>
   </div>
 </header>
