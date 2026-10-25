@@ -150,3 +150,9 @@
     display: flex;
   }
 }
+
+@media screen and (max-width: 575px) {
+  .hamburgerMenu {
+    width: calc(100% - var(--padding-inline) * 2);
+  }
+}

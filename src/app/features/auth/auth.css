@@ -71,3 +71,8 @@
 .authModal .margin-bot {
   margin-bottom: 0.8rem;
 }
+@media screen and (max-width: 575px) {
+  .authModal footer {
+    width: 100%;
+  }
+}

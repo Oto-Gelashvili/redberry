@@ -156,3 +156,15 @@
   align-items: center;
   justify-content: center;
 }
+@media screen and (max-width: 575px) {
+  .modalCont {
+    padding: 5rem 3rem;
+    width: calc(100% - var(--padding-inline) * 2);
+  }
+}
+@media screen and (max-width: 475px) {
+  .modalCont {
+    padding: 5rem 1.6rem;
+    width: calc(100% - 2.4rem);
+  }
+}
