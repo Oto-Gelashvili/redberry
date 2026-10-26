@@ -117,6 +117,7 @@
 .heroCard .primaryBtn {
   width: fit-content;
   height: 6.4rem;
+  text-align: center;
 }
 .Three .textCont {
   height: 20.3rem;
@@ -457,4 +458,88 @@ h4 {
 .seeAllBtn {
   outline: none;
   border: none;
+}
+@media screen and (max-width: 1200px) {
+  .heroHeading {
+    font-size: 3.6rem;
+  }
+  .heroDesc {
+    font-size: var(--l-fs);
+  }
+  .heroCard .primaryBtn {
+    height: unset;
+    font-size: var(--m-fs);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .heroHeading {
+    font-size: 2.8rem;
+  }
+  .heroDesc {
+    font-size: var(--m-fs);
+  }
+  .heroCard .primaryBtn {
+    font-size: var(--s-fs);
+  }
+}
+@media screen and (max-width: 768px) {
+  .heroHeading {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+  .heroDesc {
+    padding-right: 0;
+    text-align: center;
+    font-size: var(--s-fs);
+  }
+  .heroCard .textCont {
+    align-items: center;
+    height: unset;
+  }
+  .trackCont {
+    bottom: 1.5rem;
+    gap: 1.2rem;
+  }
+  .hero {
+    height: 36rem;
+  }
+  .heroCard {
+    padding: 3.6rem;
+  }
+  .heroCard .textCont {
+    gap: 1.8rem;
+    justify-content: center;
+    height: 100%;
+  }
+  .trackCont .arrowCont button {
+    width: 4.6rem;
+    height: 4.6rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .trackCont .arrowCont {
+    gap: 0;
+  }
+
+  .heroCard .primaryBtn {
+    padding: 1.2rem 1.8rem;
+  }
+}
+@media screen and (max-width: 475px) {
+  .trackCont .arrowCont {
+    display: none;
+  }
+
+  .heroDesc {
+    display: none;
+  }
+  .heroHeading {
+    font-size: var(--l-fs);
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .heroCard {
+    padding: 2.4rem;
+  }
 }
