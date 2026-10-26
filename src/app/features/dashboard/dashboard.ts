@@ -8,9 +8,10 @@ import { NgOptimizedImage } from '@angular/common';
 import { ModalService } from '../../core/services/modal.service';
 import { AuthService } from '../../core/services/auth.service';
 import { DecimalPipe } from '@angular/common';
+import { DragScroll } from '../../shared/directives/drag-scroll';
 @Component({
   selector: 'app-dashboard',
-  imports: [IconLibrary, RouterLink, NgOptimizedImage, DecimalPipe],
+  imports: [IconLibrary, RouterLink, NgOptimizedImage, DecimalPipe, DragScroll],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

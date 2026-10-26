@@ -146,6 +146,9 @@
   align-items: center;
   gap: 2.4rem;
   justify-content: space-between;
+  overflow: hidden;
+  transition: 0.4s;
+  cursor: grab;
 }
 .card {
   width: 100%;
@@ -156,11 +159,18 @@
   display: flex;
   flex-direction: column;
 }
+
+.coursesCardsCont.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .card.featured {
   gap: 2.4rem;
-  max-width: calc((100vw - 35.4rem) / 3);
-  height: 52.5rem;
+  min-width: 45rem;
+  min-height: 52.5rem;
   justify-content: space-between;
+  height: stretch;
 }
 .card.progress {
   gap: 0.8rem;
@@ -203,6 +213,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.8rem;
   width: 100%;
 }
 .card .titleCont .titleDescCont p {
@@ -225,6 +236,7 @@
 .card .titleCont .titleDescCont .ratingCont p {
   color: var(--grey-600);
 }
+
 .card.featured h3,
 h2,
 h4 {
@@ -234,13 +246,16 @@ h4 {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+.card.featured h3 {
+  -webkit-line-clamp: 1;
+}
 .featuredCourseDescP {
   font-size: var(--s-fs);
   color: var(--grey-500);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  margin-right: 5.2rem;
+  -webkit-line-clamp: 2;
+  margin-right: 2.4rem;
   overflow: hidden;
   line-height: 2.4rem;
 }
@@ -293,6 +308,7 @@ h4 {
 }
 .card.featured .primaryBtn {
   height: 5.8rem;
+  justify-content: center;
 }
 .headingDescCont {
   display: flex;
@@ -469,6 +485,16 @@ h4 {
   .card.progress:last-of-type {
     display: none;
   }
+  .card.featured .footerCont {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .card.featured {
+    gap: 1.6rem;
+  }
+  .card.featured .priceCont {
+    justify-content: space-between;
+  }
 }
 @media screen and (max-width: 1200px) {
   .CoursesCont .heading h1 {
@@ -483,7 +509,6 @@ h4 {
 
   .signInReq {
     height: unset;
-    /* width: clamp(50%, 38rem, 100%); */
     width: 38rem;
     padding: 2.4rem 3.6rem;
   }
@@ -496,6 +521,9 @@ h4 {
   .heroCard .primaryBtn {
     height: unset;
     font-size: var(--m-fs);
+  }
+  .card.featured {
+    min-width: 36rem;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -510,8 +538,12 @@ h4 {
   }
 }
 @media screen and (max-width: 768px) {
-  .CoursesCont .heading h1 {
+  .CoursesCont .heading h1,
+  .card.featured h3 {
     font-size: var(--l-fs);
+  }
+  .card.featured h2 {
+    font-size: 2.4rem;
   }
   .CoursesCont .heading p {
     font-size: var(--s-fs);
@@ -557,6 +589,16 @@ h4 {
     width: 4.6rem;
     height: 4.6rem;
   }
+  .card.featured {
+    min-width: 32rem;
+  }
+  .card.featured .contentCont img,
+  .skeletonImg {
+    height: 16rem;
+  }
+  .card.featured {
+    min-height: 0;
+  }
 }
 @media screen and (max-width: 575px) {
   .trackCont .arrowCont {
@@ -565,6 +607,18 @@ h4 {
 
   .heroCard .primaryBtn {
     padding: 1.2rem 1.8rem;
+  }
+  .headingDescCont {
+    flex-direction: column;
+  }
+  .CoursesCont .heading {
+    align-items: center;
+  }
+  .CoursesCont .heading p {
+    text-align: center;
+  }
+  .card.featured {
+    min-width: 80%;
   }
 }
 @media screen and (max-width: 475px) {
@@ -578,16 +632,13 @@ h4 {
   .heroHeading {
     font-size: var(--l-fs);
   }
+  .card.featured {
+    min-width: 100%;
+  }
 }
 
 @media screen and (max-width: 375px) {
   .heroCard {
     padding: 2.4rem;
-  }
-  .headingDescCont {
-    flex-direction: column;
-  }
-  .CoursesCont .heading {
-    align-items: center;
   }
 }

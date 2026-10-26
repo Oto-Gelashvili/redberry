@@ -137,7 +137,7 @@
       <h1>Start Learning Today</h1>
       <p>Choose from our most popular courses and begin your journey</p>
     </div>
-    <div class="coursesCardsCont">
+    <div class="coursesCardsCont" appDragScroll>
       @if (isLoadingCourses()) {
         @for (num of [1, 2, 3]; track num) {
           <div class="card featured">
@@ -159,7 +159,7 @@
         @for (featuredCourse of featuredCourses(); track featuredCourse.id) {
           <div class="card featured" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
-              <img [src]="featuredCourse.image" [alt]="featuredCourse.title" />
+              <img [src]="featuredCourse.image" [alt]="featuredCourse.title" draggable="false" />
               <div class="titleCont">
                 <div class="titleDescCont">
                   <p class="lecturer"><span>Lecturer</span> {{ featuredCourse.instructor.name }}</p>
