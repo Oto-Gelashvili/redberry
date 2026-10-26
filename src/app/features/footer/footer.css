@@ -1,5 +1,5 @@
 footer {
-  padding: 8rem 17.7rem 2rem 17.7rem;
+  padding: 8rem var(--padding-inline) 2rem var(--padding-inline);
   background-color: var(--grey-100);
   display: flex;
   flex-direction: column;
@@ -95,6 +95,7 @@ footer {
   padding: 0;
   margin: 0;
   width: fit-content;
+  background: none;
 }
 .linksCont a {
   transition: 0.4s;
@@ -113,4 +114,70 @@ footer {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+}
+@media screen and (max-width: 1440px) {
+  footer {
+    gap: 3.6rem;
+  }
+  .mainFooterCont {
+    flex-direction: column;
+    gap: 3.6rem;
+  }
+  .rightCont {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .leftCont {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+  .headingCont {
+    flex: 1;
+    gap: 0.8rem;
+  }
+
+  .copyCont {
+    font-size: var(--s-fs);
+  }
+}
+@media screen and (max-width: 1024px) {
+  .copyCont {
+    text-align: center;
+    flex-direction: column;
+  }
+  .rightCont {
+    gap: 6.4rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .rightCont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.6rem;
+  }
+  .lastSectionCont {
+    grid-column: span 2;
+  }
+}
+@media screen and (max-width: 575px) {
+  .rightCont {
+    grid-template-columns: 1fr;
+  }
+  .lastSectionCont {
+    grid-column: unset;
+  }
+  .sectionCont {
+    width: 100%;
+    align-items: center;
+  }
+  .leftCont {
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+  .headingCont {
+    align-items: center;
+    text-align: center;
+    gap: 1.6rem;
+  }
 }
