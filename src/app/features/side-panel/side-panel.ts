@@ -13,6 +13,9 @@ import { formatName, formatTimeSlotLabel } from '../../shared/utils/format.utils
   imports: [IconLibrary, Loader, RouterLink],
   templateUrl: './side-panel.html',
   styleUrl: './side-panel.css',
+  host: {
+    '(document:keydown.escape)': 'close()',
+  },
 })
 export class SidePanel implements OnInit, OnDestroy {
   private readonly courseService = inject(CoursesService);
@@ -31,7 +34,9 @@ export class SidePanel implements OnInit, OnDestroy {
   ngOnDestroy() {
     document.documentElement.style.overflow = '';
   }
-
+  protected close() {
+    this.modalService.closeSidePanel();
+  }
   private async loadCourses() {
     this.isLoadingCourses.set(true);
     try {

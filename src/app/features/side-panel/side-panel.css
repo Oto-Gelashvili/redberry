@@ -200,3 +200,62 @@ h4 {
   width: 1.6rem;
   height: 1.6rem;
 }
+.closeBtn {
+  display: none;
+}
+.closeBtn:hover {
+  transform: scale(1.1);
+}
+@media screen and (max-width: 1200px) {
+  .card {
+    width: 100%;
+  }
+  .closeBtn {
+    display: flex;
+    width: 16px;
+    height: 28px;
+    cursor: pointer;
+    margin-bottom: -2.5rem;
+    align-self: end;
+    transition: 0.4s;
+  }
+  h1 {
+    font-size: 3.2rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .card,
+  .courseImg {
+    width: 100%;
+    min-width: unset;
+  }
+  .top {
+    flex-direction: column;
+  }
+  h1 {
+    font-size: 2.4rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .heading {
+    justify-content: center;
+    flex-direction: column;
+  }
+  h4 {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 475px) {
+  .bot {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .ctaBtnOutline {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .card .titleDescCont {
+    flex-direction: column-reverse;
+  }
+}
