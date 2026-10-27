@@ -146,9 +146,13 @@
   align-items: center;
   gap: 2.4rem;
   justify-content: space-between;
-  overflow: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
   transition: 0.4s;
   cursor: grab;
+}
+.coursesCardsCont::-webkit-scrollbar {
+  display: none;
 }
 .card {
   width: 100%;
