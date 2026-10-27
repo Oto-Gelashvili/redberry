@@ -96,11 +96,15 @@
           }
         </div>
       </div>
-      <div class="coursesCardsCont">
+      <div class="coursesCardsCont noSpace" appDragScroll>
         @for (progressCourse of progressCourses(); track progressCourse.id) {
           <div class="card progress" animate.enter="fade-in" animate.leave="fade-out">
             <div class="contentCont">
-              <img [src]="progressCourse.course.image" [alt]="progressCourse.course.title" />
+              <img
+                [src]="progressCourse.course.image"
+                [alt]="progressCourse.course.title"
+                draggable="false"
+              />
               <div class="titleCont">
                 <div class="titleDescCont">
                   <p class="lecturer">
@@ -185,7 +189,7 @@
     </div>
   </section>
   @if (!authService.isAuthenticated()) {
-    <section class="CoursesCont relative">
+    <section class="CoursesCont relative blurredSection">
       <div class="heading">
         <h1>Continue Learning</h1>
         <div class="headingDescCont">

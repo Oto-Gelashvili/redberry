@@ -151,6 +151,9 @@
   transition: 0.4s;
   cursor: grab;
 }
+.noSpace {
+  justify-content: unset;
+}
 .coursesCardsCont::-webkit-scrollbar {
   display: none;
 }
@@ -179,6 +182,9 @@
 .card.progress {
   gap: 0.8rem;
   max-width: calc((100vw - 35.4rem) / 3);
+}
+.coursesCardsCont.noSpace .card.progress {
+  min-width: 44rem;
 }
 .card.featured .contentCont {
   display: flex;
@@ -486,7 +492,7 @@ h4 {
   .card.progress {
     max-width: calc((100vw - 35.4rem) / 2);
   }
-  .card.progress:last-of-type {
+  .CoursesCont.blurredSection .card.progress:last-of-type {
     display: none;
   }
   .card.featured .footerCont {
@@ -507,7 +513,7 @@ h4 {
   .card.progress {
     max-width: unset;
   }
-  .card.progress:nth-of-type(2) {
+  .CoursesCont.blurredSection .card.progress:nth-of-type(2) {
     display: none;
   }
 
@@ -545,6 +551,9 @@ h4 {
   .CoursesCont .heading h1,
   .card.featured h3 {
     font-size: var(--l-fs);
+  }
+  h4 {
+    font-size: var(--m-fs);
   }
   .card.featured h2 {
     font-size: 2.4rem;
@@ -636,8 +645,22 @@ h4 {
   .heroHeading {
     font-size: var(--l-fs);
   }
-  .card.featured {
+  .card.featured,
+  .coursesCardsCont.noSpace .card.progress {
     min-width: 100%;
+  }
+  .coursesCardsCont.noSpace .card.progress .contentCont {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .coursesCardsCont.noSpace .card.progress .contentCont img {
+    min-width: 100%;
+  }
+  .coursesCardsCont.noSpace .card.progress .titleCont {
+    padding-inline: 0rem 0.4rem;
+  }
+  .coursesCardsCont.noSpace .card.progress .titleCont h4 {
+    padding-right: 4rem;
   }
 }
 
