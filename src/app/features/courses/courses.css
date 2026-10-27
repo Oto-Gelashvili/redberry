@@ -127,13 +127,14 @@
   border-radius: 10rem;
   background-color: var(--grey-200);
 }
-.textContHeading .ratingCont {
+.ratingCont {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
-.textContHeading .ratingCont p {
+.ratingCont p {
   color: var(--grey-600);
+  font-size: var(--xs-fs);
 }
 .courseCard .textCont h3 {
   color: var(--grey-950);
@@ -200,4 +201,151 @@
   justify-content: center;
   align-items: center;
   display: flex;
+}
+.filterBtn {
+  display: none;
+  height: 4.9rem;
+  border-radius: 1rem;
+  border: 1px solid var(--grey-100);
+  padding: 0.7rem 2rem;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: space-between;
+  background-color: var(--grey-50);
+  transition: 0.4s;
+  color: var(--grey-500);
+  font-size: var(--s-fs);
+  cursor: pointer;
+}
+.filterBtn:hover,
+.filterBtn:focus-visible {
+  outline: none;
+  border-color: var(--brand-500);
+}
+.headingBtnCont {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.footerTop {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: space-between;
+}
+.cardFooter .ratingCont {
+  display: none;
+}
+
+@media screen and (max-width: 1600px) {
+  .coursesContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 1440px) {
+  .mainCont {
+    gap: 4.8rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .coursesContent {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .mainCont {
+    gap: 0;
+  }
+  .filterBtn {
+    display: flex;
+  }
+  .courseCard {
+    gap: 1.2rem;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .coursesContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  .courseCard {
+    height: 100%;
+    justify-content: space-between;
+  }
+  .courseCard .textCont h3 {
+    height: unset;
+  }
+}
+@media screen and (max-width: 768px) {
+  .textContHeading .ratingCont {
+    display: none;
+  }
+  .courseCard img {
+    height: 15rem;
+  }
+  h3 {
+    font-size: 1.8rem;
+  }
+
+  .courseCard .cardFooter {
+    height: unset;
+  }
+  .courseCard .cardFooter {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: unset;
+  }
+  .courseCard .cardFooter .primaryBtn {
+    justify-content: center;
+    padding: 1rem 1.8rem;
+  }
+  .cardFooter .ratingCont {
+    display: flex;
+  }
+}
+@media screen and (max-width: 660px) {
+  .coursesContent {
+    grid-template-columns: repeat(1, 40rem);
+    justify-content: center;
+  }
+  .coursesPage {
+    gap: 2.4rem;
+  }
+  img {
+    object-position: bottom;
+  }
+  .breadcrumbs {
+    justify-content: start;
+    width: 40rem;
+    align-self: center;
+  }
+  .cardsCont .heading {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}
+@media screen and (max-width: 475px) {
+  .coursesContent {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .breadcrumbs {
+    width: unset;
+    align-self: unset;
+  }
+  .headingBtnCont {
+    flex-direction: column;
+  }
+  .filterBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 375px) {
+  .filterBtn,
+  .cardsCont .heading p {
+    font-size: 1.4rem;
+  }
+  .breadcrumbs {
+    font-size: 1.6rem;
+  }
 }

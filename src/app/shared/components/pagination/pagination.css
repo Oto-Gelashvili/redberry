@@ -45,3 +45,10 @@
 .pagination .rotate {
   transform: rotate(180deg);
 }
+@media screen and (max-width: 375px) {
+  .pagination button,
+  .pagination input {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}

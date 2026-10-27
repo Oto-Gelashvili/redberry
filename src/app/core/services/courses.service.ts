@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 import { supabase } from './supabase';
 import { COURSE_SELECT, ENROLLMENT_SELECT, mapCourse, mapEnrollment, mapTopic } from './mappers';
 
-const PER_PAGE = 9;
+const PER_PAGE = 12;
 
 const SORTS: Record<string, { column: string; ascending: boolean }> = {
   newest: { column: 'created_at', ascending: false },

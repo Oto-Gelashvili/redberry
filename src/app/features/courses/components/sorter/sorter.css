@@ -79,3 +79,8 @@
     width: 100%;
   }
 }
+@media screen and (max-width: 375px) {
+  .customSelectHeading {
+    font-size: 1.4rem;
+  }
+}

@@ -35,11 +35,14 @@
               {{ meta()?.total }}
             </p>
           }
-          <app-sorter
-            [options]="courseSortOptions"
-            [initialSort]="selectedSortOption()"
-            (sortChanged)="onCourseSortChange($event)"
-          />
+          <div class="headingBtnCont">
+            <button class="filterBtn">Filters</button>
+            <app-sorter
+              [options]="courseSortOptions"
+              [initialSort]="selectedSortOption()"
+              (sortChanged)="onCourseSortChange($event)"
+            />
+          </div>
         </div>
         @if (isLoadingCourses()) {
           <app-loader class="loader" [size]="40" [innerColor]="'var(--brand-500)'"></app-loader>
@@ -76,10 +79,20 @@
                     <p>{{ course.category.name }}</p>
                   </button>
                   <div class="cardFooter">
-                    <div class="priceCont">
-                      <p>Starting from</p>
-                      <h3>${{ course.basePrice | number: '1.0-2' }}</h3>
+                    <div class="footerTop">
+                      <div class="priceCont">
+                        <p>Starting from</p>
+                        <h3>${{ course.basePrice | number: '1.0-2' }}</h3>
+                      </div>
+                      <div class="ratingCont">
+                        <!-- <p class="ratingDesc">Rating:</p> -->
+                        <app-icon-library name="star" [size]="18"></app-icon-library>
+                        <p>
+                          {{ course.avgRating ? course.avgRating : '0' }}
+                        </p>
+                      </div>
                     </div>
+
                     <a class="primaryBtn" [routerLink]="['/courses', course.id]"> Details </a>
                   </div>
                 </div>

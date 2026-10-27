@@ -140,3 +140,8 @@ h1 {
   pointer-events: none;
   transition: 0.4s;
 }
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    display: none;
+  }
+}
