@@ -1,5 +1,6 @@
-<aside class="sidebar">
+<aside class="sidebar" [class.open]="isOpen()">
   <div class="sideCont" [class.dimmed]="isLoading()">
+    <button class="closeBtn primaryBtn" (click)="filtersClosed.emit()">Close Filters</button>
     <div class="heading">
       <h1>Filters</h1>
       <button

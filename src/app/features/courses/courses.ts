@@ -31,6 +31,7 @@ import { DecimalPipe } from '@angular/common';
   ],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
+  host: { '(document:keydown.escape)': 'closeFilters()' },
 })
 export class Courses implements OnInit {
   private readonly coursesService = inject(CoursesService);
@@ -53,6 +54,8 @@ export class Courses implements OnInit {
 
   protected instructors = signal<Instructor[]>([]);
   protected selectedInstructors = signal<number[]>([]);
+
+  protected filtersOpen = signal(false);
 
   readonly courseSortOptions = [...COURSES_SORT_OPTIONS];
   protected selectedSortOption = signal('');
@@ -214,4 +217,16 @@ export class Courses implements OnInit {
     const relevantIds = new Set(this.courses().map((c) => c.instructor.id));
     return this.instructors().filter((i) => relevantIds.has(i.id));
   });
+
+  protected openFIlters() {
+    this.filtersOpen.set(true);
+  }
+  protected closeFilters() {
+    this.filtersOpen.set(false);
+  }
+  onBackdropClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) {
+      this.closeFilters();
+    }
+  }
 }

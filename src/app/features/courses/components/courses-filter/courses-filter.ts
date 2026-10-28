@@ -17,13 +17,14 @@ export class CoursesFilter {
   selectedCategories = input.required<number[]>();
   selectedTopics = input.required<number[]>();
   selectedInstructors = input.required<number[]>();
-
+  isOpen = input<boolean>(false);
   isLoading = input<boolean>(false);
 
   categoryToggled = output<number>();
   topicToggled = output<number>();
   instructorToggled = output<number>();
   filtersCleared = output<void>();
+  filtersClosed = output<void>();
 
   protected activeFiltersCount = computed(
     () =>

@@ -36,7 +36,35 @@
             </p>
           }
           <div class="headingBtnCont">
-            <button class="filterBtn">Filters</button>
+            <button class="filterBtn" (click)="openFIlters()">Filters</button>
+            <div>
+              @if (filtersOpen()) {
+                <div
+                  class="filtersBackdrop"
+                  animate.enter="fade-in"
+                  animate.leave="fade-out"
+                  (click)="closeFilters()"
+                >
+                  <div class="filtersPanel" (click)="$event.stopPropagation()">
+                    <app-courses-filter
+                      [categories]="categories()"
+                      [topics]="topics()"
+                      [instructors]="relevantInstructors()"
+                      [selectedCategories]="selectedCategories()"
+                      [selectedTopics]="selectedTopics()"
+                      [selectedInstructors]="selectedInstructors()"
+                      [isLoading]="isLoadingCourses()"
+                      [isOpen]="true"
+                      (categoryToggled)="toggleCategory($event)"
+                      (topicToggled)="toggleTopic($event)"
+                      (instructorToggled)="toggleInstructor($event)"
+                      (filtersCleared)="clearAllFilters()"
+                      (filtersClosed)="closeFilters()"
+                    ></app-courses-filter>
+                  </div>
+                </div>
+              }
+            </div>
             <app-sorter
               [options]="courseSortOptions"
               [initialSort]="selectedSortOption()"

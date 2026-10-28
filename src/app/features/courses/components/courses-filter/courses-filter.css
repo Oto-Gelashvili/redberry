@@ -140,8 +140,78 @@ h1 {
   pointer-events: none;
   transition: 0.4s;
 }
+.closeBtn {
+  display: none;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.4s;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.8rem;
+}
+
 @media screen and (max-width: 1200px) {
   .sidebar {
     display: none;
+  }
+  :host:has(.open) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar.open {
+    display: flex;
+    flex: 1;
+    width: 50rem;
+    background: var(--grey-100);
+    padding: 6.4rem 3.6rem;
+    justify-content: space-between;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .sidebar.open .closeBtn {
+    display: flex;
+  }
+
+  .sidebar.open::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .sidebar.open .filterSection {
+    max-height: unset;
+    overflow-y: unset;
+  }
+}
+@media screen and (max-width: 768px) {
+  .sidebar.open {
+    width: 100%;
+  }
+  h1 {
+    font-size: 3.2rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .sidebar.open {
+    padding: 4.8rem 2.4rem;
+  }
+  h1 {
+    font-size: 2.8rem;
+  }
+  h3 {
+    font-size: 1.8rem;
+  }
+  .sidebar.open .filterItem {
+    width: 100%;
+  }
+  .closeBtn {
+    font-size: 1.6rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .sidebar.open .heading {
+    flex-direction: column;
+    gap: 0.8rem;
   }
 }
