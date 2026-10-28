@@ -305,3 +305,34 @@ h3 {
   flex-direction: column;
   gap: 0.8rem;
 }
+@media screen and (max-width: 1200px) {
+  .enrollSection {
+    width: unset;
+  }
+}
+@media screen and (max-width: 768px) {
+  .dropdown-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 475px) {
+  .dropdown-content {
+    grid-template-columns: 1fr;
+  }
+  .totalCont {
+    padding: 3rem;
+  }
+  h2 {
+    font-size: 2.4rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.8rem;
+  }
+  .submitBtn {
+    height: unset;
+  }
+}

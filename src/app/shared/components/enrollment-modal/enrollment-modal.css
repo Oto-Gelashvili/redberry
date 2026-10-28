@@ -51,3 +51,34 @@
 .rater {
   color: var(--brand-400);
 }
+@media screen and (max-width: 575px) {
+  .cont {
+    max-width: 47rem;
+    width: calc(100% - 4.8rem);
+    padding: 4rem;
+    gap: 2rem;
+  }
+  h2 {
+    font-size: 2.4rem;
+  }
+  .highlight {
+    font-size: 1.8rem;
+  }
+  .contentCont p {
+    font-size: 1.6rem;
+  }
+  .btnCont {
+    height: unset;
+    min-height: unset;
+    flex-direction: column;
+  }
+  .btnCont button {
+    height: 4.4rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cont {
+    padding: 2.4rem;
+    width: calc(100% - 2.4rem);
+  }
+}

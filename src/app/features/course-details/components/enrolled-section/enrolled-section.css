@@ -85,3 +85,38 @@
 .closeRatingBtn:active {
   color: var(--brand-600);
 }
+@media screen and (max-width: 1440px) {
+  .enrolledCard {
+    width: 40rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .progressCont .progressBar {
+    height: 2.4rem;
+  }
+  .otherInfoCont {
+    gap: 2.4rem;
+  }
+  .enrolledCard {
+    gap: 3.2rem;
+  }
+  .enrolledCard {
+    width: 100%;
+  }
+  h4,
+  .detailCont,
+  .primaryBtn {
+    font-size: 1.8rem;
+  }
+  .state {
+    padding: 1.2rem;
+  }
+  .primaryBtn {
+    padding: 1rem 1.8rem;
+  }
+}
+@media screen and (max-width: 475px) {
+  .rater {
+    padding: 2.4rem;
+  }
+}

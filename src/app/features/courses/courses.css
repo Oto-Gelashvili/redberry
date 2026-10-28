@@ -324,9 +324,7 @@
   .coursesPage {
     gap: 2.4rem;
   }
-  img {
-    object-position: bottom;
-  }
+
   .breadcrumbs {
     justify-content: start;
     width: 40rem;

@@ -108,6 +108,9 @@ svg {
   max-width: 100%;
   object-fit: cover;
 }
+img {
+  object-position: bottom;
+}
 
 /* 7. Inherit fonts for form controls */
 input,

@@ -15,10 +15,6 @@
 }
 .coursesDetailsPage .heading h1 {
   color: var(--grey-900);
-  width: 90.3rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 .breadcrumbs {
   display: flex;
@@ -54,14 +50,14 @@
 }
 .mainCont {
   display: flex;
-  gap: 13.3rem;
+  gap: 10rem;
   justify-content: space-between;
 }
 .courseDetailsCont {
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
-  width: 90.3rem;
+  flex: 1;
 }
 .imgCont {
   display: flex;
@@ -69,11 +65,11 @@
   gap: 1.6rem;
 }
 .imgCont img {
-  height: 47.45rem;
+  max-height: 47.45rem;
   border-radius: 1rem;
 }
 
-.imgCont .metaCont {
+.metaCont {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -151,4 +147,56 @@
 }
 .descCont h4 {
   color: var(--grey-400);
+}
+@media screen and (max-width: 1440px) {
+  .mainCont {
+    gap: 6.4rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .mainCont {
+    flex-direction: column;
+    max-width: 80rem;
+    margin-inline: auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 3.6rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mainCont {
+    margin-inline: unset;
+  }
+  h1 {
+    font-size: 3.2rem;
+  }
+  .descCont {
+    align-items: center;
+  }
+  .breadcrumbs {
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .metaCont {
+    flex-direction: column;
+    align-items: start;
+    gap: 1.2rem;
+  }
+  .leftPart {
+    width: 100%;
+    justify-content: center;
+  }
+  .rightPart {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 475px) {
+  h1 {
+    font-size: 2.8rem;
+  }
 }
