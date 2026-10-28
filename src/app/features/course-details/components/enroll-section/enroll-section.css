@@ -261,8 +261,10 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.2rem;
 }
 .authCont button {
+  min-width: fit-content;
   background-color: var(--brand-50);
   border: 1px solid var(--brand-200);
   border-radius: 0.8rem;
@@ -334,5 +336,19 @@ h3 {
   }
   .submitBtn {
     height: unset;
+  }
+  .authCont {
+    flex-direction: column;
+  }
+  .warningDesc {
+    max-width: unset;
+    text-align: center;
+  }
+  .warningTitleCont {
+    justify-content: center;
+  }
+  .authCont button {
+    width: 100%;
+    justify-content: center;
   }
 }
